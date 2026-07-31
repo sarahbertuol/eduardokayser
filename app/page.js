@@ -15,6 +15,7 @@ export default function Home() {
   const [preloaderOpen, setPreloaderOpen] = useState(true);
   const [audienceTagVisible, setAudienceTagVisible] = useState(false);
   const [testimonialPage, setTestimonialPage] = useState(0);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const isDark = theme === 'dark';
   const c = isDark ? {
@@ -35,7 +36,7 @@ export default function Home() {
 
   const showPJDores = audience !== 'profissional';
   const showPFDores = audience !== 'empresa';
-  const doresGridCols = showPJDores && showPFDores ? '1fr 1fr' : '1fr';
+  const doresGridClass = showPJDores && showPFDores ? 'dores-grid dores-two' : 'dores-grid dores-one';
   const audienceLabel = audience === 'empresa' ? 'empresas' : audience === 'profissional' ? 'você' : '';
 
   const chooseAudience = (aud) => { setAudience(aud); setPreloaderOpen(false); setAudienceTagVisible(true); };
@@ -65,31 +66,39 @@ export default function Home() {
         <i className="ti ti-brand-whatsapp"></i>
       </a>
 
-      <nav style={sx('position:sticky;top:0;z-index:50;display:flex;align-items:center;gap:16px;padding:16px clamp(16px,3vw,48px);background:var(--bg);border-bottom:1px solid var(--line);')}>
+      <nav style={sx('position:sticky;top:0;z-index:50;display:flex;align-items:center;gap:12px;padding:16px clamp(16px,3vw,48px);background:var(--bg);border-bottom:1px solid var(--line);')}>
         <div style={sx("font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:18px;white-space:nowrap;flex-shrink:0;")}>Eduardo Kayser</div>
-        <div style={sx('display:flex;gap:16px;align-items:center;justify-content:center;flex:1;min-width:0;overflow-x:auto;')}>
-          <a href="#sobre" style={sx('font-size:13px;color:var(--ink);font-weight:500;white-space:nowrap;')}>Sobre</a>
-          <a href="#empresas" style={sx('font-size:13px;color:var(--ink);font-weight:500;white-space:nowrap;')}>Para Empresas</a>
-          <a href="#pf" style={sx('font-size:13px;color:var(--ink);font-weight:500;white-space:nowrap;')}>Para Pessoa Física</a>
-          <a href="#metodo" style={sx('font-size:13px;color:var(--ink);font-weight:500;white-space:nowrap;')}>O Método</a>
-          <a href="#cases" style={sx('font-size:13px;color:var(--ink);font-weight:500;white-space:nowrap;')}>Cases</a>
+        <div className={mobileMenuOpen ? 'nav-links open' : 'nav-links'} style={sx('gap:16px;align-items:center;justify-content:center;flex:1;min-width:0;')}>
+          <a href="#sobre" onClick={() => setMobileMenuOpen(false)} style={sx('font-size:13px;color:var(--ink);font-weight:500;white-space:nowrap;')}>Sobre</a>
+          <a href="#empresas" onClick={() => setMobileMenuOpen(false)} style={sx('font-size:13px;color:var(--ink);font-weight:500;white-space:nowrap;')}>Para Empresas</a>
+          <a href="#pf" onClick={() => setMobileMenuOpen(false)} style={sx('font-size:13px;color:var(--ink);font-weight:500;white-space:nowrap;')}>Para Pessoa Física</a>
+          <a href="#metodo" onClick={() => setMobileMenuOpen(false)} style={sx('font-size:13px;color:var(--ink);font-weight:500;white-space:nowrap;')}>O Método</a>
+          <a href="#cases" onClick={() => setMobileMenuOpen(false)} style={sx('font-size:13px;color:var(--ink);font-weight:500;white-space:nowrap;')}>Cases</a>
         </div>
-        <div style={sx('display:flex;align-items:center;gap:12px;flex-shrink:0;')}>
+        <div style={sx('display:flex;align-items:center;gap:8px;flex-shrink:0;')}>
           <button onClick={toggleTheme} aria-label="Alternar tema" style={sx('width:36px;height:36px;border-radius:999px;border:1px solid var(--line);background:var(--surface);color:var(--ink);display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:16px;flex-shrink:0;')}>
             <i className={isDark ? 'ti ti-sun' : 'ti ti-moon'}></i>
           </button>
           <a href="#cta-final" style={sx('border-radius:999px;padding:10px 18px;background:var(--accent);color:var(--on-accent);font-size:13px;font-weight:600;white-space:nowrap;flex-shrink:0;')}>Agendar diagnóstico</a>
+          <button
+            onClick={() => setMobileMenuOpen(o => !o)}
+            aria-label="Abrir menu"
+            className="nav-toggle"
+            style={sx('width:36px;height:36px;border-radius:999px;border:1px solid var(--line);background:var(--surface);color:var(--ink);align-items:center;justify-content:center;cursor:pointer;font-size:18px;flex-shrink:0;')}
+          >
+            <i className={mobileMenuOpen ? 'ti ti-x' : 'ti ti-menu-2'}></i>
+          </button>
         </div>
       </nav>
 
       {audienceTagVisible && (
-        <div style={sx('position:fixed;top:84px;right:24px;z-index:40;background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:8px 8px 8px 16px;display:flex;align-items:center;gap:10px;font-size:13px;color:var(--muted);box-shadow:0 8px 24px rgba(0,0,0,0.12);')}>
+        <div style={sx('position:fixed;top:84px;right:16px;left:16px;z-index:40;max-width:320px;margin-left:auto;background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:8px 8px 8px 16px;display:flex;align-items:center;gap:10px;font-size:13px;color:var(--muted);box-shadow:0 8px 24px rgba(0,0,0,0.12);')}>
           <span>Conteúdo para {audienceLabel}</span>
           <button onClick={() => setPreloaderOpen(true)} style={sx('border:none;background:var(--bg-alt);color:var(--ink);border-radius:999px;padding:6px 12px;font-size:12px;font-weight:600;cursor:pointer;')}>trocar</button>
         </div>
       )}
 
-      <header style={sx('padding:96px clamp(20px,5vw,64px) 80px;display:grid;grid-template-columns:1.1fr 0.9fr;gap:56px;align-items:center;max-width:1280px;margin:0 auto;')}>
+      <header className="hero-grid" style={sx('padding:96px clamp(20px,5vw,64px) 80px;gap:56px;align-items:center;max-width:1280px;margin:0 auto;')}>
         <div>
           <h1 style={sx("font-family:'Space Grotesk',sans-serif;font-size:clamp(38px,5vw,58px);font-weight:700;line-height:1.12;margin:0 0 24px;")}>Liderança lúcida começa com decisões claras.</h1>
           <p style={sx('font-size:19px;color:var(--muted);line-height:1.6;margin:0 0 36px;max-width:520px;')}>Método LUCIDEZ para líderes e empresas crescerem com clareza, sem sacrificar a saúde.</p>
@@ -112,7 +121,7 @@ export default function Home() {
             <div style={sx('font-size:13px;letter-spacing:0.08em;text-transform:uppercase;color:var(--accent);font-weight:700;margin-bottom:12px;')}>O ponto de partida</div>
             <h2 style={sx("font-family:'Space Grotesk',sans-serif;font-size:clamp(28px,3.5vw,38px);font-weight:700;margin:0;")}>Antes da solução, o problema</h2>
           </div>
-          <div style={{ display: 'grid', gridTemplateColumns: doresGridCols, gap: '28px' }}>
+          <div className={doresGridClass} style={sx('gap:28px;')}>
             {showPJDores && (
               <div style={sx('background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:36px;')}>
                 <div style={sx('font-size:13px;letter-spacing:0.06em;text-transform:uppercase;color:var(--muted);font-weight:700;margin-bottom:12px;')}>Para empresas</div>
@@ -137,15 +146,15 @@ export default function Home() {
       </section>
 
       <section style={sx('padding:56px clamp(20px,5vw,64px);')}>
-        <div style={sx('max-width:1180px;margin:0 auto;display:grid;grid-template-columns:repeat(3,1fr);gap:24px;text-align:center;')}>
-          <div><div style={sx("font-family:'Space Grotesk',sans-serif;font-size:44px;font-weight:700;color:var(--accent);")}>25+</div><div style={sx('font-size:15px;color:var(--muted);margin-top:8px;')}>anos de experiência</div></div>
-          <div><div style={sx("font-family:'Space Grotesk',sans-serif;font-size:44px;font-weight:700;color:var(--accent);")}>1.200+</div><div style={sx('font-size:15px;color:var(--muted);margin-top:8px;')}>líderes treinados</div></div>
-          <div><div style={sx("font-family:'Space Grotesk',sans-serif;font-size:44px;font-weight:700;color:var(--accent);")}>17</div><div style={sx('font-size:15px;color:var(--muted);margin-top:8px;')}>prêmios nacionais</div></div>
+        <div className="stats-grid" style={sx('max-width:1180px;margin:0 auto;gap:24px;text-align:center;')}>
+          <div><div style={sx("font-family:'Space Grotesk',sans-serif;font-size:clamp(28px,6vw,44px);font-weight:700;color:var(--accent);")}>25+</div><div style={sx('font-size:15px;color:var(--muted);margin-top:8px;')}>anos de experiência</div></div>
+          <div><div style={sx("font-family:'Space Grotesk',sans-serif;font-size:clamp(28px,6vw,44px);font-weight:700;color:var(--accent);")}>1.200+</div><div style={sx('font-size:15px;color:var(--muted);margin-top:8px;')}>líderes treinados</div></div>
+          <div><div style={sx("font-family:'Space Grotesk',sans-serif;font-size:clamp(28px,6vw,44px);font-weight:700;color:var(--accent);")}>17</div><div style={sx('font-size:15px;color:var(--muted);margin-top:8px;')}>prêmios nacionais</div></div>
         </div>
       </section>
 
       <section id="sobre" style={sx('padding:80px clamp(20px,5vw,64px);')}>
-        <div style={sx('max-width:1180px;margin:0 auto;display:grid;grid-template-columns:0.8fr 1.2fr;gap:56px;align-items:center;')}>
+        <div className="about-grid" style={sx('max-width:1180px;margin:0 auto;gap:56px;align-items:center;')}>
           <div style={sx('width:100%;aspect-ratio:1/1;border-radius:12px;overflow:hidden;')}>
             <ImagePlaceholder label="Foto do Eduardo Kayser" shape="rounded" radius={12} />
           </div>
@@ -172,7 +181,7 @@ export default function Home() {
             <h2 style={sx("font-family:'Space Grotesk',sans-serif;font-size:clamp(28px,3.5vw,38px);font-weight:700;margin:0 0 16px;")}>Uma rede de parceiros para apoiar líderes de forma integral</h2>
             <p style={sx('font-size:16px;color:var(--muted);line-height:1.6;margin:0;')}>Além da consultoria estratégica, Eduardo conecta empresas e líderes a profissionais especializados em saúde, performance e desenvolvimento humano.</p>
           </div>
-          <div style={sx('display:grid;grid-template-columns:repeat(4,1fr);gap:24px;')}>
+          <div className="partners-grid" style={sx('gap:24px;')}>
             {parceiros.map(p => (
               <div key={p.id} style={sx('background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:28px;text-align:center;')}>
                 <div style={sx('width:88px;height:88px;margin:0 auto 20px;')}>
@@ -204,7 +213,7 @@ export default function Home() {
             <div style={sx('font-size:13px;letter-spacing:0.08em;text-transform:uppercase;color:var(--accent);font-weight:700;margin-bottom:12px;')}>PDL</div>
             <h2 style={sx("font-family:'Space Grotesk',sans-serif;font-size:clamp(28px,3.5vw,38px);font-weight:700;margin:0;")}>Programa de Desenvolvimento de Lideranças</h2>
           </div>
-          <div style={{ ...sx('border-radius:12px;padding:48px;display:grid;grid-template-columns:auto 1fr;gap:40px;align-items:center;margin-bottom:48px;'), backgroundColor: '#0B1730', backgroundImage: noise, backgroundBlendMode: 'overlay' }}>
+          <div className="pdl-highlight" style={{ ...sx('border-radius:12px;padding:clamp(28px,5vw,48px);gap:40px;align-items:center;margin-bottom:48px;'), backgroundColor: '#0B1730', backgroundImage: noise, backgroundBlendMode: 'overlay' }}>
             <div style={sx("font-family:'Space Grotesk',sans-serif;font-size:clamp(48px,6vw,72px);font-weight:700;color:#FFFFFF;line-height:1;")}>R$2mi</div>
             <div>
               <div style={sx('font-size:20px;font-weight:600;color:#FFFFFF;margin-bottom:8px;')}>de economia anual</div>
@@ -212,7 +221,7 @@ export default function Home() {
               <a href="#cta-final" style={sx('font-size:15px;font-weight:600;color:#FFFFFF;')}>Quero saber como →</a>
             </div>
           </div>
-          <div style={sx('display:grid;grid-template-columns:repeat(5,1fr);gap:16px;')}>
+          <div className="pdl-steps" style={sx('gap:16px;')}>
             {pdlSteps.map(step => (
               <div key={step.n} style={sx('text-align:center;')}>
                 <div style={sx('width:40px;height:40px;border-radius:999px;background:var(--accent);color:var(--on-accent);display:flex;align-items:center;justify-content:center;font-weight:700;margin:0 auto 12px;')}>{step.n}</div>
@@ -226,7 +235,7 @@ export default function Home() {
       <section style={sx('padding:80px clamp(20px,5vw,64px);background:var(--bg-alt);')}>
         <div style={sx('max-width:1180px;margin:0 auto;')}>
           <h2 style={sx("font-family:'Space Grotesk',sans-serif;font-size:clamp(28px,3.5vw,38px);font-weight:700;margin:0 0 48px;text-align:center;")}>Resultados que transformam</h2>
-          <div style={sx('display:grid;grid-template-columns:repeat(3,1fr);gap:24px;')}>
+          <div className="results-grid" style={sx('gap:24px;')}>
             {resultados.map((r, i) => (
               <div key={i} style={sx('background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:32px;')}>
                 <div style={sx("font-family:'Space Grotesk',sans-serif;font-size:36px;font-weight:700;color:var(--accent);margin-bottom:10px;")}>{r.n}</div>
@@ -242,7 +251,7 @@ export default function Home() {
           <h2 style={sx("font-family:'Space Grotesk',sans-serif;font-size:clamp(28px,3.5vw,38px);font-weight:700;margin:0 0 48px;text-align:center;")}>O que dizem sobre o trabalho</h2>
           <div style={sx('display:flex;align-items:stretch;gap:16px;')}>
             <button onClick={prevTestimonials} aria-label="Depoimentos anteriores" style={sx('flex-shrink:0;width:44px;height:44px;align-self:center;border-radius:999px;border:1px solid var(--line);background:var(--surface);color:var(--ink);cursor:pointer;font-size:18px;display:flex;align-items:center;justify-content:center;')}><i className="ti ti-chevron-left"></i></button>
-            <div style={sx('flex:1;display:grid;grid-template-columns:repeat(3,1fr);gap:24px;min-width:0;')}>
+            <div className="testimonials-grid" style={sx('flex:1;gap:24px;min-width:0;')}>
               {depoimentos.map((d, i) => (
                 <div key={i} style={sx('background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:32px;display:flex;flex-direction:column;gap:20px;min-height:280px;')}>
                   <i className="ti ti-quote" style={sx('font-size:24px;color:var(--accent);')}></i>
@@ -272,7 +281,7 @@ export default function Home() {
       <section id="conteudos" style={sx('padding:80px clamp(20px,5vw,64px);background:var(--bg-alt);')}>
         <div style={sx('max-width:1180px;margin:0 auto;')}>
           <h2 style={sx("font-family:'Space Grotesk',sans-serif;font-size:clamp(28px,3.5vw,38px);font-weight:700;margin:0 0 48px;text-align:center;")}>Conteúdos</h2>
-          <div style={sx('display:grid;grid-template-columns:repeat(2,1fr);gap:24px;')}>
+          <div className="posts-grid" style={sx('gap:24px;')}>
             {posts.map(p => (
               <div key={p.id} style={sx('background:var(--surface);border:1px solid var(--line);border-radius:12px;overflow:hidden;')}>
                 <div style={sx('width:100%;aspect-ratio:16/9;')}>
@@ -292,7 +301,7 @@ export default function Home() {
       <section style={sx('padding:64px clamp(20px,5vw,64px);')}>
         <div style={sx('max-width:1180px;margin:0 auto;')}>
           <h2 style={sx("font-family:'Space Grotesk',sans-serif;font-size:clamp(28px,3.5vw,38px);font-weight:700;margin:0 0 32px;text-align:center;")}>Marcas que confiam no Eduardo Kayser</h2>
-          <div style={sx('display:grid;grid-template-columns:repeat(4,1fr);gap:28px 40px;text-align:center;')}>
+          <div className="brands-grid" style={sx('gap:28px 40px;text-align:center;')}>
             {marcas.map((m, i) => (
               <div key={i} style={sx("font-family:'Space Grotesk',sans-serif;font-size:17px;font-weight:600;color:var(--muted);")}>{m}</div>
             ))}
@@ -306,7 +315,7 @@ export default function Home() {
             <h2 style={sx("font-family:'Space Grotesk',sans-serif;font-size:clamp(28px,3.5vw,38px);font-weight:700;margin:0;")}>O método por trás dos resultados</h2>
           </div>
           <div style={sx("text-align:center;font-family:'Space Grotesk',sans-serif;font-size:18px;font-weight:600;color:var(--accent);margin-bottom:56px;")}>Clareza · Método · Intenção</div>
-          <div style={sx('display:grid;grid-template-columns:repeat(4,1fr);gap:20px;margin-bottom:24px;')}>
+          <div className="pilares-grid" style={sx('gap:20px;margin-bottom:24px;')}>
             {pilares.map((p, i) => (
               <div key={i} style={sx('background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:28px;')}>
                 <h3 style={sx("font-family:'Space Grotesk',sans-serif;font-size:18px;font-weight:600;margin:0 0 10px;")}>{p.title}</h3>
@@ -314,7 +323,7 @@ export default function Home() {
               </div>
             ))}
           </div>
-          <div style={sx('display:grid;grid-template-columns:repeat(2,1fr);gap:20px;')}>
+          <div className="eixos-grid" style={sx('gap:20px;')}>
             {eixos.map((e, i) => (
               <div key={i} style={sx('background:var(--surface);border:1px dashed var(--accent);border-radius:12px;padding:28px;')}>
                 <h3 style={sx("font-family:'Space Grotesk',sans-serif;font-size:18px;font-weight:600;margin:0 0 10px;color:var(--accent-strong);")}>{e.title}</h3>
@@ -328,7 +337,7 @@ export default function Home() {
       <section style={sx('padding:80px clamp(20px,5vw,64px);')}>
         <div style={sx('max-width:1180px;margin:0 auto;')}>
           <h2 style={sx("font-family:'Space Grotesk',sans-serif;font-size:clamp(28px,3.5vw,38px);font-weight:700;margin:0 0 48px;text-align:center;")}>Duas frentes, um método</h2>
-          <div style={sx('display:grid;grid-template-columns:1fr 1fr;gap:28px;')}>
+          <div className="split-grid" style={sx('gap:28px;')}>
             <div id="pf" style={sx('border:1px solid var(--line);border-radius:12px;padding:36px;')}>
               <div style={sx('font-size:13px;letter-spacing:0.06em;text-transform:uppercase;color:var(--muted);font-weight:700;margin-bottom:20px;')}>Para você</div>
               <ul style={sx('margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:14px;')}>
