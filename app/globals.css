@@ -1,0 +1,5 @@
+body { margin: 0; }
+a { text-decoration: none; }
+a:hover { text-decoration: underline; }
+::selection { background: var(--accent); color: var(--on-accent); }
+* { box-sizing: border-box; }
