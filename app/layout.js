@@ -1,7 +1,7 @@
 import './globals.css';
 
 export const metadata = {
-  title: 'Eduardo Kayser | Estratégia e Desenvolvimento de Pessoas e Empresas',
+  title: 'Eduardo Kayser - Desenvolvimento de Lideranças',
   description: 'Método LUCIDEZ para líderes e empresas crescerem com clareza, sem sacrificar a saúde.',
 };
 

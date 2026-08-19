@@ -3,8 +3,8 @@ import { useState } from 'react';
 import { sx } from '../lib/sx';
 import ImagePlaceholder from '../components/ImagePlaceholder';
 import {
-  depoimentos as allDepoimentos, formacaoList, pdlSteps, resultados, posts, marcas,
-  pilares, parceiros, eixos, doresEmpresas
+  depoimentos as allDepoimentos, formacaoList, resultados, posts, marcas,
+  pilares, parceiros, eixos, doresEmpresas, doresPessoas
 } from '../lib/data';
 
 const noise = "url('data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22200%22 height=%22200%22%3E%3Cfilter id=%22n%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%220.9%22 numOctaves=%222%22 stitchTiles=%22stitch%22/%3E%3C/filter%3E%3Crect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23n)%22 opacity=%220.09%22/%3E%3C/svg%3E')";
@@ -52,7 +52,7 @@ export default function Home() {
       {preloaderOpen && (
         <div style={sx('position:fixed;inset:0;z-index:100;background:var(--bg);display:flex;align-items:center;justify-content:center;padding:24px;')}>
           <div style={sx('max-width:560px;width:100%;text-align:center;display:flex;flex-direction:column;align-items:center;gap:28px;')}>
-            <div style={sx("font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:20px;color:var(--ink);line-height:1.4;")}>Eduardo Kayser<br />Estratégia e Desenvolvimento de Pessoas e Empresas</div>
+            <div style={sx("font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:20px;color:var(--ink);line-height:1.4;")}>Eduardo Kayser - Desenvolvimento de Lideranças</div>
             <h1 style={sx("font-family:'Space Grotesk',sans-serif;font-size:clamp(28px,4vw,40px);font-weight:700;margin:0;line-height:1.25;")}>Você é uma empresa ou um profissional?</h1>
             <div style={sx('display:flex;gap:16px;flex-wrap:wrap;justify-content:center;')}>
               <button onClick={() => chooseAudience('empresa')} style={sx("border:none;border-radius:999px;padding:16px 32px;background:var(--accent);color:var(--on-accent);font-size:17px;font-weight:600;font-family:'Public Sans',sans-serif;cursor:pointer;")}>Sou empresa</button>
@@ -119,11 +119,11 @@ export default function Home() {
         <div style={sx('max-width:1180px;margin:0 auto;')}>
           <div style={sx('max-width:600px;margin:0 auto 56px;text-align:center;')}>
             <div style={sx('font-size:13px;letter-spacing:0.08em;text-transform:uppercase;color:var(--accent);font-weight:700;margin-bottom:12px;')}>O ponto de partida</div>
-            <h2 style={sx("font-family:'Space Grotesk',sans-serif;font-size:clamp(28px,3.5vw,38px);font-weight:700;margin:0;")}>Antes da solução, o problema</h2>
+            <h2 style={sx("font-family:'Space Grotesk',sans-serif;font-size:clamp(28px,3.5vw,38px);font-weight:700;margin:0;")}>Qual a sua dor?</h2>
           </div>
           <div className={doresGridClass} style={sx('gap:28px;')}>
             {showPJDores && (
-              <div style={sx('background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:36px;')}>
+              <div id="empresas" style={sx('background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:36px;')}>
                 <div style={sx('font-size:13px;letter-spacing:0.06em;text-transform:uppercase;color:var(--muted);font-weight:700;margin-bottom:12px;')}>Para empresas</div>
                 <p style={sx('font-size:18px;font-weight:600;line-height:1.4;margin:0 0 20px;')}>Posso ajudar sua empresa se hoje vocês vivem situações como:</p>
                 <ul style={sx('margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:14px;')}>
@@ -136,9 +136,16 @@ export default function Home() {
               </div>
             )}
             {showPFDores && (
-              <div style={sx('background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:36px;')}>
-                <div style={sx('font-size:13px;letter-spacing:0.06em;text-transform:uppercase;color:var(--muted);font-weight:700;margin-bottom:20px;')}>Para você</div>
-                <p style={sx('font-size:17px;line-height:1.5;margin:0;')}>O que impede você de crescer e avançar na carreira?</p>
+              <div id="pf" style={sx('background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:36px;')}>
+                <div style={sx('font-size:13px;letter-spacing:0.06em;text-transform:uppercase;color:var(--muted);font-weight:700;margin-bottom:12px;')}>Para você</div>
+                <p style={sx('font-size:18px;font-weight:600;line-height:1.4;margin:0 0 20px;')}>Posso te ajudar se hoje você vive situações como:</p>
+                <ul style={sx('margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:14px;')}>
+                  {doresPessoas.map((d, i) => (
+                    <li key={i} style={sx('font-size:16px;line-height:1.5;display:flex;gap:12px;')}>
+                      <i className="ti ti-point-filled" style={sx('color:var(--accent);flex-shrink:0;margin-top:5px;')}></i>{d}
+                    </li>
+                  ))}
+                </ul>
               </div>
             )}
           </div>
@@ -199,9 +206,11 @@ export default function Home() {
       <section style={sx('padding:56px clamp(20px,5vw,64px);background:var(--bg-alt);')}>
         <div style={sx('max-width:1180px;margin:0 auto;')}>
           <div style={sx('font-size:13px;letter-spacing:0.06em;text-transform:uppercase;color:var(--muted);font-weight:700;text-align:center;margin-bottom:32px;')}>Formação e afiliações</div>
-          <div style={sx('display:flex;flex-wrap:wrap;gap:32px 48px;justify-content:center;')}>
+          <div style={sx('display:flex;flex-wrap:wrap;gap:32px 48px;justify-content:center;align-items:center;')}>
             {formacaoList.map((item, i) => (
-              <div key={i} style={sx("font-family:'Space Grotesk',sans-serif;font-size:17px;font-weight:600;color:var(--muted);")}>{item}</div>
+              <div key={i} style={sx('width:120px;height:48px;')}>
+                <ImagePlaceholder label={item} shape="rect" />
+              </div>
             ))}
           </div>
         </div>
@@ -220,14 +229,6 @@ export default function Home() {
               <p style={sx('font-size:15px;color:#9FAAC4;margin:0 0 20px;max-width:480px;')}>Gerada pela revisão de benefícios e custos operacionais de RH.</p>
               <a href="#cta-final" style={sx('font-size:15px;font-weight:600;color:#FFFFFF;')}>Quero saber como →</a>
             </div>
-          </div>
-          <div className="pdl-steps" style={sx('gap:16px;')}>
-            {pdlSteps.map(step => (
-              <div key={step.n} style={sx('text-align:center;')}>
-                <div style={sx('width:40px;height:40px;border-radius:999px;background:var(--accent);color:var(--on-accent);display:flex;align-items:center;justify-content:center;font-weight:700;margin:0 auto 12px;')}>{step.n}</div>
-                <div style={sx('font-size:14px;font-weight:600;')}>{step.label}</div>
-              </div>
-            ))}
           </div>
         </div>
       </section>
@@ -301,9 +302,11 @@ export default function Home() {
       <section style={sx('padding:64px clamp(20px,5vw,64px);')}>
         <div style={sx('max-width:1180px;margin:0 auto;')}>
           <h2 style={sx("font-family:'Space Grotesk',sans-serif;font-size:clamp(28px,3.5vw,38px);font-weight:700;margin:0 0 32px;text-align:center;")}>Marcas que confiam no Eduardo Kayser</h2>
-          <div className="brands-grid" style={sx('gap:28px 40px;text-align:center;')}>
+          <div className="brands-grid" style={sx('gap:28px 40px;')}>
             {marcas.map((m, i) => (
-              <div key={i} style={sx("font-family:'Space Grotesk',sans-serif;font-size:17px;font-weight:600;color:var(--muted);")}>{m}</div>
+              <div key={i} style={sx('height:56px;')}>
+                <ImagePlaceholder label={m} shape="rect" />
+              </div>
             ))}
           </div>
         </div>
@@ -334,30 +337,6 @@ export default function Home() {
         </div>
       </section>
 
-      <section style={sx('padding:80px clamp(20px,5vw,64px);')}>
-        <div style={sx('max-width:1180px;margin:0 auto;')}>
-          <h2 style={sx("font-family:'Space Grotesk',sans-serif;font-size:clamp(28px,3.5vw,38px);font-weight:700;margin:0 0 48px;text-align:center;")}>Duas frentes, um método</h2>
-          <div className="split-grid" style={sx('gap:28px;')}>
-            <div id="pf" style={sx('border:1px solid var(--line);border-radius:12px;padding:36px;')}>
-              <div style={sx('font-size:13px;letter-spacing:0.06em;text-transform:uppercase;color:var(--muted);font-weight:700;margin-bottom:20px;')}>Para você</div>
-              <ul style={sx('margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:14px;')}>
-                <li style={sx('font-size:16px;display:flex;gap:10px;align-items:center;')}><i className="ti ti-check" style={sx('color:var(--accent);')}></i>Mentoria para lideranças</li>
-                <li style={sx('font-size:16px;display:flex;gap:10px;align-items:center;')}><i className="ti ti-check" style={sx('color:var(--accent);')}></i>Mentoria para RH</li>
-                <li style={sx('font-size:16px;display:flex;gap:10px;align-items:center;')}><i className="ti ti-check" style={sx('color:var(--accent);')}></i>Formação de líderes</li>
-              </ul>
-            </div>
-            <div id="empresas" style={sx('border:1px solid var(--line);border-radius:12px;padding:36px;')}>
-              <div style={sx('font-size:13px;letter-spacing:0.06em;text-transform:uppercase;color:var(--muted);font-weight:700;margin-bottom:20px;')}>Para sua empresa</div>
-              <ul style={sx('margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:14px;')}>
-                <li style={sx('font-size:16px;display:flex;gap:10px;align-items:center;')}><i className="ti ti-check" style={sx('color:var(--accent);')}></i>RH sob demanda</li>
-                <li style={sx('font-size:16px;display:flex;gap:10px;align-items:center;')}><i className="ti ti-check" style={sx('color:var(--accent);')}></i>Consultoria de pessoas</li>
-                <li style={sx('font-size:16px;display:flex;gap:10px;align-items:center;')}><i className="ti ti-check" style={sx('color:var(--accent);')}></i>Educação corporativa</li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </section>
-
       <section id="cta-final" style={{ ...sx('padding:96px clamp(20px,5vw,64px);text-align:center;'), backgroundColor: '#0B1730', backgroundImage: noise, backgroundBlendMode: 'overlay' }}>
         <div style={sx('max-width:640px;margin:0 auto;')}>
           <h2 style={sx("font-family:'Space Grotesk',sans-serif;font-size:clamp(28px,4vw,42px);font-weight:700;color:#FFFFFF;margin:0 0 36px;")}>Vamos construir o seu próximo case?</h2>
@@ -370,7 +349,7 @@ export default function Home() {
 
       <footer style={sx('padding:48px clamp(20px,5vw,64px);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:20px;')}>
         <div style={sx('display:flex;align-items:center;gap:24px;flex-wrap:wrap;')}>
-          <div style={sx("font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:17px;")}>Eduardo Kayser</div>
+          <div style={sx("font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:17px;")}>Eduardo Kayser - Desenvolvimento de Lideranças</div>
           <a href="#ecossistema" style={sx('font-size:14px;color:var(--muted);')}>Ecossistema de parceiros</a>
         </div>
         <div style={sx('display:flex;gap:18px;align-items:center;')}>
