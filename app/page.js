@@ -4,7 +4,7 @@ import { sx } from '../lib/sx';
 import ImagePlaceholder from '../components/ImagePlaceholder';
 import {
   depoimentos as allDepoimentos, formacaoList, resultados, posts, marcas,
-  pilares, parceiros, eixos, doresEmpresas, doresPessoas
+  pilares, parceiros, eixos, doresEmpresas, doresPessoas, comoFunciona, solucoes
 } from '../lib/data';
 
 const noise = "url('data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22200%22 height=%22200%22%3E%3Cfilter id=%22n%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%220.9%22 numOctaves=%222%22 stitchTiles=%22stitch%22/%3E%3C/filter%3E%3Crect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23n)%22 opacity=%220.09%22/%3E%3C/svg%3E')";
@@ -92,9 +92,9 @@ export default function Home() {
       </nav>
 
       {audienceTagVisible && (
-        <div style={sx('position:fixed;top:84px;right:16px;left:16px;z-index:40;max-width:320px;margin-left:auto;background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:8px 8px 8px 16px;display:flex;align-items:center;gap:10px;font-size:13px;color:var(--muted);box-shadow:0 8px 24px rgba(0,0,0,0.12);')}>
-          <span>Conteúdo para {audienceLabel}</span>
-          <button onClick={() => setPreloaderOpen(true)} style={sx('border:none;background:var(--bg-alt);color:var(--ink);border-radius:999px;padding:6px 12px;font-size:12px;font-weight:600;cursor:pointer;')}>trocar</button>
+        <div style={sx('position:fixed;top:72px;right:16px;left:16px;z-index:40;max-width:260px;margin-left:auto;background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:6px 6px 6px 14px;display:flex;align-items:center;justify-content:space-between;gap:8px;font-size:12px;color:var(--muted);box-shadow:0 8px 20px rgba(0,0,0,0.12);')}>
+          <span style={sx('white-space:nowrap;')}>Conteúdo para {audienceLabel}</span>
+          <button onClick={() => setPreloaderOpen(true)} style={sx('border:none;background:var(--bg-alt);color:var(--ink);border-radius:999px;padding:5px 10px;font-size:11px;font-weight:600;cursor:pointer;flex-shrink:0;')}>trocar</button>
         </div>
       )}
 
@@ -102,18 +102,22 @@ export default function Home() {
         <div>
           <h1 style={sx("font-family:'Space Grotesk',sans-serif;font-size:clamp(38px,5vw,58px);font-weight:700;line-height:1.12;margin:0 0 24px;")}>Liderança lúcida começa com decisões claras.</h1>
           <p style={sx('font-size:19px;color:var(--muted);line-height:1.6;margin:0 0 36px;max-width:520px;')}>Método LUCIDEZ para líderes e empresas crescerem com clareza, sem sacrificar a saúde.</p>
-          <div style={sx('display:flex;flex-direction:column;gap:20px;align-items:flex-start;')}>
-            <a href="#dores" style={sx('border-radius:999px;padding:17px 30px;background:var(--accent);color:var(--on-accent);font-size:16px;font-weight:600;display:inline-flex;align-items:center;gap:8px;')}>Quero entender melhor o meu problema <i className="ti ti-arrow-right"></i></a>
-            <div style={sx('display:flex;gap:28px;flex-wrap:wrap;')}>
-              <a href="#empresas" style={sx('font-size:14px;font-weight:600;color:var(--ink);')}>Conhecer soluções para empresas →</a>
-              <a href="#pf" style={sx('font-size:14px;font-weight:600;color:var(--ink);')}>Conhecer soluções para pessoas físicas →</a>
-            </div>
+          <div style={sx('display:flex;align-items:flex-start;')}>
+            <a href="#dores" style={sx('border-radius:999px;padding:17px 30px;background:var(--accent);color:var(--on-accent);font-size:16px;font-weight:600;display:inline-flex;align-items:center;gap:8px;')}>{audience === 'empresa' ? 'Este método é para minha empresa?' : 'Este método é para mim?'} <i className="ti ti-arrow-right"></i></a>
           </div>
         </div>
         <div style={sx('width:100%;aspect-ratio:4/5;border-radius:12px;overflow:hidden;')}>
           <ImagePlaceholder label="Foto do Eduardo Kayser (alta resolução)" shape="rounded" radius={12} />
         </div>
       </header>
+
+      <section style={sx('padding:56px clamp(20px,5vw,64px);')}>
+        <div className="stats-grid" style={sx('max-width:1180px;margin:0 auto;gap:24px;text-align:center;')}>
+          <div><div style={sx("font-family:'Space Grotesk',sans-serif;font-size:clamp(28px,6vw,44px);font-weight:700;color:var(--accent);")}>25+</div><div style={sx('font-size:15px;color:var(--muted);margin-top:8px;')}>anos de experiência</div></div>
+          <div><div style={sx("font-family:'Space Grotesk',sans-serif;font-size:clamp(28px,6vw,44px);font-weight:700;color:var(--accent);")}>1.200+</div><div style={sx('font-size:15px;color:var(--muted);margin-top:8px;')}>líderes treinados</div></div>
+          <div><div style={sx("font-family:'Space Grotesk',sans-serif;font-size:clamp(28px,6vw,44px);font-weight:700;color:var(--accent);")}>17</div><div style={sx('font-size:15px;color:var(--muted);margin-top:8px;')}>prêmios nacionais</div></div>
+        </div>
+      </section>
 
       <section id="dores" style={sx('padding:80px clamp(20px,5vw,64px);background:var(--bg-alt);')}>
         <div style={sx('max-width:1180px;margin:0 auto;')}>
@@ -126,7 +130,7 @@ export default function Home() {
               <div id="empresas" style={sx('background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:36px;')}>
                 <div style={sx('font-size:13px;letter-spacing:0.06em;text-transform:uppercase;color:var(--muted);font-weight:700;margin-bottom:12px;')}>Para empresas</div>
                 <p style={sx('font-size:18px;font-weight:600;line-height:1.4;margin:0 0 20px;')}>Posso ajudar sua empresa se hoje vocês vivem situações como:</p>
-                <ul style={sx('margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:14px;')}>
+                <ul className="dores-list" style={sx('margin:0;padding:0;list-style:none;')}>
                   {doresEmpresas.map((d, i) => (
                     <li key={i} style={sx('font-size:16px;line-height:1.5;display:flex;gap:12px;')}>
                       <i className="ti ti-point-filled" style={sx('color:var(--accent);flex-shrink:0;margin-top:5px;')}></i>{d}
@@ -139,7 +143,7 @@ export default function Home() {
               <div id="pf" style={sx('background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:36px;')}>
                 <div style={sx('font-size:13px;letter-spacing:0.06em;text-transform:uppercase;color:var(--muted);font-weight:700;margin-bottom:12px;')}>Para você</div>
                 <p style={sx('font-size:18px;font-weight:600;line-height:1.4;margin:0 0 20px;')}>Posso te ajudar se hoje você vive situações como:</p>
-                <ul style={sx('margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:14px;')}>
+                <ul className="dores-list" style={sx('margin:0;padding:0;list-style:none;')}>
                   {doresPessoas.map((d, i) => (
                     <li key={i} style={sx('font-size:16px;line-height:1.5;display:flex;gap:12px;')}>
                       <i className="ti ti-point-filled" style={sx('color:var(--accent);flex-shrink:0;margin-top:5px;')}></i>{d}
@@ -152,11 +156,43 @@ export default function Home() {
         </div>
       </section>
 
-      <section style={sx('padding:56px clamp(20px,5vw,64px);')}>
-        <div className="stats-grid" style={sx('max-width:1180px;margin:0 auto;gap:24px;text-align:center;')}>
-          <div><div style={sx("font-family:'Space Grotesk',sans-serif;font-size:clamp(28px,6vw,44px);font-weight:700;color:var(--accent);")}>25+</div><div style={sx('font-size:15px;color:var(--muted);margin-top:8px;')}>anos de experiência</div></div>
-          <div><div style={sx("font-family:'Space Grotesk',sans-serif;font-size:clamp(28px,6vw,44px);font-weight:700;color:var(--accent);")}>1.200+</div><div style={sx('font-size:15px;color:var(--muted);margin-top:8px;')}>líderes treinados</div></div>
-          <div><div style={sx("font-family:'Space Grotesk',sans-serif;font-size:clamp(28px,6vw,44px);font-weight:700;color:var(--accent);")}>17</div><div style={sx('font-size:15px;color:var(--muted);margin-top:8px;')}>prêmios nacionais</div></div>
+      <section id="como-funciona" style={sx('padding:80px clamp(20px,5vw,64px);')}>
+        <div style={sx('max-width:1180px;margin:0 auto;')}>
+          <div style={sx('max-width:640px;margin:0 auto 56px;text-align:center;')}>
+            <div style={sx('font-size:13px;letter-spacing:0.08em;text-transform:uppercase;color:var(--accent);font-weight:700;margin-bottom:12px;')}>Meu trabalho</div>
+            <h2 style={sx("font-family:'Space Grotesk',sans-serif;font-size:clamp(28px,3.5vw,38px);font-weight:700;margin:0 0 16px;")}>Como o método funciona</h2>
+            <p style={sx('font-size:16px;color:var(--muted);line-height:1.6;margin:0;')}>Empresas não crescem por acaso. Crescem quando existe um sistema de gestão.</p>
+          </div>
+          <div className="pdl-steps" style={sx('gap:16px;')}>
+            {comoFunciona.map(step => (
+              <div key={step.n} style={sx('text-align:center;')}>
+                <div style={sx('width:40px;height:40px;border-radius:999px;background:var(--accent);color:var(--on-accent);display:flex;align-items:center;justify-content:center;font-weight:700;margin:0 auto 12px;')}>{step.n}</div>
+                <div style={sx('font-size:14px;font-weight:600;')}>{step.label}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section id="solucoes" style={sx('padding:80px clamp(20px,5vw,64px);background:var(--bg-alt);')}>
+        <div style={sx('max-width:1180px;margin:0 auto;')}>
+          <div style={sx('max-width:640px;margin:0 auto 56px;text-align:center;')}>
+            <div style={sx('font-size:13px;letter-spacing:0.08em;text-transform:uppercase;color:var(--accent);font-weight:700;margin-bottom:12px;')}>Soluções</div>
+            <h2 style={sx("font-family:'Space Grotesk',sans-serif;font-size:clamp(28px,3.5vw,38px);font-weight:700;margin:0 0 16px;")}>Nossas soluções</h2>
+            <p style={sx('font-size:16px;color:var(--muted);line-height:1.6;margin:0;')}>Conectar estratégia, pessoas e negócio, resolver problemas complexos rapidamente e transformar organizações com uma metodologia flexível e orientada a resultados.</p>
+          </div>
+          <div className="solucoes-grid" style={sx('gap:24px;')}>
+            {solucoes.map((s, i) => (
+              <div key={i} style={sx('background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:36px;')}>
+                <div style={sx("font-family:'Space Grotesk',sans-serif;font-size:18px;font-weight:600;margin-bottom:20px;")}>{s.title}</div>
+                <ul style={sx('margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:14px;')}>
+                  {s.items.map((it, j) => (
+                    <li key={j} style={sx('font-size:16px;display:flex;gap:10px;align-items:center;')}><i className="ti ti-check" style={sx('color:var(--accent);')}></i>{it}</li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 

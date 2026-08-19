@@ -16,15 +16,18 @@ p { text-wrap: pretty; }
 .stats-grid { display: grid; grid-template-columns: repeat(3, 1fr); }
 .partners-grid { display: grid; grid-template-columns: repeat(4, 1fr); }
 .pdl-highlight { display: grid; grid-template-columns: auto 1fr; }
+.pdl-steps { display: grid; grid-template-columns: repeat(5, 1fr); }
 .results-grid { display: grid; grid-template-columns: repeat(3, 1fr); }
 .testimonials-grid { display: grid; grid-template-columns: repeat(3, 1fr); }
 .posts-grid { display: grid; grid-template-columns: repeat(2, 1fr); }
 .brands-grid { display: grid; grid-template-columns: repeat(4, 1fr); }
 .pilares-grid { display: grid; grid-template-columns: repeat(4, 1fr); }
 .eixos-grid { display: grid; grid-template-columns: repeat(2, 1fr); }
+.solucoes-grid { display: grid; grid-template-columns: repeat(3, 1fr); }
 .dores-grid { display: grid; }
 .dores-one { grid-template-columns: 1fr; }
 .dores-two { grid-template-columns: 1fr 1fr; }
+.dores-list { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px 24px; }
 
 @media (max-width: 980px) {
   .hero-grid { grid-template-columns: 1fr; }
@@ -36,6 +39,8 @@ p { text-wrap: pretty; }
   .brands-grid { grid-template-columns: repeat(3, 1fr); }
   .pdl-highlight { grid-template-columns: 1fr; text-align: center; }
   .pdl-highlight > div:first-child { margin: 0 auto; }
+  .pdl-steps { grid-template-columns: repeat(3, 1fr); gap: 24px 16px; }
+  .solucoes-grid { grid-template-columns: repeat(2, 1fr); }
 }
 
 @media (max-width: 768px) {
@@ -65,5 +70,11 @@ p { text-wrap: pretty; }
   .brands-grid { grid-template-columns: repeat(2, 1fr); }
   .pilares-grid { grid-template-columns: 1fr; }
   .eixos-grid { grid-template-columns: 1fr; }
+  .solucoes-grid { grid-template-columns: 1fr; }
   .dores-two { grid-template-columns: 1fr; }
+  .pdl-steps { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 560px) {
+  .dores-list { grid-template-columns: 1fr; }
 }
