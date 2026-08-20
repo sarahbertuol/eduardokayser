@@ -20,9 +20,6 @@ p { text-wrap: pretty; }
 .results-grid { display: grid; grid-template-columns: repeat(3, 1fr); }
 .testimonials-grid { display: grid; grid-template-columns: repeat(3, 1fr); }
 .posts-grid { display: grid; grid-template-columns: repeat(2, 1fr); }
-.brands-grid { display: grid; grid-template-columns: repeat(4, 1fr); }
-.pilares-grid { display: grid; grid-template-columns: repeat(4, 1fr); }
-.eixos-grid { display: grid; grid-template-columns: repeat(2, 1fr); }
 .solucoes-grid { display: grid; grid-template-columns: repeat(3, 1fr); }
 .dores-grid { display: grid; }
 .dores-one { grid-template-columns: 1fr; }
@@ -35,8 +32,6 @@ p { text-wrap: pretty; }
   .about-grid { grid-template-columns: 1fr; }
   .about-grid > div:first-child { max-width: 320px; margin: 0 auto; }
   .partners-grid { grid-template-columns: repeat(2, 1fr); }
-  .pilares-grid { grid-template-columns: repeat(2, 1fr); }
-  .brands-grid { grid-template-columns: repeat(3, 1fr); }
   .pdl-highlight { grid-template-columns: 1fr; text-align: center; }
   .pdl-highlight > div:first-child { margin: 0 auto; }
   .pdl-steps { grid-template-columns: repeat(3, 1fr); gap: 24px 16px; }
@@ -67,9 +62,6 @@ p { text-wrap: pretty; }
   .results-grid { grid-template-columns: 1fr 1fr; }
   .testimonials-grid { grid-template-columns: 1fr; }
   .posts-grid { grid-template-columns: 1fr; }
-  .brands-grid { grid-template-columns: repeat(2, 1fr); }
-  .pilares-grid { grid-template-columns: 1fr; }
-  .eixos-grid { grid-template-columns: 1fr; }
   .solucoes-grid { grid-template-columns: 1fr; }
   .dores-two { grid-template-columns: 1fr; }
   .pdl-steps { grid-template-columns: repeat(2, 1fr); }
@@ -95,4 +87,26 @@ p { text-wrap: pretty; }
 
 @media (min-width: 981px) {
   .steps-line, .steps-progress { display: block; }
+}
+
+/* ---- Brands marquee ---- */
+
+.marquee-wrap {
+  overflow: hidden;
+  width: 100%;
+  mask-image: linear-gradient(to right, transparent, black 5%, black 95%, transparent);
+  -webkit-mask-image: linear-gradient(to right, transparent, black 5%, black 95%, transparent);
+}
+.marquee-track {
+  display: flex;
+  width: max-content;
+  animation: marquee-scroll 28s linear infinite;
+}
+.marquee-wrap:hover .marquee-track { animation-play-state: paused; }
+@keyframes marquee-scroll {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .marquee-track { animation: none; }
 }

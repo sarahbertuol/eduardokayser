@@ -6,7 +6,7 @@ import CountUp from '../components/CountUp';
 import InView from '../components/InView';
 import {
   depoimentos as allDepoimentos, formacaoList, resultados, posts, marcas,
-  pilares, parceiros, eixos, doresEmpresas, doresPessoas, comoFunciona, solucoes
+  parceiros, doresEmpresas, doresPessoas, comoFunciona, solucoes, pdlFeatures
 } from '../lib/data';
 
 const noise = "url('data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22200%22 height=%22200%22%3E%3Cfilter id=%22n%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%220.9%22 numOctaves=%222%22 stitchTiles=%22stitch%22/%3E%3C/filter%3E%3Crect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23n)%22 opacity=%220.09%22/%3E%3C/svg%3E')";
@@ -74,8 +74,8 @@ export default function Home() {
           <a href="#sobre" onClick={() => setMobileMenuOpen(false)} style={sx('font-size:13px;color:var(--ink);font-weight:500;white-space:nowrap;')}>Sobre</a>
           <a href="#empresas" onClick={() => setMobileMenuOpen(false)} style={sx('font-size:13px;color:var(--ink);font-weight:500;white-space:nowrap;')}>Para Empresas</a>
           <a href="#pf" onClick={() => setMobileMenuOpen(false)} style={sx('font-size:13px;color:var(--ink);font-weight:500;white-space:nowrap;')}>Para Pessoa Física</a>
-          <a href="#metodo" onClick={() => setMobileMenuOpen(false)} style={sx('font-size:13px;color:var(--ink);font-weight:500;white-space:nowrap;')}>O Método</a>
-          <a href="#cases" onClick={() => setMobileMenuOpen(false)} style={sx('font-size:13px;color:var(--ink);font-weight:500;white-space:nowrap;')}>Cases</a>
+          <a href="#como-funciona" onClick={() => setMobileMenuOpen(false)} style={sx('font-size:13px;color:var(--ink);font-weight:500;white-space:nowrap;')}>O Método</a>
+          <a href="#resultados" onClick={() => setMobileMenuOpen(false)} style={sx('font-size:13px;color:var(--ink);font-weight:500;white-space:nowrap;')}>Cases</a>
         </div>
         <div style={sx('display:flex;align-items:center;gap:8px;flex-shrink:0;')}>
           <button onClick={toggleTheme} aria-label="Alternar tema" style={sx('width:36px;height:36px;border-radius:999px;border:1px solid var(--line);background:var(--surface);color:var(--ink);display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:16px;flex-shrink:0;')}>
@@ -115,9 +115,9 @@ export default function Home() {
 
       <section style={sx('padding:56px clamp(20px,5vw,64px);')}>
         <div className="stats-grid" style={sx('max-width:1180px;margin:0 auto;gap:24px;text-align:center;')}>
-          <div><div style={sx("font-family:'Space Grotesk',sans-serif;font-size:clamp(28px,6vw,44px);font-weight:700;color:var(--accent);")}><CountUp to={25} suffix="+" /></div><div style={sx('font-size:15px;color:var(--muted);margin-top:8px;')}>anos de experiência</div></div>
-          <div><div style={sx("font-family:'Space Grotesk',sans-serif;font-size:clamp(28px,6vw,44px);font-weight:700;color:var(--accent);")}><CountUp to={1200} suffix="+" /></div><div style={sx('font-size:15px;color:var(--muted);margin-top:8px;')}>líderes treinados</div></div>
-          <div><div style={sx("font-family:'Space Grotesk',sans-serif;font-size:clamp(28px,6vw,44px);font-weight:700;color:var(--accent);")}><CountUp to={17} /></div><div style={sx('font-size:15px;color:var(--muted);margin-top:8px;')}>prêmios nacionais</div></div>
+          <div><div style={sx("font-family:'Space Grotesk',sans-serif;font-size:clamp(28px,6vw,44px);font-weight:700;color:var(--accent);")}><CountUp to={25} suffix="+" active={!preloaderOpen} /></div><div style={sx('font-size:15px;color:var(--muted);margin-top:8px;')}>anos de experiência</div></div>
+          <div><div style={sx("font-family:'Space Grotesk',sans-serif;font-size:clamp(28px,6vw,44px);font-weight:700;color:var(--accent);")}><CountUp to={1200} suffix="+" active={!preloaderOpen} /></div><div style={sx('font-size:15px;color:var(--muted);margin-top:8px;')}>líderes treinados</div></div>
+          <div><div style={sx("font-family:'Space Grotesk',sans-serif;font-size:clamp(28px,6vw,44px);font-weight:700;color:var(--accent);")}><CountUp to={17} active={!preloaderOpen} /></div><div style={sx('font-size:15px;color:var(--muted);margin-top:8px;')}>prêmios nacionais</div></div>
         </div>
       </section>
 
@@ -165,7 +165,7 @@ export default function Home() {
             <h2 style={sx("font-family:'Space Grotesk',sans-serif;font-size:clamp(28px,3.5vw,38px);font-weight:700;margin:0 0 16px;")}>Como o método funciona</h2>
             <p style={sx('font-size:16px;color:var(--muted);line-height:1.6;margin:0;')}>Empresas não crescem por acaso. Crescem quando existe um sistema de gestão.</p>
           </div>
-          <InView className="steps-track">
+          <InView className="steps-track" active={!preloaderOpen}>
             <div className="steps-line"></div>
             <div className="steps-progress"></div>
             <div className="pdl-steps" style={sx('gap:16px;')}>
@@ -177,6 +177,27 @@ export default function Home() {
               ))}
             </div>
           </InView>
+
+          <div style={sx('margin-top:64px;display:grid;grid-template-columns:1fr;gap:24px;')}>
+            <div style={sx('max-width:640px;margin:0 auto;text-align:center;')}>
+              <div style={sx('font-size:13px;letter-spacing:0.08em;text-transform:uppercase;color:var(--accent);font-weight:700;margin-bottom:12px;')}>PDL</div>
+              <h3 style={sx("font-family:'Space Grotesk',sans-serif;font-size:clamp(24px,3vw,30px);font-weight:700;margin:0 0 16px;")}>Programa de Desenvolvimento de Lideranças</h3>
+              <p style={sx('font-size:16px;color:var(--muted);line-height:1.6;margin:0 0 24px;')}>Modelo autoral que impacta resultados e desenvolve líderes capazes de gerar crescimento sustentável, sem sacrificar sua saúde e das equipes, promovendo um ambiente saudável e seguro.</p>
+              <ul style={sx('margin:0;padding:0;list-style:none;display:flex;flex-wrap:wrap;gap:12px 24px;justify-content:center;')}>
+                {pdlFeatures.map((f, i) => (
+                  <li key={i} style={sx('font-size:14px;font-weight:600;display:flex;gap:8px;align-items:center;')}><i className="ti ti-check" style={sx('color:var(--accent);')}></i>{f}</li>
+                ))}
+              </ul>
+            </div>
+            <div className="pdl-highlight" style={{ ...sx('border-radius:12px;padding:clamp(28px,5vw,48px);gap:40px;align-items:center;'), backgroundColor: '#0B1730', backgroundImage: noise, backgroundBlendMode: 'overlay' }}>
+              <div style={sx("font-family:'Space Grotesk',sans-serif;font-size:clamp(48px,6vw,72px);font-weight:700;color:#FFFFFF;line-height:1;")}>R$2mi</div>
+              <div>
+                <div style={sx('font-size:20px;font-weight:600;color:#FFFFFF;margin-bottom:8px;')}>de economia anual</div>
+                <p style={sx('font-size:15px;color:#9FAAC4;margin:0 0 20px;max-width:480px;')}>Gerada pela revisão de benefícios e custos operacionais de RH.</p>
+                <a href="#cta-final" style={sx('font-size:15px;font-weight:600;color:#FFFFFF;')}>Quero saber como →</a>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -258,24 +279,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section id="cases" style={sx('padding:80px clamp(20px,5vw,64px);')}>
-        <div style={sx('max-width:1180px;margin:0 auto;')}>
-          <div style={sx('max-width:640px;margin:0 auto 56px;text-align:center;')}>
-            <div style={sx('font-size:13px;letter-spacing:0.08em;text-transform:uppercase;color:var(--accent);font-weight:700;margin-bottom:12px;')}>PDL</div>
-            <h2 style={sx("font-family:'Space Grotesk',sans-serif;font-size:clamp(28px,3.5vw,38px);font-weight:700;margin:0;")}>Programa de Desenvolvimento de Lideranças</h2>
-          </div>
-          <div className="pdl-highlight" style={{ ...sx('border-radius:12px;padding:clamp(28px,5vw,48px);gap:40px;align-items:center;margin-bottom:48px;'), backgroundColor: '#0B1730', backgroundImage: noise, backgroundBlendMode: 'overlay' }}>
-            <div style={sx("font-family:'Space Grotesk',sans-serif;font-size:clamp(48px,6vw,72px);font-weight:700;color:#FFFFFF;line-height:1;")}>R$2mi</div>
-            <div>
-              <div style={sx('font-size:20px;font-weight:600;color:#FFFFFF;margin-bottom:8px;')}>de economia anual</div>
-              <p style={sx('font-size:15px;color:#9FAAC4;margin:0 0 20px;max-width:480px;')}>Gerada pela revisão de benefícios e custos operacionais de RH.</p>
-              <a href="#cta-final" style={sx('font-size:15px;font-weight:600;color:#FFFFFF;')}>Quero saber como →</a>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section style={sx('padding:80px clamp(20px,5vw,64px);background:var(--bg-alt);')}>
+      <section id="resultados" style={sx('padding:80px clamp(20px,5vw,64px);background:var(--bg-alt);')}>
         <div style={sx('max-width:1180px;margin:0 auto;')}>
           <h2 style={sx("font-family:'Space Grotesk',sans-serif;font-size:clamp(28px,3.5vw,38px);font-weight:700;margin:0 0 48px;text-align:center;")}>Resultados que transformam</h2>
           <div className="results-grid" style={sx('gap:24px;')}>
@@ -291,6 +295,16 @@ export default function Home() {
 
       <section style={sx('padding:80px clamp(20px,5vw,64px);')}>
         <div style={sx('max-width:1180px;margin:0 auto;')}>
+          <div style={sx('font-size:13px;letter-spacing:0.06em;text-transform:uppercase;color:var(--muted);font-weight:700;text-align:center;margin-bottom:24px;')}>Marcas que confiam no Eduardo Kayser</div>
+          <div className="marquee-wrap" style={sx('margin-bottom:56px;')}>
+            <div className="marquee-track">
+              {[...marcas, ...marcas].map((m, i) => (
+                <div key={i} style={sx('flex-shrink:0;width:140px;height:56px;margin:0 20px;')}>
+                  <ImagePlaceholder label={m} shape="rect" />
+                </div>
+              ))}
+            </div>
+          </div>
           <h2 style={sx("font-family:'Space Grotesk',sans-serif;font-size:clamp(28px,3.5vw,38px);font-weight:700;margin:0 0 48px;text-align:center;")}>O que dizem sobre o trabalho</h2>
           <div style={sx('display:flex;align-items:stretch;gap:16px;')}>
             <button onClick={prevTestimonials} aria-label="Depoimentos anteriores" style={sx('flex-shrink:0;width:44px;height:44px;align-self:center;border-radius:999px;border:1px solid var(--line);background:var(--surface);color:var(--ink);cursor:pointer;font-size:18px;display:flex;align-items:center;justify-content:center;')}><i className="ti ti-chevron-left"></i></button>
@@ -335,40 +349,6 @@ export default function Home() {
                   <h3 style={sx("font-family:'Space Grotesk',sans-serif;font-size:20px;font-weight:600;margin:0 0 10px;")}>{p.title}</h3>
                   <p style={sx('font-size:15px;color:var(--muted);margin:0;line-height:1.5;')}>{p.excerpt}</p>
                 </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section style={sx('padding:64px clamp(20px,5vw,64px);')}>
-        <div style={sx('max-width:1180px;margin:0 auto;')}>
-          <h2 style={sx("font-family:'Space Grotesk',sans-serif;font-size:clamp(28px,3.5vw,38px);font-weight:700;margin:0 0 32px;text-align:center;")}>Marcas que confiam no Eduardo Kayser</h2>
-          <div className="brands-grid" style={sx('gap:28px 40px;')}>
-            {marcas.map((m, i) => (
-              <div key={i} style={sx('height:56px;')}>
-                <ImagePlaceholder label={m} shape="rect" />
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section id="metodo" style={sx('padding:80px clamp(20px,5vw,64px);background:var(--bg-alt);')}>
-        <div style={sx('max-width:1180px;margin:0 auto;')}>
-          <div className="pilares-grid" style={sx('gap:20px;margin-bottom:24px;')}>
-            {pilares.map((p, i) => (
-              <div key={i} style={sx('background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:28px;')}>
-                <h3 style={sx("font-family:'Space Grotesk',sans-serif;font-size:18px;font-weight:600;margin:0 0 10px;")}>{p.title}</h3>
-                <p style={sx('font-size:14px;color:var(--muted);margin:0;line-height:1.5;')}>{p.desc}</p>
-              </div>
-            ))}
-          </div>
-          <div className="eixos-grid" style={sx('gap:20px;')}>
-            {eixos.map((e, i) => (
-              <div key={i} style={sx('background:var(--surface);border:1px dashed var(--accent);border-radius:12px;padding:28px;')}>
-                <h3 style={sx("font-family:'Space Grotesk',sans-serif;font-size:18px;font-weight:600;margin:0 0 10px;color:var(--accent-strong);")}>{e.title}</h3>
-                <p style={sx('font-size:14px;color:var(--muted);margin:0;line-height:1.5;')}>{e.desc}</p>
               </div>
             ))}
           </div>

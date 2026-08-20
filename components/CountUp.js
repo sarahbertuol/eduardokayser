@@ -1,12 +1,13 @@
 'use client';
 import { useEffect, useRef, useState } from 'react';
 
-export default function CountUp({ to, suffix = '', duration = 1600 }) {
+export default function CountUp({ to, suffix = '', duration = 1600, active = true }) {
   const [value, setValue] = useState(0);
   const ref = useRef(null);
   const started = useRef(false);
 
   useEffect(() => {
+    if (!active) return;
     const el = ref.current;
     if (!el) return;
     const observer = new IntersectionObserver(([entry]) => {
@@ -25,7 +26,7 @@ export default function CountUp({ to, suffix = '', duration = 1600 }) {
     }, { threshold: 0.4 });
     observer.observe(el);
     return () => observer.disconnect();
-  }, [to, duration]);
+  }, [to, duration, active]);
 
   return <span ref={ref}>{value.toLocaleString('pt-BR')}{suffix}</span>;
 }
