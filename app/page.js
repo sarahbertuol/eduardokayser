@@ -2,6 +2,8 @@
 import { useState } from 'react';
 import { sx } from '../lib/sx';
 import ImagePlaceholder from '../components/ImagePlaceholder';
+import CountUp from '../components/CountUp';
+import InView from '../components/InView';
 import {
   depoimentos as allDepoimentos, formacaoList, resultados, posts, marcas,
   pilares, parceiros, eixos, doresEmpresas, doresPessoas, comoFunciona, solucoes
@@ -20,15 +22,15 @@ export default function Home() {
   const isDark = theme === 'dark';
   const c = isDark ? {
     bg: '#0B1526', bgAlt: '#101D34', surface: '#13203B', ink: '#EEF1F7',
-    muted: '#9FAAC4', line: '#243252', accent: '#5B8CFF', onAccent: '#FFFFFF', accentStrong: '#BFD3FF'
+    muted: '#9FAAC4', line: '#243252', accent: '#5B8CFF', accentRgb: '91,140,255', onAccent: '#FFFFFF', accentStrong: '#BFD3FF'
   } : {
     bg: '#F3F5F9', bgAlt: '#E7EBF2', surface: '#FBFCFE', ink: '#0E1B3D',
-    muted: '#586181', line: '#D7DCE6', accent: '#2F5FDE', onAccent: '#FFFFFF', accentStrong: '#1B3A8A'
+    muted: '#586181', line: '#D7DCE6', accent: '#2F5FDE', accentRgb: '47,95,222', onAccent: '#FFFFFF', accentStrong: '#1B3A8A'
   };
 
   const rootVars = {
     '--bg': c.bg, '--bg-alt': c.bgAlt, '--surface': c.surface, '--ink': c.ink,
-    '--muted': c.muted, '--line': c.line, '--accent': c.accent, '--on-accent': c.onAccent,
+    '--muted': c.muted, '--line': c.line, '--accent': c.accent, '--accent-rgb': c.accentRgb, '--on-accent': c.onAccent,
     '--accent-strong': c.accentStrong,
     background: 'var(--bg)', color: 'var(--ink)', fontFamily: "'Public Sans',sans-serif",
     minHeight: '100vh', transition: 'background .25s,color .25s'
@@ -113,9 +115,9 @@ export default function Home() {
 
       <section style={sx('padding:56px clamp(20px,5vw,64px);')}>
         <div className="stats-grid" style={sx('max-width:1180px;margin:0 auto;gap:24px;text-align:center;')}>
-          <div><div style={sx("font-family:'Space Grotesk',sans-serif;font-size:clamp(28px,6vw,44px);font-weight:700;color:var(--accent);")}>25+</div><div style={sx('font-size:15px;color:var(--muted);margin-top:8px;')}>anos de experiência</div></div>
-          <div><div style={sx("font-family:'Space Grotesk',sans-serif;font-size:clamp(28px,6vw,44px);font-weight:700;color:var(--accent);")}>1.200+</div><div style={sx('font-size:15px;color:var(--muted);margin-top:8px;')}>líderes treinados</div></div>
-          <div><div style={sx("font-family:'Space Grotesk',sans-serif;font-size:clamp(28px,6vw,44px);font-weight:700;color:var(--accent);")}>17</div><div style={sx('font-size:15px;color:var(--muted);margin-top:8px;')}>prêmios nacionais</div></div>
+          <div><div style={sx("font-family:'Space Grotesk',sans-serif;font-size:clamp(28px,6vw,44px);font-weight:700;color:var(--accent);")}><CountUp to={25} suffix="+" /></div><div style={sx('font-size:15px;color:var(--muted);margin-top:8px;')}>anos de experiência</div></div>
+          <div><div style={sx("font-family:'Space Grotesk',sans-serif;font-size:clamp(28px,6vw,44px);font-weight:700;color:var(--accent);")}><CountUp to={1200} suffix="+" /></div><div style={sx('font-size:15px;color:var(--muted);margin-top:8px;')}>líderes treinados</div></div>
+          <div><div style={sx("font-family:'Space Grotesk',sans-serif;font-size:clamp(28px,6vw,44px);font-weight:700;color:var(--accent);")}><CountUp to={17} /></div><div style={sx('font-size:15px;color:var(--muted);margin-top:8px;')}>prêmios nacionais</div></div>
         </div>
       </section>
 
@@ -163,14 +165,18 @@ export default function Home() {
             <h2 style={sx("font-family:'Space Grotesk',sans-serif;font-size:clamp(28px,3.5vw,38px);font-weight:700;margin:0 0 16px;")}>Como o método funciona</h2>
             <p style={sx('font-size:16px;color:var(--muted);line-height:1.6;margin:0;')}>Empresas não crescem por acaso. Crescem quando existe um sistema de gestão.</p>
           </div>
-          <div className="pdl-steps" style={sx('gap:16px;')}>
-            {comoFunciona.map(step => (
-              <div key={step.n} style={sx('text-align:center;')}>
-                <div style={sx('width:40px;height:40px;border-radius:999px;background:var(--accent);color:var(--on-accent);display:flex;align-items:center;justify-content:center;font-weight:700;margin:0 auto 12px;')}>{step.n}</div>
-                <div style={sx('font-size:14px;font-weight:600;')}>{step.label}</div>
-              </div>
-            ))}
-          </div>
+          <InView className="steps-track">
+            <div className="steps-line"></div>
+            <div className="steps-progress"></div>
+            <div className="pdl-steps" style={sx('gap:16px;')}>
+              {comoFunciona.map((step, i) => (
+                <div key={step.n} style={sx('text-align:center;position:relative;z-index:2;')}>
+                  <div className={i === comoFunciona.length - 1 ? 'step-circle-last' : ''} style={sx('width:40px;height:40px;border-radius:999px;background:var(--accent);color:var(--on-accent);display:flex;align-items:center;justify-content:center;font-weight:700;margin:0 auto 12px;')}>{step.n}</div>
+                  <div style={sx('font-size:14px;font-weight:600;')}>{step.label}</div>
+                </div>
+              ))}
+            </div>
+          </InView>
         </div>
       </section>
 
@@ -350,10 +356,6 @@ export default function Home() {
 
       <section id="metodo" style={sx('padding:80px clamp(20px,5vw,64px);background:var(--bg-alt);')}>
         <div style={sx('max-width:1180px;margin:0 auto;')}>
-          <div style={sx('max-width:560px;margin:0 auto 16px;text-align:center;')}>
-            <h2 style={sx("font-family:'Space Grotesk',sans-serif;font-size:clamp(28px,3.5vw,38px);font-weight:700;margin:0;")}>O método por trás dos resultados</h2>
-          </div>
-          <div style={sx("text-align:center;font-family:'Space Grotesk',sans-serif;font-size:18px;font-weight:600;color:var(--accent);margin-bottom:56px;")}>Clareza · Método · Intenção</div>
           <div className="pilares-grid" style={sx('gap:20px;margin-bottom:24px;')}>
             {pilares.map((p, i) => (
               <div key={i} style={sx('background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:28px;')}>

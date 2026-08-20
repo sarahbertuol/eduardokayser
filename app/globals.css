@@ -78,3 +78,21 @@ p { text-wrap: pretty; }
 @media (max-width: 560px) {
   .dores-list { grid-template-columns: 1fr; }
 }
+
+/* ---- Steps connecting line (Como o método funciona) ---- */
+
+.steps-track { position: relative; }
+.steps-line, .steps-progress { position: absolute; top: 20px; height: 2px; display: none; }
+.steps-line { left: 10%; right: 10%; background: var(--line); z-index: 0; }
+.steps-progress { left: 10%; width: 0; background: var(--accent); z-index: 1; transition: width 1.4s cubic-bezier(0.65, 0, 0.35, 1); }
+.steps-track.in-view .steps-progress { width: 80%; }
+
+@keyframes stepPulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(var(--accent-rgb), 0.5); }
+  50% { box-shadow: 0 0 0 12px rgba(var(--accent-rgb), 0); }
+}
+.steps-track.in-view .step-circle-last { animation: stepPulse 2s ease-out 1.4s infinite; }
+
+@media (min-width: 981px) {
+  .steps-line, .steps-progress { display: block; }
+}
