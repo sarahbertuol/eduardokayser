@@ -1,8 +1,8 @@
 import './globals.css';
 
 export const metadata = {
-  title: 'Eduardo Kayser - Desenvolvimento de Lideranças',
-  description: 'Método LUCIDEZ para líderes e empresas crescerem com clareza, sem sacrificar a saúde.',
+  title: 'Ecossistema LUCIDEZ | Eduardo Kayser',
+  description: 'Profissionais e organizações crescem com clareza, método e intenção — o Ecossistema LUCIDEZ, criado e conduzido por Eduardo Kayser.',
 };
 
 export default function RootLayout({ children }) {

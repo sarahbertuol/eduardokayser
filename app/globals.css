@@ -14,17 +14,12 @@ p { text-wrap: pretty; }
 .hero-grid { display: grid; grid-template-columns: 1.1fr 0.9fr; }
 .about-grid { display: grid; grid-template-columns: 0.8fr 1.2fr; }
 .stats-grid { display: grid; grid-template-columns: repeat(3, 1fr); }
-.partners-grid { display: grid; grid-template-columns: repeat(4, 1fr); }
-.pdl-highlight { display: grid; grid-template-columns: auto 1fr; }
+.partners-grid { display: grid; grid-template-columns: repeat(3, 1fr); }
 .pdl-steps { display: grid; grid-template-columns: repeat(5, 1fr); }
 .results-grid { display: grid; grid-template-columns: repeat(3, 1fr); }
 .testimonials-grid { display: grid; grid-template-columns: repeat(3, 1fr); }
 .posts-grid { display: grid; grid-template-columns: repeat(2, 1fr); }
-.solucoes-grid { display: grid; grid-template-columns: repeat(3, 1fr); }
-.dores-grid { display: grid; }
-.dores-one { grid-template-columns: 1fr; }
-.dores-two { grid-template-columns: 1fr 1fr; }
-.dores-list { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px 24px; }
+.lucidez-list { display: grid; grid-template-columns: repeat(2, 1fr); }
 
 @media (max-width: 980px) {
   .hero-grid { grid-template-columns: 1fr; }
@@ -32,10 +27,7 @@ p { text-wrap: pretty; }
   .about-grid { grid-template-columns: 1fr; }
   .about-grid > div:first-child { max-width: 320px; margin: 0 auto; }
   .partners-grid { grid-template-columns: repeat(2, 1fr); }
-  .pdl-highlight { grid-template-columns: 1fr; text-align: center; }
-  .pdl-highlight > div:first-child { margin: 0 auto; }
   .pdl-steps { grid-template-columns: repeat(3, 1fr); gap: 24px 16px; }
-  .solucoes-grid { grid-template-columns: repeat(2, 1fr); }
 }
 
 @media (max-width: 768px) {
@@ -62,13 +54,11 @@ p { text-wrap: pretty; }
   .results-grid { grid-template-columns: 1fr 1fr; }
   .testimonials-grid { grid-template-columns: 1fr; }
   .posts-grid { grid-template-columns: 1fr; }
-  .solucoes-grid { grid-template-columns: 1fr; }
-  .dores-two { grid-template-columns: 1fr; }
   .pdl-steps { grid-template-columns: repeat(2, 1fr); }
 }
 
 @media (max-width: 560px) {
-  .dores-list { grid-template-columns: 1fr; }
+  .lucidez-list { grid-template-columns: 1fr; }
 }
 
 /* ---- Steps connecting line (Como o método funciona) ---- */
