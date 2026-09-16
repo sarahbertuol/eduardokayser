@@ -20,6 +20,7 @@ p { text-wrap: pretty; }
 .testimonials-grid { display: grid; grid-template-columns: repeat(3, 1fr); }
 .posts-grid { display: grid; grid-template-columns: repeat(2, 1fr); }
 .lucidez-list { display: grid; grid-template-columns: repeat(2, 1fr); }
+.solucoes-cards { display: grid; grid-template-columns: repeat(2, 1fr); }
 
 @media (max-width: 980px) {
   .hero-grid { grid-template-columns: 1fr; }
@@ -55,10 +56,21 @@ p { text-wrap: pretty; }
   .testimonials-grid { grid-template-columns: 1fr; }
   .posts-grid { grid-template-columns: 1fr; }
   .pdl-steps { grid-template-columns: repeat(2, 1fr); }
+  .solucoes-cards { grid-template-columns: 1fr; }
+  .partners-grid { grid-template-columns: 1fr; }
 }
 
 @media (max-width: 560px) {
   .lucidez-list { grid-template-columns: 1fr; }
+}
+
+/* ---- Solução cards (Lucidez Profissional) ---- */
+
+.solucao-card { transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease; }
+.solucao-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.1);
+  border-color: var(--accent);
 }
 
 /* ---- Steps connecting line (Como o método funciona) ---- */

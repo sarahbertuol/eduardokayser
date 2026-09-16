@@ -17,6 +17,7 @@ export default function Home() {
   const [theme, setTheme] = useState('light');
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [testimonialPage, setTestimonialPage] = useState(0);
+  const [partnerPage, setPartnerPage] = useState(0);
 
   const isDark = theme === 'dark';
   const c = isDark ? {
@@ -41,6 +42,11 @@ export default function Home() {
   const depoimentos = allDepoimentos.slice(testimonialPage * 3, testimonialPage * 3 + 3);
   const prevTestimonials = () => setTestimonialPage(p => (p - 1 + totalPages) % totalPages);
   const nextTestimonials = () => setTestimonialPage(p => (p + 1) % totalPages);
+
+  const totalPartnerPages = Math.ceil(parceiros.length / 3);
+  const partnersPageItems = parceiros.slice(partnerPage * 3, partnerPage * 3 + 3);
+  const prevPartners = () => setPartnerPage(p => (p - 1 + totalPartnerPages) % totalPartnerPages);
+  const nextPartners = () => setPartnerPage(p => (p + 1) % totalPartnerPages);
 
   return (
     <div style={rootVars}>
@@ -87,7 +93,7 @@ export default function Home() {
         </div>
       </header>
 
-      <section style={sx('padding:56px clamp(20px,5vw,64px);')}>
+      <section style={sx('padding:72px clamp(20px,5vw,64px);')}>
         <div className="stats-grid" style={sx('max-width:1180px;margin:0 auto;gap:24px;text-align:center;')}>
           <div><div style={sx("font-family:'Space Grotesk',sans-serif;font-size:clamp(28px,6vw,44px);font-weight:700;color:var(--accent);")}><CountUp to={25} suffix="+" /></div><div style={sx('font-size:15px;color:var(--muted);margin-top:8px;')}>anos de experiência</div></div>
           <div><div style={sx("font-family:'Space Grotesk',sans-serif;font-size:clamp(28px,6vw,44px);font-weight:700;color:var(--accent);")}><CountUp to={1200} suffix="+" /></div><div style={sx('font-size:15px;color:var(--muted);margin-top:8px;')}>líderes treinados</div></div>
@@ -95,58 +101,47 @@ export default function Home() {
         </div>
       </section>
 
-      <section id="lucidez-profissional" style={sx('padding:80px clamp(20px,5vw,64px);background:var(--bg-alt);')}>
+      <section id="lucidez-profissional" style={sx('padding:104px clamp(20px,5vw,64px);background:var(--bg-alt);')}>
         <div style={sx('max-width:1180px;margin:0 auto;')}>
-          <div style={sx('max-width:720px;margin:0 auto 48px;text-align:center;')}>
+          <div style={sx('max-width:720px;margin:0 auto 64px;text-align:center;')}>
             <div style={sx('font-size:13px;letter-spacing:0.08em;text-transform:uppercase;color:var(--accent);font-weight:700;margin-bottom:16px;')}>Lucidez Profissional</div>
             <p style={sx('font-size:16px;color:var(--muted);line-height:1.6;margin:0 0 20px;')}>{lucidezProfissional.chapeu}</p>
             <h2 style={sx("font-family:'Space Grotesk',sans-serif;font-size:clamp(26px,3.2vw,34px);font-weight:700;margin:0 0 16px;")}>{lucidezProfissional.titulo}</h2>
             <p style={sx('font-size:16px;color:var(--muted);line-height:1.6;margin:0;')}>{lucidezProfissional.texto}</p>
           </div>
-          <div className="lucidez-list" style={sx('gap:14px 32px;max-width:900px;margin:0 auto;')}>
+          <div className="solucoes-cards" style={sx('gap:20px;max-width:1000px;margin:0 auto;')}>
             {lucidezProfissional.solucoes.map((s, i) => (
-              <div key={i} style={sx('font-size:16px;display:flex;gap:10px;align-items:center;')}><i className="ti ti-check" style={sx('color:var(--accent);flex-shrink:0;')}></i>{s}</div>
+              <div key={i} className="solucao-card" style={sx('background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:22px 24px;display:flex;align-items:center;gap:16px;')}>
+                <div style={sx('width:44px;height:44px;border-radius:999px;background:var(--bg-alt);display:flex;align-items:center;justify-content:center;flex-shrink:0;')}>
+                  <i className="ti ti-check" style={sx('color:var(--accent);font-size:20px;')}></i>
+                </div>
+                <div style={sx('font-size:18px;font-weight:600;line-height:1.3;')}>{s}</div>
+              </div>
             ))}
           </div>
         </div>
       </section>
 
-      <section id="lucidez-organizacoes" style={sx('padding:80px clamp(20px,5vw,64px);')}>
+      <section id="lucidez-organizacoes" style={sx('padding:104px clamp(20px,5vw,64px);')}>
         <div style={sx('max-width:1180px;margin:0 auto;')}>
-          <div style={sx('max-width:720px;margin:0 auto 48px;text-align:center;')}>
+          <div style={sx('max-width:720px;margin:0 auto 64px;text-align:center;')}>
             <div style={sx('font-size:13px;letter-spacing:0.08em;text-transform:uppercase;color:var(--accent);font-weight:700;margin-bottom:16px;')}>Lucidez Organizações</div>
-            <p style={sx('font-size:16px;color:var(--muted);line-height:1.6;margin:0 0 20px;')}>{lucidezOrganizacoes.chapeu}</p>
             <h2 style={sx("font-family:'Space Grotesk',sans-serif;font-size:clamp(26px,3.2vw,34px);font-weight:700;margin:0 0 16px;")}>{lucidezOrganizacoes.titulo}</h2>
             <p style={sx('font-size:16px;color:var(--muted);line-height:1.6;margin:0;')}>{lucidezOrganizacoes.texto}</p>
           </div>
-          <div className="lucidez-list" style={sx('gap:14px 32px;max-width:960px;margin:0 auto 32px;')}>
+          <div style={sx('display:flex;flex-direction:column;max-width:820px;margin:0 auto 40px;')}>
             {lucidezOrganizacoes.frentes.map((f, i) => (
-              <div key={i} style={sx('font-size:16px;line-height:1.4;display:flex;gap:10px;')}><i className="ti ti-check" style={sx('color:var(--accent);flex-shrink:0;margin-top:3px;')}></i>{f}</div>
+              <div key={i} style={sx('display:flex;gap:24px;align-items:flex-start;padding:20px 0;border-bottom:1px solid var(--line);')}>
+                <div style={sx("font-family:'Space Grotesk',sans-serif;font-size:20px;font-weight:700;color:var(--accent);flex-shrink:0;width:36px;")}>{String(i + 1).padStart(2, '0')}</div>
+                <div style={sx('font-size:16px;line-height:1.5;padding-top:2px;')}>{f}</div>
+              </div>
             ))}
           </div>
           <p style={sx('font-size:14px;color:var(--muted);font-style:italic;text-align:center;max-width:720px;margin:0 auto;')}>{lucidezOrganizacoes.rodape}</p>
         </div>
       </section>
 
-      <section id="sobre-ecossistema" style={sx('padding:80px clamp(20px,5vw,64px);background:var(--bg-alt);')}>
-        <div style={sx('max-width:900px;margin:0 auto;')}>
-          <h2 style={sx("font-family:'Space Grotesk',sans-serif;font-size:clamp(26px,3.2vw,34px);font-weight:700;margin:0 0 32px;text-align:center;")}>{sobreEcossistema.titulo}</h2>
-          {sobreEcossistema.paragrafos.map((p, i) => (
-            <p key={i} style={sx('font-size:16px;color:var(--muted);line-height:1.7;margin:0 0 20px;')}>{p}</p>
-          ))}
-          <div style={sx('margin-top:40px;text-align:center;')}>
-            <p style={sx("font-family:'Space Grotesk',sans-serif;font-size:18px;font-weight:600;margin:0 0 24px;")}>{sobreEcossistema.subtitulo}</p>
-            <div className="lucidez-list" style={sx('gap:14px 32px;text-align:left;')}>
-              {sobreEcossistema.jornada.map((j, i) => (
-                <div key={i} style={sx('font-size:16px;display:flex;gap:10px;align-items:center;')}><i className="ti ti-check" style={sx('color:var(--accent);flex-shrink:0;')}></i>{j}</div>
-              ))}
-            </div>
-          </div>
-          <p style={sx('font-size:16px;font-weight:600;line-height:1.7;margin:40px 0 0;text-align:center;')}>{sobreEcossistema.fechamento}</p>
-        </div>
-      </section>
-
-      <section id="sobre-eduardo" style={sx('padding:80px clamp(20px,5vw,64px);')}>
+      <section id="sobre-eduardo" style={sx('padding:104px clamp(20px,5vw,64px);background:var(--bg-alt);')}>
         <div className="about-grid" style={sx('max-width:1180px;margin:0 auto;gap:56px;align-items:center;')}>
           <div style={sx('width:100%;aspect-ratio:1/1;border-radius:12px;overflow:hidden;')}>
             <RealPhoto src="/eduardo/sobre.jpg" alt="Eduardo Kayser" />
@@ -167,9 +162,9 @@ export default function Home() {
         </div>
       </section>
 
-      <section id="como-funciona" style={sx('padding:80px clamp(20px,5vw,64px);background:var(--bg-alt);')}>
+      <section id="como-funciona" style={sx('padding:104px clamp(20px,5vw,64px);')}>
         <div style={sx('max-width:1180px;margin:0 auto;')}>
-          <div style={sx('max-width:640px;margin:0 auto 56px;text-align:center;')}>
+          <div style={sx('max-width:640px;margin:0 auto 72px;text-align:center;')}>
             <div style={sx('font-size:13px;letter-spacing:0.08em;text-transform:uppercase;color:var(--accent);font-weight:700;margin-bottom:12px;')}>Meu trabalho</div>
             <h2 style={sx("font-family:'Space Grotesk',sans-serif;font-size:clamp(28px,3.5vw,38px);font-weight:700;margin:0 0 16px;")}>Como o método funciona</h2>
             <p style={sx('font-size:16px;color:var(--muted);line-height:1.6;margin:0;')}>Empresas não crescem por acaso. Crescem quando existe um sistema de gestão.</p>
@@ -211,33 +206,60 @@ export default function Home() {
         </div>
       </section>
 
-      <section id="parceiros" style={sx('padding:80px clamp(20px,5vw,64px);')}>
+      <section id="sobre-ecossistema" style={sx('padding:104px clamp(20px,5vw,64px);background:var(--bg-alt);')}>
+        <div style={sx('max-width:900px;margin:0 auto;')}>
+          <h2 style={sx("font-family:'Space Grotesk',sans-serif;font-size:clamp(26px,3.2vw,34px);font-weight:700;margin:0 0 40px;text-align:center;")}>{sobreEcossistema.titulo}</h2>
+          {sobreEcossistema.paragrafos.map((p, i) => (
+            <p key={i} style={sx('font-size:16px;color:var(--muted);line-height:1.7;margin:0 0 24px;')}>{p}</p>
+          ))}
+          <div style={sx('margin-top:48px;text-align:center;')}>
+            <p style={sx("font-family:'Space Grotesk',sans-serif;font-size:18px;font-weight:600;margin:0 0 24px;")}>{sobreEcossistema.subtitulo}</p>
+            <div className="lucidez-list" style={sx('gap:14px 32px;text-align:left;')}>
+              {sobreEcossistema.jornada.map((j, i) => (
+                <div key={i} style={sx('font-size:16px;display:flex;gap:10px;align-items:center;')}><i className="ti ti-check" style={sx('color:var(--accent);flex-shrink:0;')}></i>{j}</div>
+              ))}
+            </div>
+          </div>
+          <p style={sx('font-size:16px;font-weight:600;line-height:1.7;margin:48px 0 0;text-align:center;')}>{sobreEcossistema.fechamento}</p>
+        </div>
+      </section>
+
+      <section id="parceiros" style={sx('padding:104px clamp(20px,5vw,64px);')}>
         <div style={sx('max-width:1180px;margin:0 auto;')}>
-          <div style={sx('max-width:640px;margin:0 auto 56px;text-align:center;')}>
+          <div style={sx('max-width:640px;margin:0 auto 72px;text-align:center;')}>
             <div style={sx('font-size:13px;letter-spacing:0.08em;text-transform:uppercase;color:var(--accent);font-weight:700;margin-bottom:12px;')}>Ecossistema</div>
             <h2 style={sx("font-family:'Space Grotesk',sans-serif;font-size:clamp(28px,3.5vw,38px);font-weight:700;margin:0 0 16px;")}>Uma rede de parceiros para apoiar líderes de forma integral</h2>
             <p style={sx('font-size:16px;color:var(--muted);line-height:1.6;margin:0;')}>Além da consultoria estratégica, Eduardo conecta empresas e líderes a profissionais especializados que integram o Ecossistema LUCIDEZ.</p>
           </div>
-          <div className="partners-grid" style={sx('gap:24px;')}>
-            {parceiros.map(p => (
-              <div key={p.id} style={sx('background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:28px;text-align:center;')}>
-                <div style={sx('width:88px;height:88px;margin:0 auto 20px;')}>
-                  {p.photo ? <RealPhoto src={p.photo} alt={p.name} /> : <ImagePlaceholder label="Foto do parceiro" shape="circle" />}
+          <div style={sx('display:flex;align-items:stretch;gap:16px;')}>
+            <button onClick={prevPartners} aria-label="Parceiros anteriores" style={sx('flex-shrink:0;width:44px;height:44px;align-self:center;border-radius:999px;border:1px solid var(--line);background:var(--surface);color:var(--ink);cursor:pointer;font-size:18px;display:flex;align-items:center;justify-content:center;')}><i className="ti ti-chevron-left"></i></button>
+            <div className="partners-grid" style={sx('flex:1;gap:24px;min-width:0;')}>
+              {partnersPageItems.map(p => (
+                <div key={p.id} style={sx('background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:28px;text-align:center;')}>
+                  <div style={sx('width:140px;height:140px;margin:0 auto 24px;border-radius:999px;overflow:hidden;')}>
+                    {p.photo ? <RealPhoto src={p.photo} alt={p.name} /> : <ImagePlaceholder label="Foto do parceiro" shape="circle" />}
+                  </div>
+                  <div style={sx("font-family:'Space Grotesk',sans-serif;font-size:16px;font-weight:600;margin-bottom:6px;")}>{p.name}</div>
+                  <div style={sx('font-size:13px;color:var(--accent-strong);font-weight:600;margin-bottom:14px;')}>{p.area}</div>
+                  <div style={sx('display:flex;flex-direction:column;gap:8px;text-align:left;')}>
+                    {p.bio.map((b, i) => (
+                      <p key={i} style={sx('font-size:13px;color:var(--muted);line-height:1.5;margin:0;')}>{b}</p>
+                    ))}
+                  </div>
                 </div>
-                <div style={sx("font-family:'Space Grotesk',sans-serif;font-size:16px;font-weight:600;margin-bottom:6px;")}>{p.name}</div>
-                <div style={sx('font-size:13px;color:var(--accent-strong);font-weight:600;margin-bottom:14px;')}>{p.area}</div>
-                <div style={sx('display:flex;flex-direction:column;gap:8px;text-align:left;')}>
-                  {p.bio.map((b, i) => (
-                    <p key={i} style={sx('font-size:13px;color:var(--muted);line-height:1.5;margin:0;')}>{b}</p>
-                  ))}
-                </div>
-              </div>
+              ))}
+            </div>
+            <button onClick={nextPartners} aria-label="Próximos parceiros" style={sx('flex-shrink:0;width:44px;height:44px;align-self:center;border-radius:999px;border:1px solid var(--line);background:var(--surface);color:var(--ink);cursor:pointer;font-size:18px;display:flex;align-items:center;justify-content:center;')}><i className="ti ti-chevron-right"></i></button>
+          </div>
+          <div style={sx('display:flex;gap:8px;justify-content:center;margin-top:32px;')}>
+            {Array.from({ length: totalPartnerPages }, (_, i) => (
+              <button key={i} onClick={() => setPartnerPage(i)} aria-label="Ir para página de parceiros" style={{ ...sx('width:9px;height:9px;padding:0;border-radius:999px;border:none;cursor:pointer;background:var(--accent);'), opacity: i === partnerPage ? 1 : 0.3 }}></button>
             ))}
           </div>
         </div>
       </section>
 
-      <section style={sx('padding:56px clamp(20px,5vw,64px);background:var(--bg-alt);')}>
+      <section style={sx('padding:72px clamp(20px,5vw,64px);background:var(--bg-alt);')}>
         <div style={sx('max-width:1180px;margin:0 auto;')}>
           <div style={sx('font-size:13px;letter-spacing:0.06em;text-transform:uppercase;color:var(--muted);font-weight:700;text-align:center;margin-bottom:32px;')}>Formação e afiliações</div>
           <div style={sx('display:flex;flex-wrap:wrap;gap:32px 48px;justify-content:center;align-items:center;')}>
@@ -250,7 +272,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section id="resultados" style={sx('padding:80px clamp(20px,5vw,64px);')}>
+      <section id="resultados" style={sx('padding:104px clamp(20px,5vw,64px);')}>
         <div style={sx('max-width:1180px;margin:0 auto;')}>
           <h2 style={sx("font-family:'Space Grotesk',sans-serif;font-size:clamp(28px,3.5vw,38px);font-weight:700;margin:0 0 48px;text-align:center;")}>Resultados que transformam</h2>
           <div className="results-grid" style={sx('gap:24px;')}>
@@ -264,7 +286,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section style={sx('padding:80px clamp(20px,5vw,64px);background:var(--bg-alt);')}>
+      <section style={sx('padding:104px clamp(20px,5vw,64px);background:var(--bg-alt);')}>
         <div style={sx('max-width:1180px;margin:0 auto;')}>
           <div style={sx('font-size:13px;letter-spacing:0.06em;text-transform:uppercase;color:var(--muted);font-weight:700;text-align:center;margin-bottom:24px;')}>Marcas que confiam no Eduardo Kayser</div>
           <div className="marquee-wrap" style={sx('margin-bottom:56px;')}>
@@ -298,7 +320,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section style={sx('padding:80px clamp(20px,5vw,64px);text-align:center;')}>
+      <section style={sx('padding:104px clamp(20px,5vw,64px);text-align:center;')}>
         <div style={sx('max-width:560px;margin:0 auto;')}>
           <h2 style={sx("font-family:'Space Grotesk',sans-serif;font-size:clamp(28px,3.5vw,38px);font-weight:700;margin:0 0 16px;")}>Agende uma reunião comigo</h2>
           <p style={sx('font-size:16px;color:var(--muted);line-height:1.6;margin:0 0 32px;')}>Escolha o melhor horário na minha agenda e vamos conversar sobre o seu contexto.</p>
@@ -306,7 +328,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section id="conteudos" style={sx('padding:80px clamp(20px,5vw,64px);background:var(--bg-alt);')}>
+      <section id="conteudos" style={sx('padding:104px clamp(20px,5vw,64px);background:var(--bg-alt);')}>
         <div style={sx('max-width:1180px;margin:0 auto;')}>
           <h2 style={sx("font-family:'Space Grotesk',sans-serif;font-size:clamp(28px,3.5vw,38px);font-weight:700;margin:0 0 48px;text-align:center;")}>Conteúdos</h2>
           <div className="posts-grid" style={sx('gap:24px;')}>
