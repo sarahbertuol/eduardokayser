@@ -14,14 +14,14 @@ import {
 const noise = "url('data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22200%22 height=%22200%22%3E%3Cfilter id=%22n%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%220.9%22 numOctaves=%222%22 stitchTiles=%22stitch%22/%3E%3C/filter%3E%3Crect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23n)%22 opacity=%220.09%22/%3E%3C/svg%3E')";
 
 const galeria = [
-  { type: 'image', src: '/galeria/foto-1.jpg' },
-  { type: 'image', src: '/galeria/foto-2.jpg' },
-  { type: 'image', src: '/galeria/foto-3.jpg' },
-  { type: 'image', src: '/galeria/foto-4.jpg' },
-  { type: 'image', src: '/galeria/foto-5.jpg' },
-  { type: 'image', src: '/galeria/foto-6.jpg' },
-  { type: 'image', src: '/galeria/foto-7.jpg' },
-  { type: 'video', src: '/galeria/video-1.mp4' }
+  { type: 'image', src: '/galeria/foto-1.jpg', ratio: 0.563 },
+  { type: 'image', src: '/galeria/foto-2.jpg', ratio: 0.75 },
+  { type: 'image', src: '/galeria/foto-3.jpg', ratio: 0.563 },
+  { type: 'image', src: '/galeria/foto-4.jpg', ratio: 1.777 },
+  { type: 'image', src: '/galeria/foto-5.jpg', ratio: 1.777 },
+  { type: 'image', src: '/galeria/foto-6.jpg', ratio: 1.333 },
+  { type: 'image', src: '/galeria/foto-7.jpg', ratio: 1.875 },
+  { type: 'video', src: '/galeria/video-1.mp4', ratio: 0.558 }
 ];
 
 export default function Home() {
@@ -30,7 +30,7 @@ export default function Home() {
   const [testimonialPage, setTestimonialPage] = useState(0);
   const [partnerPage, setPartnerPage] = useState(0);
   const [lucidezTab, setLucidezTab] = useState('profissional');
-  const [galleryIndex, setGalleryIndex] = useState(0);
+  const [galleryPage, setGalleryPage] = useState(0);
 
   const isDark = theme === 'dark';
   const c = isDark ? {
@@ -61,8 +61,10 @@ export default function Home() {
   const prevPartners = () => setPartnerPage(p => (p - 1 + totalPartnerPages) % totalPartnerPages);
   const nextPartners = () => setPartnerPage(p => (p + 1) % totalPartnerPages);
 
-  const prevGallery = () => setGalleryIndex(i => (i - 1 + galeria.length) % galeria.length);
-  const nextGallery = () => setGalleryIndex(i => (i + 1) % galeria.length);
+  const totalGalleryPages = Math.ceil(galeria.length / 3);
+  const galleryItems = galeria.slice(galleryPage * 3, galleryPage * 3 + 3);
+  const prevGallery = () => setGalleryPage(p => (p - 1 + totalGalleryPages) % totalGalleryPages);
+  const nextGallery = () => setGalleryPage(p => (p + 1) % totalGalleryPages);
 
   return (
     <div style={rootVars}>
@@ -71,19 +73,22 @@ export default function Home() {
       </a>
 
       <nav style={sx('position:sticky;top:0;z-index:50;display:flex;align-items:center;gap:12px;padding:16px clamp(16px,3vw,48px);background:var(--bg);border-bottom:1px solid var(--line);')}>
-        <div style={sx("font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:18px;white-space:nowrap;flex-shrink:0;")}>LUCIDEZ</div>
-        <div className={mobileMenuOpen ? 'nav-links open' : 'nav-links'} style={sx('gap:16px;align-items:center;justify-content:center;flex:1;min-width:0;')}>
-          <a href="#sobre-ecossistema" onClick={() => setMobileMenuOpen(false)} style={sx('font-size:13px;color:var(--ink);font-weight:500;white-space:nowrap;')}>Sobre</a>
-          <a href="#lucidez" onClick={() => { setLucidezTab('profissional'); setMobileMenuOpen(false); }} style={sx('font-size:13px;color:var(--ink);font-weight:500;white-space:nowrap;')}>Profissional</a>
-          <a href="#lucidez" onClick={() => { setLucidezTab('organizacoes'); setMobileMenuOpen(false); }} style={sx('font-size:13px;color:var(--ink);font-weight:500;white-space:nowrap;')}>Organizações</a>
-          <a href="#como-funciona" onClick={() => setMobileMenuOpen(false)} style={sx('font-size:13px;color:var(--ink);font-weight:500;white-space:nowrap;')}>Método</a>
-          <a href="#parceiros" onClick={() => setMobileMenuOpen(false)} style={sx('font-size:13px;color:var(--ink);font-weight:500;white-space:nowrap;')}>Parceiros</a>
+        <div style={sx("font-family:'Space Grotesk',sans-serif;white-space:nowrap;flex-shrink:0;line-height:1.2;")}>
+          <div style={sx('font-weight:700;font-size:20px;')}>EDUARDO KAYSER</div>
+          <div className="nav-brand-sub" style={sx('font-weight:500;font-size:12px;color:var(--muted);letter-spacing:0.01em;')}>Ecossistema de Gestão Lucidez</div>
+        </div>
+        <div className={mobileMenuOpen ? 'nav-links open' : 'nav-links'} style={sx('gap:20px;align-items:center;justify-content:center;flex:1;min-width:0;')}>
+          <a href="#sobre-ecossistema" onClick={() => setMobileMenuOpen(false)} style={sx('font-size:15px;color:var(--ink);font-weight:500;white-space:nowrap;')}>Sobre</a>
+          <a href="#lucidez" onClick={() => { setLucidezTab('profissional'); setMobileMenuOpen(false); }} style={sx('font-size:15px;color:var(--ink);font-weight:500;white-space:nowrap;')}>Profissional</a>
+          <a href="#lucidez" onClick={() => { setLucidezTab('organizacoes'); setMobileMenuOpen(false); }} style={sx('font-size:15px;color:var(--ink);font-weight:500;white-space:nowrap;')}>Organizações</a>
+          <a href="#como-funciona" onClick={() => setMobileMenuOpen(false)} style={sx('font-size:15px;color:var(--ink);font-weight:500;white-space:nowrap;')}>Método</a>
+          <a href="#parceiros" onClick={() => setMobileMenuOpen(false)} style={sx('font-size:15px;color:var(--ink);font-weight:500;white-space:nowrap;')}>Parceiros</a>
         </div>
         <div style={sx('display:flex;align-items:center;gap:8px;flex-shrink:0;')}>
           <button onClick={toggleTheme} aria-label="Alternar tema" style={sx('width:36px;height:36px;border-radius:999px;border:1px solid var(--line);background:var(--surface);color:var(--ink);display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:16px;flex-shrink:0;')}>
             <i className={isDark ? 'ti ti-sun' : 'ti ti-moon'}></i>
           </button>
-          <a href="#cta-final" style={sx('border-radius:999px;padding:10px 18px;background:var(--accent);color:var(--on-accent);font-size:13px;font-weight:600;white-space:nowrap;flex-shrink:0;')}>Agendar diagnóstico</a>
+          <a href="#cta-final" className="nav-cta" style={sx('border-radius:999px;padding:10px 18px;background:var(--accent);color:var(--on-accent);font-size:13px;font-weight:600;white-space:nowrap;flex-shrink:0;')}>Agendar diagnóstico</a>
           <button
             onClick={() => setMobileMenuOpen(o => !o)}
             aria-label="Abrir menu"
@@ -201,22 +206,29 @@ export default function Home() {
           </div>
         </div>
 
-        <div style={sx('max-width:960px;margin:80px auto 0;')}>
-          <div style={sx('position:relative;border-radius:12px;overflow:hidden;aspect-ratio:16/9;background:#000;')}>
-            {galeria[galleryIndex].type === 'image' ? (
-              <RealPhoto src={galeria[galleryIndex].src} alt={`Eduardo Kayser — foto ${galleryIndex + 1}`} />
-            ) : (
-              <video src={galeria[galleryIndex].src} controls style={{ width: '100%', height: '100%', objectFit: 'contain', display: 'block', background: '#000' }} />
-            )}
-          </div>
-          <div style={sx('display:flex;align-items:center;justify-content:center;gap:20px;margin-top:24px;')}>
-            <button onClick={prevGallery} aria-label="Item anterior da galeria" style={sx('flex-shrink:0;width:40px;height:40px;border-radius:999px;border:1px solid var(--line);background:var(--surface);color:var(--ink);cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;')}><i className="ti ti-chevron-left"></i></button>
-            <div style={sx('display:flex;gap:8px;')}>
-              {galeria.map((g, i) => (
-                <button key={i} onClick={() => setGalleryIndex(i)} aria-label={`Ir para item ${i + 1} da galeria`} style={{ ...sx('width:9px;height:9px;padding:0;border-radius:999px;border:none;cursor:pointer;background:var(--accent);'), opacity: i === galleryIndex ? 1 : 0.3 }}></button>
-              ))}
+        <div style={sx('max-width:1180px;margin:80px auto 0;')}>
+          <div style={sx('display:flex;align-items:stretch;gap:16px;')}>
+            <button onClick={prevGallery} aria-label="Página anterior da galeria" style={sx('flex-shrink:0;width:40px;height:40px;align-self:center;border-radius:999px;border:1px solid var(--line);background:var(--surface);color:var(--ink);cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;')}><i className="ti ti-chevron-left"></i></button>
+            <div className="gallery-grid" style={sx('flex:1;gap:16px;min-width:0;')}>
+              {galleryItems.map((g, i) => {
+                const idx = galleryPage * 3 + i;
+                return (
+                  <div key={g.src} style={sx(`position:relative;border-radius:12px;overflow:hidden;background:#000;width:100%;aspect-ratio:${g.ratio};`)}>
+                    {g.type === 'image' ? (
+                      <RealPhoto src={g.src} alt={`Eduardo Kayser — foto ${idx + 1}`} />
+                    ) : (
+                      <video src={g.src} controls style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block', background: '#000' }} />
+                    )}
+                  </div>
+                );
+              })}
             </div>
-            <button onClick={nextGallery} aria-label="Próximo item da galeria" style={sx('flex-shrink:0;width:40px;height:40px;border-radius:999px;border:1px solid var(--line);background:var(--surface);color:var(--ink);cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;')}><i className="ti ti-chevron-right"></i></button>
+            <button onClick={nextGallery} aria-label="Próxima página da galeria" style={sx('flex-shrink:0;width:40px;height:40px;align-self:center;border-radius:999px;border:1px solid var(--line);background:var(--surface);color:var(--ink);cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;')}><i className="ti ti-chevron-right"></i></button>
+          </div>
+          <div style={sx('display:flex;gap:8px;justify-content:center;margin-top:24px;')}>
+            {Array.from({ length: totalGalleryPages }, (_, i) => (
+              <button key={i} onClick={() => setGalleryPage(i)} aria-label={`Ir para página ${i + 1} da galeria`} style={{ ...sx('width:9px;height:9px;padding:0;border-radius:999px;border:none;cursor:pointer;background:var(--accent);'), opacity: i === galleryPage ? 1 : 0.3 }}></button>
+            ))}
           </div>
         </div>
       </section>
@@ -266,20 +278,18 @@ export default function Home() {
       </section>
 
       <section id="sobre-ecossistema" style={sx('padding:104px clamp(20px,5vw,64px);background:var(--bg-alt);')}>
-        <div style={sx('max-width:900px;margin:0 auto;')}>
-          <h2 style={sx("font-family:'Space Grotesk',sans-serif;font-size:clamp(26px,3.2vw,34px);font-weight:700;margin:0 0 40px;text-align:center;")}>{sobreEcossistema.titulo}</h2>
-          {sobreEcossistema.paragrafos.map((p, i) => (
-            <p key={i} style={sx('font-size:16px;color:var(--muted);line-height:1.7;margin:0 0 24px;')}>{p}</p>
-          ))}
-          <div style={sx('margin-top:48px;text-align:center;')}>
-            <p style={sx("font-family:'Space Grotesk',sans-serif;font-size:18px;font-weight:600;margin:0 0 24px;")}>{sobreEcossistema.subtitulo}</p>
-            <div className="lucidez-list" style={sx('gap:14px 32px;text-align:left;')}>
-              {sobreEcossistema.jornada.map((j, i) => (
-                <div key={i} style={sx('font-size:16px;display:flex;gap:10px;align-items:center;')}><i className="ti ti-check" style={sx('color:var(--accent);flex-shrink:0;')}></i>{j}</div>
-              ))}
-            </div>
+        <div style={sx('max-width:820px;margin:0 auto;text-align:center;')}>
+          <h2 style={sx("font-family:'Space Grotesk',sans-serif;font-size:clamp(26px,3.2vw,34px);font-weight:700;margin:0 0 24px;")}>{sobreEcossistema.titulo}</h2>
+          <p style={sx('font-size:17px;color:var(--muted);line-height:1.7;margin:0 auto;max-width:680px;')}>{sobreEcossistema.intro}</p>
+        </div>
+        <div style={sx('max-width:900px;margin:56px auto 0;text-align:center;')}>
+          <p style={sx("font-family:'Space Grotesk',sans-serif;font-size:18px;font-weight:600;margin:0 0 24px;")}>{sobreEcossistema.subtitulo}</p>
+          <div className="lucidez-list" style={sx('gap:14px 32px;text-align:left;')}>
+            {sobreEcossistema.jornada.map((j, i) => (
+              <div key={i} style={sx('background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:16px 18px;font-size:15px;display:flex;gap:10px;align-items:center;')}><i className="ti ti-check" style={sx('color:var(--accent);flex-shrink:0;')}></i>{j}</div>
+            ))}
           </div>
-          <p style={sx('font-size:16px;font-weight:600;line-height:1.7;margin:48px 0 0;text-align:center;')}>{sobreEcossistema.fechamento}</p>
+          <p style={sx('font-size:15px;color:var(--muted);font-weight:600;line-height:1.6;margin:40px 0 0;')}>{sobreEcossistema.fechamento}</p>
         </div>
       </section>
 
@@ -296,7 +306,7 @@ export default function Home() {
               {partnersPageItems.map(p => (
                 <div key={p.id} style={sx('background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:28px;text-align:center;')}>
                   <div style={sx('width:140px;height:140px;margin:0 auto 24px;border-radius:999px;overflow:hidden;')}>
-                    {p.photo ? <RealPhoto src={p.photo} alt={p.name} /> : <ImagePlaceholder label="Foto do parceiro" shape="circle" />}
+                    {p.photo ? <RealPhoto src={p.photo} alt={p.name} objectPosition="top" /> : <ImagePlaceholder label="Foto do parceiro" shape="circle" />}
                   </div>
                   <div style={sx("font-family:'Space Grotesk',sans-serif;font-size:16px;font-weight:600;margin-bottom:6px;")}>{p.name}</div>
                   <div style={sx('font-size:13px;color:var(--accent-strong);font-weight:600;margin-bottom:14px;')}>{p.area}</div>

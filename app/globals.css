@@ -21,6 +21,7 @@ p { text-wrap: pretty; }
 .posts-grid { display: grid; grid-template-columns: repeat(2, 1fr); }
 .lucidez-list { display: grid; grid-template-columns: repeat(2, 1fr); }
 .solucoes-cards { display: grid; grid-template-columns: repeat(2, 1fr); }
+.gallery-grid { display: grid; grid-template-columns: repeat(3, 1fr); }
 
 @media (max-width: 980px) {
   .hero-grid { grid-template-columns: 1fr; }
@@ -29,6 +30,7 @@ p { text-wrap: pretty; }
   .about-photo { max-width: 320px; margin: 0 auto; }
   .partners-grid { grid-template-columns: repeat(2, 1fr); }
   .pdl-steps { grid-template-columns: repeat(3, 1fr); gap: 24px 16px; }
+  .gallery-grid { grid-template-columns: repeat(2, 1fr); }
 }
 
 @media (max-width: 768px) {
@@ -58,10 +60,19 @@ p { text-wrap: pretty; }
   .pdl-steps { grid-template-columns: repeat(2, 1fr); }
   .solucoes-cards { grid-template-columns: 1fr; }
   .partners-grid { grid-template-columns: 1fr; }
+  .gallery-grid { grid-template-columns: 1fr; }
 }
 
 @media (max-width: 560px) {
   .lucidez-list { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 480px) {
+  .nav-brand-sub { display: none; }
+}
+
+@media (max-width: 520px) {
+  .nav-cta { display: none; }
 }
 
 /* ---- Solução cards (Lucidez Profissional) ---- */
