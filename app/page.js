@@ -6,18 +6,31 @@ import RealPhoto from '../components/RealPhoto';
 import CountUp from '../components/CountUp';
 import InView from '../components/InView';
 import {
-  depoimentos as allDepoimentos, formacaoList, resultados, posts, marcas,
+  depoimentos as allDepoimentos, resultados, posts, marcas,
   parceiros, comoFunciona, pdl, heroContent, lucidezProfissional, lucidezOrganizacoes,
   sobreEcossistema, sobreEduardo
 } from '../lib/data';
 
 const noise = "url('data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22200%22 height=%22200%22%3E%3Cfilter id=%22n%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%220.9%22 numOctaves=%222%22 stitchTiles=%22stitch%22/%3E%3C/filter%3E%3Crect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23n)%22 opacity=%220.09%22/%3E%3C/svg%3E')";
 
+const galeria = [
+  { type: 'image', src: '/galeria/foto-1.jpg' },
+  { type: 'image', src: '/galeria/foto-2.jpg' },
+  { type: 'image', src: '/galeria/foto-3.jpg' },
+  { type: 'image', src: '/galeria/foto-4.jpg' },
+  { type: 'image', src: '/galeria/foto-5.jpg' },
+  { type: 'image', src: '/galeria/foto-6.jpg' },
+  { type: 'image', src: '/galeria/foto-7.jpg' },
+  { type: 'video', src: '/galeria/video-1.mp4' }
+];
+
 export default function Home() {
   const [theme, setTheme] = useState('light');
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [testimonialPage, setTestimonialPage] = useState(0);
   const [partnerPage, setPartnerPage] = useState(0);
+  const [lucidezTab, setLucidezTab] = useState('profissional');
+  const [galleryIndex, setGalleryIndex] = useState(0);
 
   const isDark = theme === 'dark';
   const c = isDark ? {
@@ -48,6 +61,9 @@ export default function Home() {
   const prevPartners = () => setPartnerPage(p => (p - 1 + totalPartnerPages) % totalPartnerPages);
   const nextPartners = () => setPartnerPage(p => (p + 1) % totalPartnerPages);
 
+  const prevGallery = () => setGalleryIndex(i => (i - 1 + galeria.length) % galeria.length);
+  const nextGallery = () => setGalleryIndex(i => (i + 1) % galeria.length);
+
   return (
     <div style={rootVars}>
       <a href="https://wa.me/5551991019459" target="_blank" rel="noreferrer" aria-label="Falar no WhatsApp" style={sx('position:fixed;bottom:24px;right:24px;z-index:60;width:60px;height:60px;border-radius:999px;background:#25D366;color:#FFFFFF;display:flex;align-items:center;justify-content:center;font-size:30px;box-shadow:0 10px 28px rgba(0,0,0,0.25);')}>
@@ -58,8 +74,8 @@ export default function Home() {
         <div style={sx("font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:18px;white-space:nowrap;flex-shrink:0;")}>LUCIDEZ</div>
         <div className={mobileMenuOpen ? 'nav-links open' : 'nav-links'} style={sx('gap:16px;align-items:center;justify-content:center;flex:1;min-width:0;')}>
           <a href="#sobre-ecossistema" onClick={() => setMobileMenuOpen(false)} style={sx('font-size:13px;color:var(--ink);font-weight:500;white-space:nowrap;')}>Sobre</a>
-          <a href="#lucidez-profissional" onClick={() => setMobileMenuOpen(false)} style={sx('font-size:13px;color:var(--ink);font-weight:500;white-space:nowrap;')}>Profissional</a>
-          <a href="#lucidez-organizacoes" onClick={() => setMobileMenuOpen(false)} style={sx('font-size:13px;color:var(--ink);font-weight:500;white-space:nowrap;')}>Organizações</a>
+          <a href="#lucidez" onClick={() => { setLucidezTab('profissional'); setMobileMenuOpen(false); }} style={sx('font-size:13px;color:var(--ink);font-weight:500;white-space:nowrap;')}>Profissional</a>
+          <a href="#lucidez" onClick={() => { setLucidezTab('organizacoes'); setMobileMenuOpen(false); }} style={sx('font-size:13px;color:var(--ink);font-weight:500;white-space:nowrap;')}>Organizações</a>
           <a href="#como-funciona" onClick={() => setMobileMenuOpen(false)} style={sx('font-size:13px;color:var(--ink);font-weight:500;white-space:nowrap;')}>Método</a>
           <a href="#parceiros" onClick={() => setMobileMenuOpen(false)} style={sx('font-size:13px;color:var(--ink);font-weight:500;white-space:nowrap;')}>Parceiros</a>
         </div>
@@ -84,8 +100,8 @@ export default function Home() {
           <h1 style={sx("font-family:'Space Grotesk',sans-serif;font-size:clamp(34px,4.6vw,52px);font-weight:700;line-height:1.15;margin:0 0 24px;")}>{heroContent.headline}</h1>
           <p style={sx('font-size:18px;color:var(--muted);line-height:1.6;margin:0 0 36px;max-width:560px;')}>{heroContent.subheadline}</p>
           <div style={sx('display:flex;gap:16px;flex-wrap:wrap;')}>
-            <a href="#lucidez-profissional" style={sx('border-radius:999px;padding:16px 28px;background:var(--accent);color:var(--on-accent);font-size:15px;font-weight:600;display:inline-flex;align-items:center;gap:8px;')}>Quero crescer profissionalmente <i className="ti ti-arrow-right"></i></a>
-            <a href="#lucidez-organizacoes" style={sx('border-radius:999px;padding:16px 28px;background:var(--surface);border:1px solid var(--line);color:var(--ink);font-size:15px;font-weight:600;display:inline-flex;align-items:center;gap:8px;')}>Quero transformar minha organização <i className="ti ti-arrow-right"></i></a>
+            <a href="#lucidez" onClick={() => setLucidezTab('profissional')} style={sx('border-radius:999px;padding:16px 28px;background:var(--accent);color:var(--on-accent);font-size:15px;font-weight:600;display:inline-flex;align-items:center;gap:8px;')}>Quero crescer profissionalmente <i className="ti ti-arrow-right"></i></a>
+            <a href="#lucidez" onClick={() => setLucidezTab('organizacoes')} style={sx('border-radius:999px;padding:16px 28px;background:var(--surface);border:1px solid var(--line);color:var(--ink);font-size:15px;font-weight:600;display:inline-flex;align-items:center;gap:8px;')}>Quero transformar minha organização <i className="ti ti-arrow-right"></i></a>
           </div>
         </div>
         <div style={sx('width:100%;aspect-ratio:4/5;border-radius:12px;overflow:hidden;')}>
@@ -93,51 +109,73 @@ export default function Home() {
         </div>
       </header>
 
-      <section style={sx('padding:72px clamp(20px,5vw,64px);')}>
-        <div className="stats-grid" style={sx('max-width:1180px;margin:0 auto;gap:24px;text-align:center;')}>
-          <div><div style={sx("font-family:'Space Grotesk',sans-serif;font-size:clamp(28px,6vw,44px);font-weight:700;color:var(--accent);")}><CountUp to={25} suffix="+" /></div><div style={sx('font-size:15px;color:var(--muted);margin-top:8px;')}>anos de experiência</div></div>
-          <div><div style={sx("font-family:'Space Grotesk',sans-serif;font-size:clamp(28px,6vw,44px);font-weight:700;color:var(--accent);")}><CountUp to={1200} suffix="+" /></div><div style={sx('font-size:15px;color:var(--muted);margin-top:8px;')}>líderes treinados</div></div>
-          <div><div style={sx("font-family:'Space Grotesk',sans-serif;font-size:clamp(28px,6vw,44px);font-weight:700;color:var(--accent);")}><CountUp to={17} /></div><div style={sx('font-size:15px;color:var(--muted);margin-top:8px;')}>prêmios nacionais</div></div>
-        </div>
-      </section>
-
-      <section id="lucidez-profissional" style={sx('padding:104px clamp(20px,5vw,64px);background:var(--bg-alt);')}>
+      <section id="introducao" style={sx('padding:72px clamp(20px,5vw,64px);')}>
         <div style={sx('max-width:1180px;margin:0 auto;')}>
-          <div style={sx('max-width:720px;margin:0 auto 64px;text-align:center;')}>
-            <div style={sx('font-size:13px;letter-spacing:0.08em;text-transform:uppercase;color:var(--accent);font-weight:700;margin-bottom:16px;')}>Lucidez Profissional</div>
-            <p style={sx('font-size:16px;color:var(--muted);line-height:1.6;margin:0 0 20px;')}>{lucidezProfissional.chapeu}</p>
-            <h2 style={sx("font-family:'Space Grotesk',sans-serif;font-size:clamp(26px,3.2vw,34px);font-weight:700;margin:0 0 16px;")}>{lucidezProfissional.titulo}</h2>
-            <p style={sx('font-size:16px;color:var(--muted);line-height:1.6;margin:0;')}>{lucidezProfissional.texto}</p>
-          </div>
-          <div className="solucoes-cards" style={sx('gap:20px;max-width:1000px;margin:0 auto;')}>
-            {lucidezProfissional.solucoes.map((s, i) => (
-              <div key={i} className="solucao-card" style={sx('background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:22px 24px;display:flex;align-items:center;gap:16px;')}>
-                <div style={sx('width:44px;height:44px;border-radius:999px;background:var(--bg-alt);display:flex;align-items:center;justify-content:center;flex-shrink:0;')}>
-                  <i className="ti ti-check" style={sx('color:var(--accent);font-size:20px;')}></i>
+          <div style={sx('font-size:13px;letter-spacing:0.06em;text-transform:uppercase;color:var(--muted);font-weight:700;text-align:center;margin-bottom:32px;')}>Marcas que confiam no Eduardo Kayser</div>
+          <div className="marquee-wrap" style={sx('margin-bottom:64px;')}>
+            <div className="marquee-track">
+              {[...marcas, ...marcas].map((m, i) => (
+                <div key={i} style={sx('flex-shrink:0;width:180px;height:72px;margin:0 24px;')}>
+                  <RealPhoto src={`/marcas/${m.file}`} alt={m.name} fit="contain" />
                 </div>
-                <div style={sx('font-size:18px;font-weight:600;line-height:1.3;')}>{s}</div>
-              </div>
-            ))}
+              ))}
+            </div>
+          </div>
+          <div className="stats-grid" style={sx('gap:24px;text-align:center;')}>
+            <div><div style={sx("font-family:'Space Grotesk',sans-serif;font-size:clamp(28px,6vw,44px);font-weight:700;color:var(--accent);")}><CountUp to={25} suffix="+" /></div><div style={sx('font-size:15px;color:var(--muted);margin-top:8px;')}>anos de experiência</div></div>
+            <div><div style={sx("font-family:'Space Grotesk',sans-serif;font-size:clamp(28px,6vw,44px);font-weight:700;color:var(--accent);")}><CountUp to={1200} suffix="+" /></div><div style={sx('font-size:15px;color:var(--muted);margin-top:8px;')}>líderes treinados</div></div>
+            <div><div style={sx("font-family:'Space Grotesk',sans-serif;font-size:clamp(28px,6vw,44px);font-weight:700;color:var(--accent);")}><CountUp to={17} /></div><div style={sx('font-size:15px;color:var(--muted);margin-top:8px;')}>prêmios nacionais</div></div>
           </div>
         </div>
       </section>
 
-      <section id="lucidez-organizacoes" style={sx('padding:104px clamp(20px,5vw,64px);')}>
+      <section id="lucidez" style={sx('padding:104px clamp(20px,5vw,64px);')}>
         <div style={sx('max-width:1180px;margin:0 auto;')}>
-          <div style={sx('max-width:720px;margin:0 auto 64px;text-align:center;')}>
-            <div style={sx('font-size:13px;letter-spacing:0.08em;text-transform:uppercase;color:var(--accent);font-weight:700;margin-bottom:16px;')}>Lucidez Organizações</div>
-            <h2 style={sx("font-family:'Space Grotesk',sans-serif;font-size:clamp(26px,3.2vw,34px);font-weight:700;margin:0 0 16px;")}>{lucidezOrganizacoes.titulo}</h2>
-            <p style={sx('font-size:16px;color:var(--muted);line-height:1.6;margin:0;')}>{lucidezOrganizacoes.texto}</p>
+          <div style={sx('display:flex;justify-content:center;gap:12px;margin-bottom:56px;flex-wrap:wrap;')}>
+            <button
+              onClick={() => setLucidezTab('profissional')}
+              style={sx(`border-radius:999px;padding:14px 28px;font-size:14px;font-weight:600;cursor:pointer;${lucidezTab === 'profissional' ? 'border:1px solid var(--accent);background:var(--accent);color:var(--on-accent);' : 'border:1px solid var(--line);background:var(--surface);color:var(--ink);'}`)}
+            >Lucidez Profissional</button>
+            <button
+              onClick={() => setLucidezTab('organizacoes')}
+              style={sx(`border-radius:999px;padding:14px 28px;font-size:14px;font-weight:600;cursor:pointer;${lucidezTab === 'organizacoes' ? 'border:1px solid var(--accent);background:var(--accent);color:var(--on-accent);' : 'border:1px solid var(--line);background:var(--surface);color:var(--ink);'}`)}
+            >Lucidez Organizações</button>
           </div>
-          <div style={sx('display:flex;flex-direction:column;max-width:820px;margin:0 auto 40px;')}>
-            {lucidezOrganizacoes.frentes.map((f, i) => (
-              <div key={i} style={sx('display:flex;gap:24px;align-items:flex-start;padding:20px 0;border-bottom:1px solid var(--line);')}>
-                <div style={sx("font-family:'Space Grotesk',sans-serif;font-size:20px;font-weight:700;color:var(--accent);flex-shrink:0;width:36px;")}>{String(i + 1).padStart(2, '0')}</div>
-                <div style={sx('font-size:16px;line-height:1.5;padding-top:2px;')}>{f}</div>
+
+          {lucidezTab === 'profissional' ? (
+            <div>
+              <div style={sx('max-width:720px;margin:0 auto 64px;text-align:center;')}>
+                <p style={sx('font-size:16px;color:var(--muted);line-height:1.6;margin:0 0 20px;')}>{lucidezProfissional.chapeu}</p>
+                <h2 style={sx("font-family:'Space Grotesk',sans-serif;font-size:clamp(26px,3.2vw,34px);font-weight:700;margin:0;")}>{lucidezProfissional.titulo}</h2>
               </div>
-            ))}
-          </div>
-          <p style={sx('font-size:14px;color:var(--muted);font-style:italic;text-align:center;max-width:720px;margin:0 auto;')}>{lucidezOrganizacoes.rodape}</p>
+              <div className="solucoes-cards" style={sx('gap:20px;max-width:1000px;margin:0 auto;')}>
+                {lucidezProfissional.solucoes.map((s, i) => (
+                  <div key={i} className="solucao-card" style={sx('background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:22px 24px;display:flex;align-items:center;gap:16px;')}>
+                    <div style={sx('width:44px;height:44px;border-radius:999px;background:var(--bg-alt);display:flex;align-items:center;justify-content:center;flex-shrink:0;')}>
+                      <i className="ti ti-check" style={sx('color:var(--accent);font-size:20px;')}></i>
+                    </div>
+                    <div style={sx('font-size:18px;font-weight:600;line-height:1.3;')}>{s}</div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          ) : (
+            <div>
+              <div style={sx('max-width:720px;margin:0 auto 64px;text-align:center;')}>
+                <h2 style={sx("font-family:'Space Grotesk',sans-serif;font-size:clamp(26px,3.2vw,34px);font-weight:700;margin:0 0 16px;")}>{lucidezOrganizacoes.titulo}</h2>
+                <p style={sx('font-size:16px;color:var(--muted);line-height:1.6;margin:0;')}>{lucidezOrganizacoes.texto}</p>
+              </div>
+              <div style={sx('display:flex;flex-direction:column;max-width:820px;margin:0 auto 40px;')}>
+                {lucidezOrganizacoes.frentes.map((f, i) => (
+                  <div key={i} style={sx('display:flex;gap:24px;align-items:flex-start;padding:20px 0;border-bottom:1px solid var(--line);')}>
+                    <div style={sx("font-family:'Space Grotesk',sans-serif;font-size:20px;font-weight:700;color:var(--accent);flex-shrink:0;width:36px;")}>{String(i + 1).padStart(2, '0')}</div>
+                    <div style={sx('font-size:16px;line-height:1.5;padding-top:2px;')}>{f}</div>
+                  </div>
+                ))}
+              </div>
+              <p style={sx('font-size:14px;color:var(--muted);font-style:italic;text-align:center;max-width:720px;margin:0 auto;')}>{lucidezOrganizacoes.rodape}</p>
+            </div>
+          )}
         </div>
       </section>
 
@@ -158,6 +196,25 @@ export default function Home() {
               ))}
             </ul>
             <a href="#resultados" style={sx('border-radius:999px;padding:14px 26px;background:var(--accent);color:var(--on-accent);font-size:15px;font-weight:600;display:inline-flex;align-items:center;gap:8px;')}>Conheça minha trajetória <i className="ti ti-arrow-right"></i></a>
+          </div>
+        </div>
+
+        <div style={sx('max-width:960px;margin:80px auto 0;')}>
+          <div style={sx('position:relative;border-radius:12px;overflow:hidden;aspect-ratio:16/9;background:#000;')}>
+            {galeria[galleryIndex].type === 'image' ? (
+              <RealPhoto src={galeria[galleryIndex].src} alt={`Eduardo Kayser — foto ${galleryIndex + 1}`} />
+            ) : (
+              <video src={galeria[galleryIndex].src} controls style={{ width: '100%', height: '100%', objectFit: 'contain', display: 'block', background: '#000' }} />
+            )}
+          </div>
+          <div style={sx('display:flex;align-items:center;justify-content:center;gap:20px;margin-top:24px;')}>
+            <button onClick={prevGallery} aria-label="Item anterior da galeria" style={sx('flex-shrink:0;width:40px;height:40px;border-radius:999px;border:1px solid var(--line);background:var(--surface);color:var(--ink);cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;')}><i className="ti ti-chevron-left"></i></button>
+            <div style={sx('display:flex;gap:8px;')}>
+              {galeria.map((g, i) => (
+                <button key={i} onClick={() => setGalleryIndex(i)} aria-label={`Ir para item ${i + 1} da galeria`} style={{ ...sx('width:9px;height:9px;padding:0;border-radius:999px;border:none;cursor:pointer;background:var(--accent);'), opacity: i === galleryIndex ? 1 : 0.3 }}></button>
+              ))}
+            </div>
+            <button onClick={nextGallery} aria-label="Próximo item da galeria" style={sx('flex-shrink:0;width:40px;height:40px;border-radius:999px;border:1px solid var(--line);background:var(--surface);color:var(--ink);cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;')}><i className="ti ti-chevron-right"></i></button>
           </div>
         </div>
       </section>
@@ -259,20 +316,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section style={sx('padding:72px clamp(20px,5vw,64px);background:var(--bg-alt);')}>
-        <div style={sx('max-width:1180px;margin:0 auto;')}>
-          <div style={sx('font-size:13px;letter-spacing:0.06em;text-transform:uppercase;color:var(--muted);font-weight:700;text-align:center;margin-bottom:32px;')}>Formação e afiliações</div>
-          <div style={sx('display:flex;flex-wrap:wrap;gap:32px 48px;justify-content:center;align-items:center;')}>
-            {formacaoList.map((item, i) => (
-              <div key={i} style={sx('width:120px;height:48px;')}>
-                <ImagePlaceholder label={item} shape="rect" />
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section id="resultados" style={sx('padding:104px clamp(20px,5vw,64px);')}>
+      <section id="resultados" style={sx('padding:104px clamp(20px,5vw,64px);background:var(--bg-alt);')}>
         <div style={sx('max-width:1180px;margin:0 auto;')}>
           <h2 style={sx("font-family:'Space Grotesk',sans-serif;font-size:clamp(28px,3.5vw,38px);font-weight:700;margin:0 0 48px;text-align:center;")}>Resultados que transformam</h2>
           <div className="results-grid" style={sx('gap:24px;')}>
@@ -286,18 +330,8 @@ export default function Home() {
         </div>
       </section>
 
-      <section style={sx('padding:104px clamp(20px,5vw,64px);background:var(--bg-alt);')}>
+      <section style={sx('padding:104px clamp(20px,5vw,64px);')}>
         <div style={sx('max-width:1180px;margin:0 auto;')}>
-          <div style={sx('font-size:13px;letter-spacing:0.06em;text-transform:uppercase;color:var(--muted);font-weight:700;text-align:center;margin-bottom:24px;')}>Marcas que confiam no Eduardo Kayser</div>
-          <div className="marquee-wrap" style={sx('margin-bottom:56px;')}>
-            <div className="marquee-track">
-              {[...marcas, ...marcas].map((m, i) => (
-                <div key={i} style={sx('flex-shrink:0;width:140px;height:56px;margin:0 20px;')}>
-                  <RealPhoto src={`/marcas/${m.file}`} alt={m.name} fit="contain" />
-                </div>
-              ))}
-            </div>
-          </div>
           <h2 style={sx("font-family:'Space Grotesk',sans-serif;font-size:clamp(28px,3.5vw,38px);font-weight:700;margin:0 0 48px;text-align:center;")}>O que dizem sobre o trabalho</h2>
           <div style={sx('display:flex;align-items:stretch;gap:16px;')}>
             <button onClick={prevTestimonials} aria-label="Depoimentos anteriores" style={sx('flex-shrink:0;width:44px;height:44px;align-self:center;border-radius:999px;border:1px solid var(--line);background:var(--surface);color:var(--ink);cursor:pointer;font-size:18px;display:flex;align-items:center;justify-content:center;')}><i className="ti ti-chevron-left"></i></button>
@@ -320,7 +354,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section style={sx('padding:104px clamp(20px,5vw,64px);text-align:center;')}>
+      <section style={sx('padding:104px clamp(20px,5vw,64px);background:var(--bg-alt);text-align:center;')}>
         <div style={sx('max-width:560px;margin:0 auto;')}>
           <h2 style={sx("font-family:'Space Grotesk',sans-serif;font-size:clamp(28px,3.5vw,38px);font-weight:700;margin:0 0 16px;")}>Agende uma reunião comigo</h2>
           <p style={sx('font-size:16px;color:var(--muted);line-height:1.6;margin:0 0 32px;')}>Escolha o melhor horário na minha agenda e vamos conversar sobre o seu contexto.</p>
@@ -328,7 +362,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section id="conteudos" style={sx('padding:104px clamp(20px,5vw,64px);background:var(--bg-alt);')}>
+      <section id="conteudos" style={sx('padding:104px clamp(20px,5vw,64px);')}>
         <div style={sx('max-width:1180px;margin:0 auto;')}>
           <h2 style={sx("font-family:'Space Grotesk',sans-serif;font-size:clamp(28px,3.5vw,38px);font-weight:700;margin:0 0 48px;text-align:center;")}>Conteúdos</h2>
           <div className="posts-grid" style={sx('gap:24px;')}>
