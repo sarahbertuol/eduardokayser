@@ -116,7 +116,7 @@ export default function Home() {
             <div className="marquee-track">
               {[...marcas, ...marcas].map((m, i) => (
                 <div key={i} style={sx('flex-shrink:0;width:180px;height:72px;margin:0 24px;')}>
-                  <RealPhoto src={`/marcas/${m.file}`} alt={m.name} fit="contain" />
+                  <RealPhoto src={`/marcas/${m.file}`} alt={m.name} fit="contain" loading="eager" />
                 </div>
               ))}
             </div>
@@ -145,8 +145,8 @@ export default function Home() {
           {lucidezTab === 'profissional' ? (
             <div>
               <div style={sx('max-width:720px;margin:0 auto 64px;text-align:center;')}>
-                <p style={sx('font-size:16px;color:var(--muted);line-height:1.6;margin:0 0 20px;')}>{lucidezProfissional.chapeu}</p>
-                <h2 style={sx("font-family:'Space Grotesk',sans-serif;font-size:clamp(26px,3.2vw,34px);font-weight:700;margin:0;")}>{lucidezProfissional.titulo}</h2>
+                <h2 style={sx("font-family:'Space Grotesk',sans-serif;font-size:clamp(26px,3.2vw,34px);font-weight:700;margin:0 0 20px;")}>{lucidezProfissional.titulo}</h2>
+                <p style={sx('font-size:16px;color:var(--muted);line-height:1.6;margin:0;')}>{lucidezProfissional.chapeu}</p>
               </div>
               <div className="solucoes-cards" style={sx('gap:20px;max-width:1000px;margin:0 auto;')}>
                 {lucidezProfissional.solucoes.map((s, i) => (
@@ -180,9 +180,17 @@ export default function Home() {
       </section>
 
       <section id="sobre-eduardo" style={sx('padding:104px clamp(20px,5vw,64px);background:var(--bg-alt);')}>
-        <div className="about-grid" style={sx('max-width:1180px;margin:0 auto;gap:56px;align-items:center;')}>
-          <div style={sx('width:100%;aspect-ratio:1/1;border-radius:12px;overflow:hidden;')}>
-            <RealPhoto src="/eduardo/sobre.jpg" alt="Eduardo Kayser" />
+        <div className="about-grid" style={sx('max-width:1180px;margin:0 auto;gap:56px;align-items:start;')}>
+          <div>
+            <div className="about-photo" style={sx('width:100%;aspect-ratio:1/1;border-radius:12px;overflow:hidden;')}>
+              <RealPhoto src="/eduardo/sobre.jpg" alt="Eduardo Kayser" />
+            </div>
+            <ul style={sx('margin:32px 0 28px;padding:0;list-style:none;display:flex;flex-direction:column;gap:12px;')}>
+              {sobreEduardo.destaques.map((d, i) => (
+                <li key={i} style={sx('font-size:15px;line-height:1.5;display:flex;gap:10px;')}><i className="ti ti-check" style={sx('color:var(--accent);flex-shrink:0;margin-top:3px;')}></i>{d}</li>
+              ))}
+            </ul>
+            <a href="#resultados" style={sx('border-radius:999px;padding:14px 26px;background:var(--accent);color:var(--on-accent);font-size:15px;font-weight:600;display:inline-flex;align-items:center;gap:8px;')}>Conheça meus resultados <i className="ti ti-arrow-right"></i></a>
           </div>
           <div>
             <div style={sx('font-size:13px;letter-spacing:0.08em;text-transform:uppercase;color:var(--accent);font-weight:700;margin-bottom:12px;')}>Eduardo Kayser</div>
@@ -190,12 +198,6 @@ export default function Home() {
             {sobreEduardo.paragrafos.map((p, i) => (
               <p key={i} style={sx('font-size:15px;color:var(--muted);line-height:1.65;margin:0 0 14px;')}>{p}</p>
             ))}
-            <ul style={sx('margin:20px 0 28px;padding:0;list-style:none;display:flex;flex-direction:column;gap:12px;')}>
-              {sobreEduardo.destaques.map((d, i) => (
-                <li key={i} style={sx('font-size:15px;line-height:1.5;display:flex;gap:10px;')}><i className="ti ti-check" style={sx('color:var(--accent);flex-shrink:0;margin-top:3px;')}></i>{d}</li>
-              ))}
-            </ul>
-            <a href="#resultados" style={sx('border-radius:999px;padding:14px 26px;background:var(--accent);color:var(--on-accent);font-size:15px;font-weight:600;display:inline-flex;align-items:center;gap:8px;')}>Conheça minha trajetória <i className="ti ti-arrow-right"></i></a>
           </div>
         </div>
 
