@@ -17,6 +17,9 @@ p { text-wrap: pretty; }
 .partners-grid { display: grid; grid-template-columns: repeat(3, 1fr); }
 .pdl-steps { display: grid; grid-template-columns: repeat(5, 1fr); }
 .results-grid { display: grid; grid-template-columns: repeat(3, 1fr); }
+/* Flex em vez de grid para centralizar a última linha incompleta */
+.pdl-indicadores { display: flex; flex-wrap: wrap; justify-content: center; }
+.pdl-indicadores > * { flex: 0 0 calc((100% - 48px) / 3); }
 .testimonials-grid { display: grid; grid-template-columns: repeat(3, 1fr); }
 .posts-grid { display: grid; grid-template-columns: repeat(2, 1fr); }
 .lucidez-list { display: grid; grid-template-columns: repeat(2, 1fr); }
@@ -55,6 +58,7 @@ p { text-wrap: pretty; }
 @media (max-width: 640px) {
   .stats-grid { grid-template-columns: repeat(3, 1fr); gap: 12px; }
   .results-grid { grid-template-columns: 1fr 1fr; }
+  .pdl-indicadores > * { flex-basis: calc((100% - 24px) / 2); }
   .testimonials-grid { grid-template-columns: 1fr; }
   .posts-grid { grid-template-columns: 1fr; }
   .pdl-steps { grid-template-columns: repeat(2, 1fr); }
