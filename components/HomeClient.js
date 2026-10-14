@@ -248,7 +248,7 @@ export default function HomeClient({ posts = [] }) {
               <p style={sx('font-size:16px;color:var(--muted);line-height:1.6;margin:0 0 8px;')}>{pdl.texto}</p>
               <p style={sx("font-size:16px;font-weight:600;margin:16px 0 0;")}>{pdl.subtitulo}</p>
             </div>
-            <div className="results-grid" style={sx('gap:24px;margin-bottom:20px;')}>
+            <div className="pdl-indicadores" style={sx('gap:24px;margin-bottom:20px;')}>
               {pdl.indicadores.map((ind, i) => (
                 <div key={i} style={sx('background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:28px;text-align:center;')}>
                   <div style={sx("font-family:'Space Grotesk',sans-serif;font-size:32px;font-weight:700;color:var(--accent);margin-bottom:8px;")}>{ind.valor}</div>
