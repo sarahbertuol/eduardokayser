@@ -362,19 +362,21 @@ export default function HomeClient({ posts = [] }) {
         </div>
       </section>
 
-      {posts.length > 0 && (
-        <section id="conteudos" style={sx('padding:104px clamp(20px,5vw,64px);')}>
-          <div style={sx('max-width:1180px;margin:0 auto;')}>
-            <h2 style={sx("font-family:'Space Grotesk',sans-serif;font-size:clamp(28px,3.5vw,38px);font-weight:700;margin:0 0 48px;text-align:center;")}>Conteúdos</h2>
+      <section id="conteudos" style={sx('padding:104px clamp(20px,5vw,64px);')}>
+        <div style={sx('max-width:1180px;margin:0 auto;')}>
+          <h2 style={sx("font-family:'Space Grotesk',sans-serif;font-size:clamp(28px,3.5vw,38px);font-weight:700;margin:0 0 48px;text-align:center;")}>Conteúdos</h2>
+          {posts.length > 0 ? (
             <div className="posts-grid" style={sx('gap:24px;')}>
               {posts.map(p => <PostCard key={p._id} post={p} />)}
             </div>
-            <div style={sx('text-align:center;margin-top:48px;')}>
-              <Link href="/blog" style={sx('border-radius:999px;padding:14px 26px;background:var(--surface);border:1px solid var(--line);color:var(--ink);font-size:15px;font-weight:600;display:inline-flex;align-items:center;gap:8px;')}>Ver todos os artigos <i className="ti ti-arrow-right"></i></Link>
-            </div>
+          ) : (
+            <p style={sx('font-size:16px;color:var(--muted);text-align:center;margin:0;')}>Novos artigos em breve.</p>
+          )}
+          <div style={sx('text-align:center;margin-top:48px;')}>
+            <Link href="/blog" style={sx('border-radius:999px;padding:14px 26px;background:var(--surface);border:1px solid var(--line);color:var(--ink);font-size:15px;font-weight:600;display:inline-flex;align-items:center;gap:8px;')}>Ver todos os artigos <i className="ti ti-arrow-right"></i></Link>
           </div>
-        </section>
-      )}
+        </div>
+      </section>
 
       <section id="cta-final" style={{ ...sx('padding:96px clamp(20px,5vw,64px);text-align:center;'), backgroundColor: '#0B1730', backgroundImage: noise, backgroundBlendMode: 'overlay' }}>
         <div style={sx('max-width:640px;margin:0 auto;')}>

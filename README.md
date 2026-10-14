@@ -44,9 +44,9 @@ Opção B — pelo site: importe o repo em vercel.com/new, framework é detectad
 
 ## Blog / CMS (Sanity)
 - **Painel do cliente:** `/studio` (Sanity Studio embutido no site, em português). Projeto `5bp2stpt`, dataset `production`.
-- **Páginas:** `/blog` (lista com filtro por categoria e paginação) e `/blog/[slug]` (artigo com SEO, Open Graph, schema `BlogPosting` e "Leia também"). A home mostra os 2 últimos posts na seção "Conteúdos" (some se não houver posts).
+- **Páginas:** `/blog` (lista com filtro por categoria e paginação) e `/blog/[slug]` (artigo com SEO, Open Graph, schema `BlogPosting` e "Leia também"). A home mostra os 2 últimos posts na seção "Conteúdos" (com mensagem "em breve" se ainda não houver posts).
 - **Código:** `sanity.config.js`, `sanity/schemaTypes/` (post, categoria, rich text), `sanity/lib/` (client, queries GROQ, imagens).
-- **Atualização:** cache de 5 min + webhook `/api/revalidate` para publicação instantânea.
+- **Atualização:** cache de 1 min + webhook `/api/revalidate` para publicação instantânea.
 - **Guia do cliente:** `docs/GUIA-BLOG-CLIENTE.md`.
 
 ### Setup (uma vez)

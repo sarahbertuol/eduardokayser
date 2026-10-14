@@ -11,7 +11,7 @@ import { postBySlugQuery, postSlugsQuery } from '../../../sanity/lib/queries';
 import { siteUrl } from '../../../sanity/env';
 
 export const dynamicParams = true;
-export const revalidate = 300;
+export const revalidate = 60;
 
 export async function generateStaticParams() {
   const slugs = await sanityFetch(postSlugsQuery, {}, []);
