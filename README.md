@@ -47,7 +47,7 @@ Opção B — pelo site: importe o repo em vercel.com/new, framework é detectad
 - **Páginas:** `/blog` (lista com filtro por categoria e paginação) e `/blog/[slug]` (artigo com SEO, Open Graph, schema `BlogPosting` e "Leia também"). A home mostra os 2 últimos posts na seção "Conteúdos" (com mensagem "em breve" se ainda não houver posts).
 - **Código:** `sanity.config.js`, `sanity/schemaTypes/` (post, categoria, rich text), `sanity/lib/` (client, queries GROQ, imagens).
 - **Atualização:** cache de 1 min + webhook `/api/revalidate` para publicação instantânea.
-- **Guia do cliente:** `docs/GUIA-BLOG-CLIENTE.md`.
+- **Guia do cliente:** `docs/GUIA-BLOG-CLIENTE.md` (versão PDF diagramada para envio: `docs/Guia-Blog-Eduardo-Kayser.pdf`).
 
 ### Setup (uma vez)
 1. **CORS** — sanity.io/manage → projeto → API → CORS origins → adicionar, com *Allow credentials* marcado: `http://localhost:3000`, o domínio final e `https://*.vercel.app` (se quiser usar o Studio nos previews).
