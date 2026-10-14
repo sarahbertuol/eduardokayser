@@ -1,6 +1,8 @@
 import './globals.css';
+import { siteUrl } from '../sanity/env';
 
 export const metadata = {
+  metadataBase: new URL(siteUrl),
   title: 'Ecossistema LUCIDEZ | Eduardo Kayser',
   description: 'Profissionais e organizações crescem com clareza, método e intenção — o Ecossistema LUCIDEZ, criado e conduzido por Eduardo Kayser.',
 };
