@@ -1,0 +1,96 @@
+import { defineField, defineType } from 'sanity';
+
+export default defineType({
+  name: 'post',
+  title: 'Post do blog',
+  type: 'document',
+  icon: () => '📝',
+  groups: [
+    { name: 'conteudo', title: 'Conteúdo', default: true },
+    { name: 'seo', title: 'SEO' },
+  ],
+  fields: [
+    defineField({ name: 'title', title: 'Título', type: 'string', group: 'conteudo', validation: r => r.required().max(110) }),
+    defineField({
+      name: 'slug',
+      title: 'URL (slug)',
+      type: 'slug',
+      group: 'conteudo',
+      description: 'Endereço do post: /blog/seu-slug. Clique em "Generate" para criar a partir do título.',
+      options: { source: 'title', maxLength: 96 },
+      validation: r => r.required(),
+    }),
+    defineField({
+      name: 'publishedAt',
+      title: 'Data de publicação',
+      type: 'datetime',
+      group: 'conteudo',
+      description: 'Posts com data futura só aparecem no site a partir dessa data.',
+      initialValue: () => new Date().toISOString(),
+      validation: r => r.required(),
+    }),
+    defineField({
+      name: 'excerpt',
+      title: 'Resumo',
+      type: 'text',
+      rows: 3,
+      group: 'conteudo',
+      description: 'Aparece nos cards do blog e da home. Ideal: 1–2 frases.',
+      validation: r => r.required().max(220),
+    }),
+    defineField({
+      name: 'coverImage',
+      title: 'Imagem de capa',
+      type: 'image',
+      group: 'conteudo',
+      options: { hotspot: true },
+      fields: [
+        { name: 'alt', title: 'Texto alternativo', type: 'string', validation: r => r.required() },
+      ],
+      validation: r => r.required(),
+    }),
+    defineField({
+      name: 'categories',
+      title: 'Categorias',
+      type: 'array',
+      group: 'conteudo',
+      of: [{ type: 'reference', to: [{ type: 'category' }] }],
+    }),
+    defineField({ name: 'body', title: 'Texto do post', type: 'blockContent', group: 'conteudo', validation: r => r.required() }),
+    defineField({
+      name: 'seoTitle',
+      title: 'Título para o Google',
+      type: 'string',
+      group: 'seo',
+      description: 'Opcional. Se vazio, usa o título do post. Ideal: até 60 caracteres.',
+      validation: r => r.max(70).warning('Títulos longos são cortados no Google.'),
+    }),
+    defineField({
+      name: 'seoDescription',
+      title: 'Descrição para o Google',
+      type: 'text',
+      rows: 3,
+      group: 'seo',
+      description: 'Opcional. Se vazio, usa o resumo. Ideal: até 155 caracteres.',
+      validation: r => r.max(170).warning('Descrições longas são cortadas no Google.'),
+    }),
+    defineField({
+      name: 'ogImage',
+      title: 'Imagem de compartilhamento',
+      type: 'image',
+      group: 'seo',
+      description: 'Opcional. Usada ao compartilhar no LinkedIn/WhatsApp. Se vazio, usa a capa. Ideal: 1200×630.',
+    }),
+  ],
+  orderings: [
+    { title: 'Publicação (mais recentes)', name: 'publishedAtDesc', by: [{ field: 'publishedAt', direction: 'desc' }] },
+  ],
+  preview: {
+    select: { title: 'title', media: 'coverImage', date: 'publishedAt' },
+    prepare: ({ title, media, date }) => ({
+      title,
+      media,
+      subtitle: date ? new Date(date).toLocaleDateString('pt-BR') : 'Sem data',
+    }),
+  },
+});
