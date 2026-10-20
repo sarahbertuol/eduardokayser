@@ -5,6 +5,8 @@ import ImagePlaceholder from '../components/ImagePlaceholder';
 import RealPhoto from '../components/RealPhoto';
 import CountUp from '../components/CountUp';
 import InView from '../components/InView';
+import { waLink } from '../lib/site';
+import { track } from '../lib/track';
 import {
   depoimentos as allDepoimentos, resultados, posts, marcas,
   parceiros, comoFunciona, pdl, heroContent, lucidezProfissional, lucidezOrganizacoes,
@@ -68,7 +70,7 @@ export default function Home() {
 
   return (
     <div style={rootVars}>
-      <a href="https://wa.me/5551991019459" target="_blank" rel="noreferrer" aria-label="Falar no WhatsApp" style={sx('position:fixed;bottom:24px;right:24px;z-index:60;width:60px;height:60px;border-radius:999px;background:#25D366;color:#FFFFFF;display:flex;align-items:center;justify-content:center;font-size:30px;box-shadow:0 10px 28px rgba(0,0,0,0.25);')}>
+      <a href={waLink('botao-flutuante')} onClick={() => track('generate_lead', { method: 'whatsapp', origin: 'botao-flutuante' })} target="_blank" rel="noreferrer" aria-label="Falar no WhatsApp" style={sx('position:fixed;bottom:24px;right:24px;z-index:60;width:60px;height:60px;border-radius:999px;background:#25D366;color:#FFFFFF;display:flex;align-items:center;justify-content:center;font-size:30px;box-shadow:0 10px 28px rgba(0,0,0,0.25);')}>
         <i className="ti ti-brand-whatsapp"></i>
       </a>
 
@@ -88,7 +90,7 @@ export default function Home() {
           <button onClick={toggleTheme} aria-label="Alternar tema" style={sx('width:36px;height:36px;border-radius:999px;border:1px solid var(--line);background:var(--surface);color:var(--ink);display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:16px;flex-shrink:0;')}>
             <i className={isDark ? 'ti ti-sun' : 'ti ti-moon'}></i>
           </button>
-          <a href="#cta-final" className="nav-cta" style={sx('border-radius:999px;padding:10px 18px;background:var(--accent);color:var(--on-accent);font-size:13px;font-weight:600;white-space:nowrap;flex-shrink:0;')}>Agendar diagnóstico</a>
+          <a href="#cta-final" onClick={() => track('cta_click', { origin: 'navbar' })} className="nav-cta" style={sx('border-radius:999px;padding:10px 18px;background:var(--accent);color:var(--on-accent);font-size:13px;font-weight:600;white-space:nowrap;flex-shrink:0;')}>Agendar diagnóstico</a>
           <button
             onClick={() => setMobileMenuOpen(o => !o)}
             aria-label="Abrir menu"
@@ -153,6 +155,7 @@ export default function Home() {
                 <h2 style={sx("font-family:'Space Grotesk',sans-serif;font-size:clamp(26px,3.2vw,34px);font-weight:700;margin:0 0 20px;")}>{lucidezProfissional.titulo}</h2>
                 <p style={sx('font-size:16px;color:var(--muted);line-height:1.6;margin:0;')}>{lucidezProfissional.chapeu}</p>
               </div>
+              <div style={sx('text-align:center;margin:-32px 0 40px;')}><a href="/lucidez-profissional" style={sx('font-size:15px;font-weight:600;color:var(--accent);')}>Ver página completa de Lucidez Profissional →</a></div>
               <div className="solucoes-cards" style={sx('gap:20px;max-width:1000px;margin:0 auto;')}>
                 {lucidezProfissional.solucoes.map((s, i) => (
                   <div key={i} className="solucao-card" style={sx('background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:22px 24px;display:flex;align-items:center;gap:16px;')}>
@@ -178,7 +181,8 @@ export default function Home() {
                   </div>
                 ))}
               </div>
-              <p style={sx('font-size:14px;color:var(--muted);font-style:italic;text-align:center;max-width:720px;margin:0 auto;')}>{lucidezOrganizacoes.rodape}</p>
+              <p style={sx('font-size:14px;color:var(--muted);font-style:italic;text-align:center;max-width:720px;margin:0 auto 24px;')}>{lucidezOrganizacoes.rodape}</p>
+              <div style={sx('text-align:center;')}><a href="/lucidez-organizacoes" style={sx('font-size:15px;font-weight:600;color:var(--accent);')}>Ver página completa de Lucidez Organizações →</a></div>
             </div>
           )}
         </div>
@@ -370,7 +374,7 @@ export default function Home() {
         <div style={sx('max-width:560px;margin:0 auto;')}>
           <h2 style={sx("font-family:'Space Grotesk',sans-serif;font-size:clamp(28px,3.5vw,38px);font-weight:700;margin:0 0 16px;")}>Agende uma reunião comigo</h2>
           <p style={sx('font-size:16px;color:var(--muted);line-height:1.6;margin:0 0 32px;')}>Escolha o melhor horário na minha agenda e vamos conversar sobre o seu contexto.</p>
-          <a href="https://calendar.google.com/calendar/appointments/schedules/EDUARDO-KAYSER" target="_blank" rel="noreferrer" style={sx('border-radius:999px;padding:17px 32px;background:var(--accent);color:var(--on-accent);font-size:16px;font-weight:600;display:inline-flex;align-items:center;gap:8px;')}><i className="ti ti-calendar-event"></i>Agendar no Google Agenda</a>
+          <a href="https://calendar.google.com/calendar/appointments/schedules/EDUARDO-KAYSER" onClick={() => track('generate_lead', { method: 'agenda', origin: 'secao-agenda' })} target="_blank" rel="noreferrer" style={sx('border-radius:999px;padding:17px 32px;background:var(--accent);color:var(--on-accent);font-size:16px;font-weight:600;display:inline-flex;align-items:center;gap:8px;')}><i className="ti ti-calendar-event"></i>Agendar no Google Agenda</a>
         </div>
       </section>
 
@@ -398,8 +402,8 @@ export default function Home() {
         <div style={sx('max-width:640px;margin:0 auto;')}>
           <h2 style={sx("font-family:'Space Grotesk',sans-serif;font-size:clamp(28px,4vw,42px);font-weight:700;color:#FFFFFF;margin:0 0 36px;")}>Vamos construir o seu próximo case?</h2>
           <div style={sx('display:flex;gap:16px;justify-content:center;flex-wrap:wrap;')}>
-            <a href="https://wa.me/5551991019459" style={sx('border-radius:999px;padding:16px 30px;background:var(--accent);color:var(--on-accent);font-size:16px;font-weight:600;display:inline-flex;align-items:center;gap:8px;')}><i className="ti ti-brand-whatsapp"></i>Falar no WhatsApp</a>
-            <a href="https://linkedin.com/in/eduardokayser" style={sx('border-radius:999px;padding:16px 30px;background:transparent;border:1px solid rgba(255,255,255,0.3);color:#FFFFFF;font-size:16px;font-weight:600;display:inline-flex;align-items:center;gap:8px;')}><i className="ti ti-brand-linkedin"></i>Conectar no LinkedIn</a>
+            <a href={waLink('cta-final')} onClick={() => track('generate_lead', { method: 'whatsapp', origin: 'cta-final' })} style={sx('border-radius:999px;padding:16px 30px;background:var(--accent);color:var(--on-accent);font-size:16px;font-weight:600;display:inline-flex;align-items:center;gap:8px;')}><i className="ti ti-brand-whatsapp"></i>Falar no WhatsApp</a>
+            <a href="https://linkedin.com/in/eduardokayser" onClick={() => track('click_linkedin', { origin: 'cta-final' })} style={sx('border-radius:999px;padding:16px 30px;background:transparent;border:1px solid rgba(255,255,255,0.3);color:#FFFFFF;font-size:16px;font-weight:600;display:inline-flex;align-items:center;gap:8px;')}><i className="ti ti-brand-linkedin"></i>Conectar no LinkedIn</a>
           </div>
         </div>
       </section>
@@ -413,7 +417,7 @@ export default function Home() {
           <a href="https://instagram.com/soueduardokayser" style={sx('color:var(--muted);font-size:19px;')}><i className="ti ti-brand-instagram"></i></a>
           <a href="https://linkedin.com/in/eduardokayser" style={sx('color:var(--muted);font-size:19px;')}><i className="ti ti-brand-linkedin"></i></a>
           <a href="https://youtube.com/@soueduardokayser" style={sx('color:var(--muted);font-size:19px;')}><i className="ti ti-brand-youtube"></i></a>
-          <a href="https://wa.me/5551991019459" style={sx('color:var(--muted);font-size:19px;')}><i className="ti ti-brand-whatsapp"></i></a>
+          <a href={waLink('rodape')} onClick={() => track('generate_lead', { method: 'whatsapp', origin: 'rodape' })} style={sx('color:var(--muted);font-size:19px;')}><i className="ti ti-brand-whatsapp"></i></a>
         </div>
       </footer>
     </div>

@@ -1,0 +1,15 @@
+import ServicePage from '../../components/ServicePage';
+import { lucidezOrganizacoes as d } from '../../lib/data';
+
+const description = 'Consultoria, projetos, desenvolvimento e atuação executiva para organizações: estratégia, cultura, liderança, performance, People Analytics e governança, com Eduardo Kayser.';
+
+export const metadata = {
+  title: 'Lucidez Organizações — consultoria em estratégia, pessoas e gestão',
+  description,
+  alternates: { canonical: '/lucidez-organizacoes' },
+  openGraph: { url: '/lucidez-organizacoes', title: 'Lucidez Organizações | Eduardo Kayser', description }
+};
+
+export default function Page() {
+  return <ServicePage slug="lucidez-organizacoes" label="Lucidez Organizações" h1={d.titulo} intro={d.texto} items={d.frentes} footnote={d.rodape} description={description} />;
+}

@@ -1,8 +1,39 @@
 import './globals.css';
+import Script from 'next/script';
+import { SITE_URL, SITE_NAME, GA_ID, personJsonLd, organizationJsonLd } from '../lib/site';
+
+const description = 'Profissionais e organizações crescem com clareza, método e intenção — o Ecossistema LUCIDEZ, criado e conduzido por Eduardo Kayser.';
 
 export const metadata = {
-  title: 'Ecossistema LUCIDEZ | Eduardo Kayser',
-  description: 'Profissionais e organizações crescem com clareza, método e intenção — o Ecossistema LUCIDEZ, criado e conduzido por Eduardo Kayser.',
+  metadataBase: new URL(SITE_URL),
+  title: {
+    default: 'Ecossistema LUCIDEZ | Eduardo Kayser',
+    template: '%s | Ecossistema LUCIDEZ'
+  },
+  description,
+  alternates: { canonical: '/' },
+  robots: { index: true, follow: true },
+  openGraph: {
+    type: 'website',
+    locale: 'pt_BR',
+    siteName: SITE_NAME,
+    title: 'Ecossistema LUCIDEZ | Eduardo Kayser',
+    description,
+    url: '/',
+    images: [{ url: '/eduardo/hero.jpg', alt: 'Eduardo Kayser' }]
+  },
+  verification: process.env.NEXT_PUBLIC_GSC_VERIFICATION
+    ? { google: process.env.NEXT_PUBLIC_GSC_VERIFICATION, other: process.env.NEXT_PUBLIC_BING_VERIFICATION ? { 'msvalidate.01': process.env.NEXT_PUBLIC_BING_VERIFICATION } : undefined }
+    : undefined
+};
+
+const siteJsonLd = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    personJsonLd,
+    organizationJsonLd,
+    { '@type': 'WebSite', '@id': `${SITE_URL}/#website`, url: SITE_URL, name: SITE_NAME, inLanguage: 'pt-BR', publisher: { '@id': `${SITE_URL}/#organization` } }
+  ]
 };
 
 export default function RootLayout({ children }) {
@@ -18,8 +49,19 @@ export default function RootLayout({ children }) {
           rel="stylesheet"
           href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.44.0/tabler-icons.min.css"
         />
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(siteJsonLd) }} />
       </head>
-      <body>{children}</body>
+      <body>
+        {children}
+        {GA_ID && (
+          <>
+            <Script src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`} strategy="afterInteractive" />
+            <Script id="ga4-init" strategy="afterInteractive">
+              {`window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}window.gtag=gtag;gtag('js',new Date());gtag('config','${GA_ID}');`}
+            </Script>
+          </>
+        )}
+      </body>
     </html>
   );
 }
