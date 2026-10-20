@@ -42,6 +42,19 @@ Opção B — pelo site: importe o repo em vercel.com/new, framework é detectad
 - `lib/data.js` — todo o conteúdo de dados (depoimentos, resultados, marcas, pilares, parceiros etc.) separado da UI
 - `components/ImagePlaceholder.js` — placeholder listrado para fotos ainda não recebidas
 
+## Blog / CMS (Sanity)
+- **Painel do cliente:** `/studio` (Sanity Studio embutido no site, em português). Projeto `5bp2stpt`, dataset `production`.
+- **Páginas:** `/blog` (lista com filtro por categoria e paginação) e `/blog/[slug]` (artigo com SEO, Open Graph, schema `BlogPosting` e "Leia também"). A home mostra os 2 últimos posts na seção "Conteúdos" (com mensagem "em breve" se ainda não houver posts).
+- **Código:** `sanity.config.js`, `sanity/schemaTypes/` (post, categoria, rich text), `sanity/lib/` (client, queries GROQ, imagens).
+- **Atualização:** cache de 1 min + webhook `/api/revalidate` para publicação instantânea.
+- **Guia do cliente:** `docs/GUIA-BLOG-CLIENTE.md`.
+
+### Setup (uma vez)
+1. **CORS** — sanity.io/manage → projeto → API → CORS origins → adicionar, com *Allow credentials* marcado: `http://localhost:3000`, o domínio final e `https://*.vercel.app` (se quiser usar o Studio nos previews).
+2. **Variáveis na Vercel** (ver `.env.example`): `NEXT_PUBLIC_SITE_URL` e `SANITY_REVALIDATE_SECRET`.
+3. **Webhook** — sanity.io/manage → API → Webhooks → Create: URL `https://DOMINIO/api/revalidate`, dataset `production`, trigger on Create/Update/Delete, filtro `_type == "post" || _type == "category"`, HTTP POST, *Secret* = mesmo valor de `SANITY_REVALIDATE_SECRET`.
+4. **Convidar o cliente** — sanity.io/manage → Members → Invite, papel *Editor*.
+
 ## Pendências de conteúdo (ver `script-projeto-eduardo-kayser.md` do cliente para detalhes)
 - Fotos reais do Eduardo (hero + Sobre)
 - Logos reais dos parceiros do ecossistema e dos 24 clientes

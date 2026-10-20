@@ -1,9 +1,8 @@
-import { SITE_URL } from '../lib/site';
+import { siteUrl } from '../sanity/env';
 
 export default function robots() {
   return {
-    rules: [{ userAgent: '*', allow: '/' }],
-    sitemap: `${SITE_URL}/sitemap.xml`,
-    host: SITE_URL
+    rules: { userAgent: '*', allow: '/', disallow: ['/studio', '/api/'] },
+    sitemap: `${siteUrl}/sitemap.xml`,
   };
 }

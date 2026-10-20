@@ -6,10 +6,7 @@ const description = 'Profissionais e organizações crescem com clareza, método
 
 export const metadata = {
   metadataBase: new URL(SITE_URL),
-  title: {
-    default: 'Ecossistema LUCIDEZ | Eduardo Kayser',
-    template: '%s | Ecossistema LUCIDEZ'
-  },
+  title: 'Ecossistema LUCIDEZ | Eduardo Kayser',
   description,
   alternates: { canonical: '/' },
   robots: { index: true, follow: true },

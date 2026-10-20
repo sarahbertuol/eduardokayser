@@ -17,6 +17,9 @@ p { text-wrap: pretty; }
 .partners-grid { display: grid; grid-template-columns: repeat(3, 1fr); }
 .pdl-steps { display: grid; grid-template-columns: repeat(5, 1fr); }
 .results-grid { display: grid; grid-template-columns: repeat(3, 1fr); }
+/* Flex em vez de grid para centralizar a última linha incompleta */
+.pdl-indicadores { display: flex; flex-wrap: wrap; justify-content: center; }
+.pdl-indicadores > * { flex: 0 0 calc((100% - 48px) / 3); }
 .testimonials-grid { display: grid; grid-template-columns: repeat(3, 1fr); }
 .posts-grid { display: grid; grid-template-columns: repeat(2, 1fr); }
 .lucidez-list { display: grid; grid-template-columns: repeat(2, 1fr); }
@@ -55,6 +58,7 @@ p { text-wrap: pretty; }
 @media (max-width: 640px) {
   .stats-grid { grid-template-columns: repeat(3, 1fr); gap: 12px; }
   .results-grid { grid-template-columns: 1fr 1fr; }
+  .pdl-indicadores > * { flex-basis: calc((100% - 24px) / 2); }
   .testimonials-grid { grid-template-columns: 1fr; }
   .posts-grid { grid-template-columns: 1fr; }
   .pdl-steps { grid-template-columns: repeat(2, 1fr); }
@@ -123,3 +127,23 @@ p { text-wrap: pretty; }
 @media (prefers-reduced-motion: reduce) {
   .marquee-track { animation: none; }
 }
+
+/* ---- Blog ---- */
+
+.post-card { transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease; }
+.post-card:hover { text-decoration: none; transform: translateY(-4px); box-shadow: 0 14px 28px rgba(0, 0, 0, 0.1); border-color: var(--accent); }
+
+.post-body { font-size: 18px; line-height: 1.75; color: var(--ink); }
+.post-body > :first-child { margin-top: 0; }
+.post-body p { margin: 0 0 24px; }
+.post-body h2, .post-body h3 { font-family: 'Space Grotesk', sans-serif; font-weight: 700; line-height: 1.25; }
+.post-body h2 { font-size: clamp(24px, 3vw, 30px); margin: 48px 0 16px; }
+.post-body h3 { font-size: clamp(20px, 2.4vw, 23px); margin: 36px 0 12px; }
+.post-body a { color: var(--accent); text-decoration: underline; }
+.post-body strong { font-weight: 700; }
+.post-body ul, .post-body ol { margin: 0 0 24px; padding-left: 24px; }
+.post-body li { margin-bottom: 8px; }
+.post-body blockquote { margin: 32px 0; padding: 4px 0 4px 24px; border-left: 3px solid var(--accent); font-family: 'Space Grotesk', sans-serif; font-size: 21px; font-weight: 500; line-height: 1.5; }
+.post-body figure { margin: 40px 0; }
+.post-body figure img { border-radius: 12px; }
+.post-body figcaption { margin-top: 10px; font-size: 14px; color: var(--muted); text-align: center; }
