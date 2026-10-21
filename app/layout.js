@@ -1,6 +1,5 @@
 import './globals.css';
-import Script from 'next/script';
-import { SITE_URL, SITE_NAME, GA_ID, personJsonLd, organizationJsonLd } from '../lib/site';
+import { SITE_URL, SITE_NAME, personJsonLd, organizationJsonLd } from '../lib/site';
 
 const description = 'Profissionais e organizações crescem com clareza, método e intenção — o Ecossistema LUCIDEZ, criado e conduzido por Eduardo Kayser.';
 
@@ -50,14 +49,6 @@ export default function RootLayout({ children }) {
       </head>
       <body>
         {children}
-        {GA_ID && (
-          <>
-            <Script src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`} strategy="afterInteractive" />
-            <Script id="ga4-init" strategy="afterInteractive">
-              {`window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}window.gtag=gtag;gtag('js',new Date());gtag('config','${GA_ID}');`}
-            </Script>
-          </>
-        )}
       </body>
     </html>
   );

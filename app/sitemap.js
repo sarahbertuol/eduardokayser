@@ -10,6 +10,7 @@ export default async function sitemap() {
     { url: SITE_URL, changeFrequency: 'monthly', priority: 1 },
     ...servicePages.map(p => ({ url: `${SITE_URL}/${p.slug}`, changeFrequency: 'monthly', priority: 0.8 })),
     { url: `${SITE_URL}/blog`, changeFrequency: 'weekly', priority: 0.8 },
+    { url: `${SITE_URL}/politica-de-privacidade`, changeFrequency: 'yearly', priority: 0.3 },
     ...posts.map(p => ({ url: `${SITE_URL}/blog/${p.slug}`, lastModified: p._updatedAt, changeFrequency: 'monthly', priority: 0.6 })),
   ];
 }
