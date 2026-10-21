@@ -94,14 +94,14 @@ export default function HomeClient({ posts = [] }) {
 
       <header className="hero-grid" style={sx('padding:96px clamp(20px,5vw,64px) 80px;gap:56px;align-items:center;max-width:1280px;margin:0 auto;')}>
         <div>
-          <h1 style={sx("font-family:'Space Grotesk',sans-serif;font-size:clamp(34px,4.6vw,52px);font-weight:700;line-height:1.15;margin:0 0 24px;")}>{heroContent.headline}</h1>
-          <p style={sx('font-size:18px;color:var(--muted);line-height:1.6;margin:0 0 36px;max-width:560px;')}>{heroContent.subheadline}</p>
-          <div style={sx('display:flex;gap:16px;flex-wrap:wrap;')}>
+          <h1 className="hero-in" style={sx("--d:0.1s;font-family:'Space Grotesk',sans-serif;font-size:clamp(34px,4.6vw,52px);font-weight:700;line-height:1.15;margin:0 0 24px;")}>{heroContent.headline}</h1>
+          <p className="hero-in" style={sx('--d:0.3s;font-size:18px;color:var(--muted);line-height:1.6;margin:0 0 36px;max-width:560px;')}>{heroContent.subheadline}</p>
+          <div className="hero-in" style={sx('--d:0.5s;display:flex;gap:16px;flex-wrap:wrap;')}>
             <a href="#lucidez" onClick={() => setLucidezTab('profissional')} style={sx('border-radius:999px;padding:16px 28px;background:var(--accent);color:var(--on-accent);font-size:15px;font-weight:600;display:inline-flex;align-items:center;gap:8px;')}>Quero crescer profissionalmente <i className="ti ti-arrow-right"></i></a>
             <a href="#lucidez" onClick={() => setLucidezTab('organizacoes')} style={sx('border-radius:999px;padding:16px 28px;background:var(--surface);border:1px solid var(--line);color:var(--ink);font-size:15px;font-weight:600;display:inline-flex;align-items:center;gap:8px;')}>Quero transformar minha organização <i className="ti ti-arrow-right"></i></a>
           </div>
         </div>
-        <div style={sx('width:100%;aspect-ratio:4/5;border-radius:12px;overflow:hidden;')}>
+        <div className="hero-photo" style={sx('width:100%;aspect-ratio:4/5;border-radius:12px;overflow:hidden;')}>
           <RealPhoto src="/eduardo/hero.jpg" alt="Eduardo Kayser" priority />
         </div>
       </header>
