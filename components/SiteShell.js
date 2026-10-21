@@ -6,8 +6,6 @@ import { themeVars, useTheme } from '../lib/theme';
 import { waLink, AGENDA_URL } from '../lib/site';
 import { track } from '../lib/track';
 import RevealOnScroll from './RevealOnScroll';
-import CookieConsent from './CookieConsent';
-import CookiePrefsButton from './CookiePrefsButton';
 
 const navLink = sx('font-size:15px;color:var(--ink);font-weight:500;white-space:nowrap;');
 
@@ -20,7 +18,6 @@ export default function SiteShell({ children, origin = 'blog' }) {
   return (
     <div style={themeVars(theme)}>
       <RevealOnScroll />
-      <CookieConsent />
       <a href={waLink()} onClick={() => track('generate_lead', { method: 'whatsapp', origin: `botao-flutuante-${origin}` })} target="_blank" rel="noreferrer" aria-label="Falar no WhatsApp" style={sx('position:fixed;bottom:24px;right:24px;z-index:60;width:60px;height:60px;border-radius:999px;background:#25D366;color:#FFFFFF;display:flex;align-items:center;justify-content:center;font-size:30px;box-shadow:0 10px 28px rgba(0,0,0,0.25);')}>
         <i className="ti ti-brand-whatsapp"></i>
       </a>
@@ -61,9 +58,7 @@ export default function SiteShell({ children, origin = 'blog' }) {
           <div style={sx("font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:17px;")}>Ecossistema LUCIDEZ — Eduardo Kayser</div>
           <Link href="/#parceiros" style={sx('font-size:14px;color:var(--muted);')}>Ecossistema de parceiros</Link>
           <Link href="/blog" style={sx('font-size:14px;color:var(--muted);')}>Blog</Link>
-          <Link href="/politica-de-privacidade" style={sx('font-size:14px;color:var(--muted);')}>Política de Privacidade</Link>
-          <CookiePrefsButton />
-        </div>
+          <Link href="/politica-de-privacidade" style={sx('font-size:14px;color:var(--muted);')}>Política de Privacidade</Link>        </div>
         <div style={sx('display:flex;gap:18px;align-items:center;')}>
           <a href="https://instagram.com/soueduardokayser" aria-label="Instagram" style={sx('color:var(--muted);font-size:19px;')}><i className="ti ti-brand-instagram"></i></a>
           <a href="https://linkedin.com/in/eduardokayser" aria-label="LinkedIn" style={sx('color:var(--muted);font-size:19px;')}><i className="ti ti-brand-linkedin"></i></a>

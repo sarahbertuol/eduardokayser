@@ -1,5 +1,4 @@
 import SiteShell from '../../components/SiteShell';
-import CookiePrefsButton from '../../components/CookiePrefsButton';
 import { sx } from '../../lib/sx';
 
 export const metadata = {
@@ -31,7 +30,7 @@ export default function PoliticaPage() {
           <h2 style={h2}>2. Quais dados são tratados</h2>
           <ul style={sx('margin:0 0 14px;padding-left:22px;')}>
             <li style={li}><strong>Dados de navegação:</strong> como endereço IP, tipo de navegador, páginas acessadas e data/hora. São registrados de forma técnica pela hospedagem do site (Vercel) para segurança e funcionamento.</li>
-            <li style={li}><strong>Preferências do site:</strong> a escolha entre tema claro ou escuro e as suas decisões sobre cookies, guardadas no seu próprio navegador.</li>
+            <li style={li}><strong>Preferências do site:</strong> a escolha entre tema claro ou escuro, guardada no seu próprio navegador.</li>
             <li style={li}><strong>Estatísticas de uso (apenas com o seu consentimento):</strong> informações agregadas sobre páginas visitadas e cliques em botões, coletadas pelo Google Analytics.</li>
             <li style={li}><strong>Contato:</strong> ao clicar em “Falar no WhatsApp” ou “Agendar”, você é levado a serviços de terceiros (WhatsApp e Google Agenda). Os dados que você informar lá, como nome e telefone, são tratados para responder ao seu contato e conforme as políticas desses serviços. Este site não possui formulários próprios de cadastro.</li>
           </ul>
@@ -50,13 +49,12 @@ export default function PoliticaPage() {
                 <tr><th style={th}>Nome</th><th style={th}>Categoria</th><th style={th}>Finalidade</th><th style={th}>Duração</th></tr>
               </thead>
               <tbody>
-                <tr><td style={td}>ek-consent</td><td style={td}>Necessário</td><td style={td}>Registra as suas escolhas sobre cookies.</td><td style={td}>12 meses</td></tr>
                 <tr><td style={td}>ek-theme</td><td style={td}>Necessário (preferência)</td><td style={td}>Lembra o tema claro ou escuro escolhido por você.</td><td style={td}>Até você limpar os dados do navegador</td></tr>
                 <tr><td style={td}>_ga, _ga_*</td><td style={td}>Estatísticas (Google Analytics)</td><td style={td}>Distinguem visitantes e medem o uso do site de forma agregada. Só são criados se você aceitar.</td><td style={td}>Até 2 anos</td></tr>
               </tbody>
             </table>
           </div>
-          <p style={p}>Você pode aceitar, rejeitar ou personalizar os cookies não essenciais a qualquer momento, sem prejuízo ao uso do site: <CookiePrefsButton />. Também é possível apagar cookies diretamente nas configurações do seu navegador.</p>
+          <p style={p}>Você pode apagar ou bloquear cookies a qualquer momento nas configurações do seu navegador, sem prejuízo ao uso do site.</p>
 
           <h2 style={h2}>5. Recursos de terceiros</h2>
           <p style={p}>Para exibir o site, carregamos fontes do Google Fonts, ícones do jsDelivr e imagens de artigos da Sanity. Ao carregar esses recursos, esses provedores podem receber dados técnicos da sua conexão, como o endereço IP. Links para Instagram, LinkedIn, YouTube, WhatsApp e Google Agenda levam a serviços externos, com políticas de privacidade próprias.</p>
@@ -65,7 +63,7 @@ export default function PoliticaPage() {
           <p style={p}>Não vendemos dados pessoais. Os dados podem ser tratados por fornecedores necessários à operação do site (hospedagem, análise de uso, conteúdo), alguns com servidores fora do Brasil. Nesses casos, buscamos provedores que adotam salvaguardas compatíveis com a LGPD.</p>
 
           <h2 style={h2}>7. Por quanto tempo guardamos os dados</h2>
-          <p style={p}>Mantemos os dados apenas pelo tempo necessário para as finalidades descritas, ou pelo prazo exigido por lei. As suas escolhas de cookies são renovadas a cada 12 meses.</p>
+          <p style={p}>Mantemos os dados apenas pelo tempo necessário para as finalidades descritas, ou pelo prazo exigido por lei.</p>
 
           <h2 style={h2}>8. Seus direitos</h2>
           <p style={p}>Nos termos do art. 18 da LGPD, você pode solicitar: confirmação de que tratamos seus dados; acesso; correção; anonimização, bloqueio ou eliminação de dados desnecessários; portabilidade; informação sobre compartilhamento; e a revogação do consentimento, a qualquer momento e de forma gratuita. Para exercer seus direitos, fale conosco pelo contato da seção 1. Você também pode apresentar reclamação à Autoridade Nacional de Proteção de Dados (ANPD), em <a href="https://www.gov.br/anpd" target="_blank" rel="noreferrer" style={sx('color:var(--accent);font-weight:600;')}>gov.br/anpd</a>.</p>
