@@ -9,7 +9,7 @@ import CountUp from './CountUp';
 import InView from './InView';
 import PostCard from './PostCard';
 import RevealOnScroll from './RevealOnScroll';
-import { waLink } from '../lib/site';
+import { waLink, AGENDA_URL } from '../lib/site';
 import { track } from '../lib/track';
 import {
   depoimentos as allDepoimentos, resultados, marcas,
@@ -80,7 +80,7 @@ export default function HomeClient({ posts = [] }) {
           <button onClick={toggleTheme} aria-label="Alternar tema" style={sx('width:36px;height:36px;border-radius:999px;border:1px solid var(--line);background:var(--surface);color:var(--ink);display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:16px;flex-shrink:0;')}>
             <i className={isDark ? 'ti ti-sun' : 'ti ti-moon'}></i>
           </button>
-          <a href="#cta-final" onClick={() => track('cta_click', { origin: 'navbar' })} className="nav-cta" style={sx('border-radius:999px;padding:10px 18px;background:var(--accent);color:var(--on-accent);font-size:13px;font-weight:600;white-space:nowrap;flex-shrink:0;')}>Agendar diagnóstico</a>
+          <a href={AGENDA_URL} onClick={() => track('generate_lead', { method: 'agenda', origin: 'navbar' })} target="_blank" rel="noreferrer" className="nav-cta" style={sx('border-radius:999px;padding:10px 18px;background:var(--accent);color:var(--on-accent);font-size:13px;font-weight:600;white-space:nowrap;flex-shrink:0;')}>Agendar diagnóstico</a>
           <button
             onClick={() => setMobileMenuOpen(o => !o)}
             aria-label="Abrir menu"
@@ -296,14 +296,19 @@ export default function HomeClient({ posts = [] }) {
           </div>
           <div style={sx('display:flex;align-items:stretch;gap:16px;')}>
             <button onClick={prevPartners} aria-label="Parceiros anteriores" style={sx('flex-shrink:0;width:44px;height:44px;align-self:center;border-radius:999px;border:1px solid var(--line);background:var(--surface);color:var(--ink);cursor:pointer;font-size:18px;display:flex;align-items:center;justify-content:center;')}><i className="ti ti-chevron-left"></i></button>
-            <div className="partners-grid" style={sx('flex:1;gap:24px;min-width:0;')}>
+            <div className={partnersPageItems.length === 1 ? 'partners-grid partners-single' : 'partners-grid'} style={sx('flex:1;gap:24px;min-width:0;')}>
               {partnersPageItems.map(p => (
                 <div key={p.id} style={sx('background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:28px;text-align:center;')}>
                   <div style={sx('width:140px;height:140px;margin:0 auto 24px;border-radius:999px;overflow:hidden;')}>
-                    {p.photo ? <RealPhoto src={p.photo} alt={p.name} objectPosition="top" /> : <ImagePlaceholder label="Foto do parceiro" shape="circle" />}
+                    {p.photo ? <RealPhoto src={p.photo} alt={p.name} objectPosition={p.photoPosition || 'top'} /> : <ImagePlaceholder label="Foto do parceiro" shape="circle" />}
                   </div>
                   <div style={sx("font-family:'Space Grotesk',sans-serif;font-size:16px;font-weight:600;margin-bottom:6px;")}>{p.name}</div>
                   <div style={sx('font-size:13px;color:var(--accent-strong);font-weight:600;margin-bottom:14px;')}>{p.area}</div>
+                  {p.instagram ? (
+                    <a href={p.instagram} target="_blank" rel="noreferrer" aria-label={`Instagram de ${p.name}`} onClick={() => track('click_instagram', { partner: p.id })} style={sx('width:36px;height:36px;margin:0 auto 18px;border-radius:999px;border:1px solid var(--line);background:var(--bg-alt);color:var(--accent);display:flex;align-items:center;justify-content:center;font-size:18px;')}><i className="ti ti-brand-instagram"></i></a>
+                  ) : (
+                    <span aria-hidden="true" style={sx('width:36px;height:36px;margin:0 auto 18px;border-radius:999px;border:1px solid var(--line);background:var(--bg-alt);color:var(--muted);opacity:0.6;display:flex;align-items:center;justify-content:center;font-size:18px;')}><i className="ti ti-brand-instagram"></i></span>
+                  )}
                   <div style={sx('display:flex;flex-direction:column;gap:8px;text-align:left;')}>
                     {p.bio.map((b, i) => (
                       <p key={i} style={sx('font-size:13px;color:var(--muted);line-height:1.5;margin:0;')}>{b}</p>
@@ -364,7 +369,7 @@ export default function HomeClient({ posts = [] }) {
         <div style={sx('max-width:560px;margin:0 auto;')}>
           <h2 style={sx("font-family:'Space Grotesk',sans-serif;font-size:clamp(28px,3.5vw,38px);font-weight:700;margin:0 0 16px;")}>Agende uma reunião comigo</h2>
           <p style={sx('font-size:16px;color:var(--muted);line-height:1.6;margin:0 0 32px;')}>Escolha o melhor horário na minha agenda e vamos conversar sobre o seu contexto.</p>
-          <a href="https://calendar.app.google/BLhxyRWwqv8eLeDK6" onClick={() => track('generate_lead', { method: 'agenda', origin: 'secao-agenda' })} target="_blank" rel="noreferrer" style={sx('border-radius:999px;padding:17px 32px;background:var(--accent);color:var(--on-accent);font-size:16px;font-weight:600;display:inline-flex;align-items:center;gap:8px;')}><i className="ti ti-calendar-event"></i>Agendar no Google Agenda</a>
+          <a href={AGENDA_URL} onClick={() => track('generate_lead', { method: 'agenda', origin: 'secao-agenda' })} target="_blank" rel="noreferrer" style={sx('border-radius:999px;padding:17px 32px;background:var(--accent);color:var(--on-accent);font-size:16px;font-weight:600;display:inline-flex;align-items:center;gap:8px;')}><i className="ti ti-calendar-event"></i>Agendar no Google Agenda</a>
         </div>
       </section>
 

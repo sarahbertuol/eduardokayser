@@ -3,7 +3,7 @@ import { useState } from 'react';
 import Link from 'next/link';
 import { sx } from '../lib/sx';
 import { themeVars, useTheme } from '../lib/theme';
-import { waLink } from '../lib/site';
+import { waLink, AGENDA_URL } from '../lib/site';
 import { track } from '../lib/track';
 import RevealOnScroll from './RevealOnScroll';
 
@@ -39,7 +39,7 @@ export default function SiteShell({ children, origin = 'blog' }) {
           <button onClick={toggleTheme} aria-label="Alternar tema" style={sx('width:36px;height:36px;border-radius:999px;border:1px solid var(--line);background:var(--surface);color:var(--ink);display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:16px;flex-shrink:0;')}>
             <i className={isDark ? 'ti ti-sun' : 'ti ti-moon'}></i>
           </button>
-          <Link href="/#cta-final" onClick={() => track('cta_click', { origin: `navbar-${origin}` })} className="nav-cta" style={sx('border-radius:999px;padding:10px 18px;background:var(--accent);color:var(--on-accent);font-size:13px;font-weight:600;white-space:nowrap;flex-shrink:0;')}>Agendar diagnóstico</Link>
+          <a href={AGENDA_URL} onClick={() => track('generate_lead', { method: 'agenda', origin: `navbar-${origin}` })} target="_blank" rel="noreferrer" className="nav-cta" style={sx('border-radius:999px;padding:10px 18px;background:var(--accent);color:var(--on-accent);font-size:13px;font-weight:600;white-space:nowrap;flex-shrink:0;')}>Agendar diagnóstico</a>
           <button
             onClick={() => setMenuOpen(o => !o)}
             aria-label="Abrir menu"
