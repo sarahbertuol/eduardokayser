@@ -18,7 +18,7 @@ export default function SiteShell({ children, origin = 'blog' }) {
   return (
     <div style={themeVars(theme)}>
       <RevealOnScroll />
-      <a href={waLink(`botao-flutuante-${origin}`)} onClick={() => track('generate_lead', { method: 'whatsapp', origin: `botao-flutuante-${origin}` })} target="_blank" rel="noreferrer" aria-label="Falar no WhatsApp" style={sx('position:fixed;bottom:24px;right:24px;z-index:60;width:60px;height:60px;border-radius:999px;background:#25D366;color:#FFFFFF;display:flex;align-items:center;justify-content:center;font-size:30px;box-shadow:0 10px 28px rgba(0,0,0,0.25);')}>
+      <a href={waLink()} onClick={() => track('generate_lead', { method: 'whatsapp', origin: `botao-flutuante-${origin}` })} target="_blank" rel="noreferrer" aria-label="Falar no WhatsApp" style={sx('position:fixed;bottom:24px;right:24px;z-index:60;width:60px;height:60px;border-radius:999px;background:#25D366;color:#FFFFFF;display:flex;align-items:center;justify-content:center;font-size:30px;box-shadow:0 10px 28px rgba(0,0,0,0.25);')}>
         <i className="ti ti-brand-whatsapp"></i>
       </a>
 
@@ -63,7 +63,7 @@ export default function SiteShell({ children, origin = 'blog' }) {
           <a href="https://instagram.com/soueduardokayser" aria-label="Instagram" style={sx('color:var(--muted);font-size:19px;')}><i className="ti ti-brand-instagram"></i></a>
           <a href="https://linkedin.com/in/eduardokayser" aria-label="LinkedIn" style={sx('color:var(--muted);font-size:19px;')}><i className="ti ti-brand-linkedin"></i></a>
           <a href="https://youtube.com/@soueduardokayser" aria-label="YouTube" style={sx('color:var(--muted);font-size:19px;')}><i className="ti ti-brand-youtube"></i></a>
-          <a href={waLink(`rodape-${origin}`)} onClick={() => track('generate_lead', { method: 'whatsapp', origin: `rodape-${origin}` })} aria-label="WhatsApp" style={sx('color:var(--muted);font-size:19px;')}><i className="ti ti-brand-whatsapp"></i></a>
+          <a href={waLink()} onClick={() => track('generate_lead', { method: 'whatsapp', origin: `rodape-${origin}` })} aria-label="WhatsApp" style={sx('color:var(--muted);font-size:19px;')}><i className="ti ti-brand-whatsapp"></i></a>
         </div>
       </footer>
     </div>

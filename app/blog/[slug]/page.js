@@ -99,7 +99,7 @@ export default async function PostPage({ params }) {
           <div style={sx('margin-top:64px;padding:32px;border-radius:14px;background:var(--bg-alt);text-align:center;')}>
             <h2 style={sx("font-family:'Space Grotesk',sans-serif;font-size:24px;font-weight:700;margin:0 0 12px;")}>Quer aplicar isso na sua realidade?</h2>
             <p style={sx('font-size:15px;color:var(--muted);line-height:1.6;margin:0 0 24px;')}>Converse com o Eduardo e descubra como o Método LUCIDEZ pode ajudar você ou sua organização.</p>
-            <TrackedLink href={waLink(`blog-${post.slug}`)} event="generate_lead" params={{ method: 'whatsapp', origin: `blog-${post.slug}` }} target="_blank" rel="noreferrer" style={sx('border-radius:999px;padding:14px 26px;background:var(--accent);color:var(--on-accent);font-size:15px;font-weight:600;display:inline-flex;align-items:center;gap:8px;')}><i className="ti ti-brand-whatsapp"></i>Falar no WhatsApp</TrackedLink>
+            <TrackedLink href={waLink()} event="generate_lead" params={{ method: 'whatsapp', origin: `blog-${post.slug}` }} target="_blank" rel="noreferrer" style={sx('border-radius:999px;padding:14px 26px;background:var(--accent);color:var(--on-accent);font-size:15px;font-weight:600;display:inline-flex;align-items:center;gap:8px;')}><i className="ti ti-brand-whatsapp"></i>Falar no WhatsApp</TrackedLink>
             <p style={sx('font-size:14px;color:var(--muted);margin:24px 0 0;')}>
               Conheça as soluções: <Link href="/lucidez-profissional" style={sx('font-weight:600;color:var(--accent);')}>Lucidez Profissional</Link> · <Link href="/lucidez-organizacoes" style={sx('font-weight:600;color:var(--accent);')}>Lucidez Organizações</Link>
             </p>

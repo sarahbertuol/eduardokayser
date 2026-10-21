@@ -76,7 +76,7 @@ export default function ServicePage({ slug, label, h1, intro, items, numbered = 
           {footnote && <p style={sx('font-size:14px;color:var(--muted);font-style:italic;text-align:center;max-width:720px;margin:0 auto 40px;')}>{footnote}</p>}
 
           <div style={sx('display:flex;gap:16px;flex-wrap:wrap;justify-content:center;margin-top:56px;')}>
-            <TrackedLink href={waLink(slug)} event="generate_lead" params={{ method: 'whatsapp', origin: slug }} target="_blank" rel="noreferrer" style={sx('border-radius:999px;padding:16px 28px;background:var(--accent);color:var(--on-accent);font-size:15px;font-weight:600;display:inline-flex;align-items:center;gap:8px;')}><i className="ti ti-brand-whatsapp"></i>Quero conversar sobre isso</TrackedLink>
+            <TrackedLink href={waLink()} event="generate_lead" params={{ method: 'whatsapp', origin: slug }} target="_blank" rel="noreferrer" style={sx('border-radius:999px;padding:16px 28px;background:var(--accent);color:var(--on-accent);font-size:15px;font-weight:600;display:inline-flex;align-items:center;gap:8px;')}><i className="ti ti-brand-whatsapp"></i>Quero conversar sobre isso</TrackedLink>
             <Link href={`/${other.slug}`} style={secondaryBtn}>Conheça {other.label} <i className="ti ti-arrow-right"></i></Link>
             <Link href="/#parceiros" style={secondaryBtn}>Parceiros do ecossistema <i className="ti ti-arrow-right"></i></Link>
           </div>
