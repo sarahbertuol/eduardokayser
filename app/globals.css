@@ -182,3 +182,38 @@ p { text-wrap: pretty; }
 @media (prefers-reduced-motion: reduce) {
   .hero-in, .hero-photo { opacity: 1; animation: none; }
 }
+
+/* ---- Hover suave nos botões ---- */
+
+a[style*="999px"][style*="padding"],
+button[style*="999px"][style*="padding"]:not([aria-label^="Ir para"]) {
+  transition: transform 0.28s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.28s ease, filter 0.28s ease;
+}
+a[style*="999px"][style*="padding"]:hover,
+button[style*="999px"][style*="padding"]:not([aria-label^="Ir para"]):hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+  filter: brightness(1.06);
+  text-decoration: none;
+}
+a[style*="999px"][style*="padding"]:active,
+button[style*="999px"][style*="padding"]:not([aria-label^="Ir para"]):active {
+  transform: translateY(0);
+  box-shadow: none;
+}
+
+a[style*="999px"]:not([style*="padding"]),
+button[style*="999px"]:not([style*="padding"]) {
+  transition: transform 0.28s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.28s ease, filter 0.28s ease;
+}
+a[style*="999px"]:not([style*="padding"]):hover,
+button[style*="999px"]:not([style*="padding"]):hover {
+  transform: scale(1.07);
+  filter: brightness(1.06);
+  text-decoration: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  a[style*="999px"], button[style*="999px"] { transition: none; }
+  a[style*="999px"]:hover, button[style*="999px"]:hover { transform: none; }
+}

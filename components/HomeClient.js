@@ -364,7 +364,7 @@ export default function HomeClient({ posts = [] }) {
         <div style={sx('max-width:560px;margin:0 auto;')}>
           <h2 style={sx("font-family:'Space Grotesk',sans-serif;font-size:clamp(28px,3.5vw,38px);font-weight:700;margin:0 0 16px;")}>Agende uma reunião comigo</h2>
           <p style={sx('font-size:16px;color:var(--muted);line-height:1.6;margin:0 0 32px;')}>Escolha o melhor horário na minha agenda e vamos conversar sobre o seu contexto.</p>
-          <a href="https://calendar.google.com/calendar/appointments/schedules/EDUARDO-KAYSER" onClick={() => track('generate_lead', { method: 'agenda', origin: 'secao-agenda' })} target="_blank" rel="noreferrer" style={sx('border-radius:999px;padding:17px 32px;background:var(--accent);color:var(--on-accent);font-size:16px;font-weight:600;display:inline-flex;align-items:center;gap:8px;')}><i className="ti ti-calendar-event"></i>Agendar no Google Agenda</a>
+          <a href="https://calendar.app.google/BLhxyRWwqv8eLeDK6" onClick={() => track('generate_lead', { method: 'agenda', origin: 'secao-agenda' })} target="_blank" rel="noreferrer" style={sx('border-radius:999px;padding:17px 32px;background:var(--accent);color:var(--on-accent);font-size:16px;font-weight:600;display:inline-flex;align-items:center;gap:8px;')}><i className="ti ti-calendar-event"></i>Agendar no Google Agenda</a>
         </div>
       </section>
 
