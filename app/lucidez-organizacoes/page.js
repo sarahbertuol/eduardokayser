@@ -11,5 +11,5 @@ export const metadata = {
 };
 
 export default function Page() {
-  return <ServicePage slug="lucidez-organizacoes" label="Lucidez Organizações" h1={d.titulo} intro={d.texto} items={d.frentes} footnote={d.rodape} description={description} />;
+  return <ServicePage slug="lucidez-organizacoes" label="Lucidez Organizações" h1={d.titulo} intro={d.texto} items={d.frentes} numbered footnote={d.rodape} description={description} />;
 }
