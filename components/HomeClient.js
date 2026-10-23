@@ -408,7 +408,11 @@ export default function HomeClient({ posts = [] }) {
       <footer style={sx('padding:48px clamp(20px,5vw,64px);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:20px;')}>
         <div style={sx('display:flex;align-items:center;gap:24px;flex-wrap:wrap;')}>
           <div style={sx("font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:17px;")}>Ecossistema LUCIDEZ — Eduardo Kayser</div>
+          <Link href="/lucidez-profissional" style={sx('font-size:14px;color:var(--muted);')}>Lucidez Profissional</Link>
+          <Link href="/lucidez-organizacoes" style={sx('font-size:14px;color:var(--muted);')}>Lucidez Organizações</Link>
           <a href="#parceiros" style={sx('font-size:14px;color:var(--muted);')}>Ecossistema de parceiros</a>
+          <Link href="/blog" style={sx('font-size:14px;color:var(--muted);')}>Blog</Link>
+          <a href={AGENDA_URL} onClick={() => track('generate_lead', { method: 'agenda', origin: 'rodape' })} target="_blank" rel="noreferrer" style={sx('font-size:14px;color:var(--muted);')}>Agendar reunião</a>
           <Link href="/politica-de-privacidade" style={sx('font-size:14px;color:var(--muted);')}>Política de Privacidade</Link>        </div>
         <div style={sx('display:flex;gap:18px;align-items:center;')}>
           <a href="https://instagram.com/soueduardokayser" style={sx('color:var(--muted);font-size:19px;')}><i className="ti ti-brand-instagram"></i></a>
