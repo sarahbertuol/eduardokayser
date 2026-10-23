@@ -36,6 +36,8 @@ export default function RootLayout({ children }) {
   return (
     <html lang="pt-BR">
       <head>
+        <meta name="adopt-website-id" content="aab21b2f-0597-4c8b-9233-da4cfb0540f5" />
+        <script src="//tag.goadopt.io/injector.js?website_code=aab21b2f-0597-4c8b-9233-da4cfb0540f5" className="adopt-injector"></script>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link
           href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Public+Sans:wght@400;500;600;700&display=swap"
