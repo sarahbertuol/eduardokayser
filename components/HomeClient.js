@@ -304,11 +304,17 @@ export default function HomeClient({ posts = [] }) {
                   </div>
                   <div style={sx("font-family:'Space Grotesk',sans-serif;font-size:16px;font-weight:600;margin-bottom:6px;")}>{p.name}</div>
                   <div style={sx('font-size:13px;color:var(--accent-strong);font-weight:600;margin-bottom:14px;')}>{p.area}</div>
-                  {p.instagram ? (
-                    <a href={p.instagram} target="_blank" rel="noreferrer" aria-label={`Instagram de ${p.name}`} onClick={() => track('click_instagram', { partner: p.id })} style={sx('width:36px;height:36px;margin:0 auto 18px;border-radius:999px;border:1px solid var(--line);background:var(--bg-alt);color:var(--accent);display:flex;align-items:center;justify-content:center;font-size:18px;')}><i className="ti ti-brand-instagram"></i></a>
-                  ) : (
-                    <span aria-hidden="true" style={sx('width:36px;height:36px;margin:0 auto 18px;border-radius:999px;border:1px solid var(--line);background:var(--bg-alt);color:var(--muted);opacity:0.6;display:flex;align-items:center;justify-content:center;font-size:18px;')}><i className="ti ti-brand-instagram"></i></span>
-                  )}
+                  <div style={sx('display:flex;gap:10px;justify-content:center;margin-bottom:18px;')}>
+                    {[
+                      { key: 'instagram', icon: 'ti-brand-instagram', label: 'Instagram', always: true },
+                      { key: 'linkedin', icon: 'ti-brand-linkedin', label: 'LinkedIn' },
+                      { key: 'website', icon: 'ti-world', label: 'Site' }
+                    ].filter(s => s.always || p[s.key]).map(s => p[s.key] ? (
+                      <a key={s.key} href={p[s.key]} target="_blank" rel="noreferrer" aria-label={`${s.label} de ${p.name}`} onClick={() => track(`click_${s.key}`, { partner: p.id })} style={sx('width:36px;height:36px;border-radius:999px;border:1px solid var(--line);background:var(--bg-alt);color:var(--accent);display:flex;align-items:center;justify-content:center;font-size:18px;')}><i className={`ti ${s.icon}`}></i></a>
+                    ) : (
+                      <span key={s.key} aria-hidden="true" style={sx('width:36px;height:36px;border-radius:999px;border:1px solid var(--line);background:var(--bg-alt);color:var(--muted);opacity:0.6;display:flex;align-items:center;justify-content:center;font-size:18px;')}><i className={`ti ${s.icon}`}></i></span>
+                    ))}
+                  </div>
                   <div style={sx('display:flex;flex-direction:column;gap:8px;text-align:left;')}>
                     {p.bio.map((b, i) => (
                       <p key={i} style={sx('font-size:13px;color:var(--muted);line-height:1.5;margin:0;')}>{b}</p>
