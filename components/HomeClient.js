@@ -113,7 +113,7 @@ export default function HomeClient({ posts = [] }) {
             <div className="marquee-track">
               {[...marcas, ...marcas].map((m, i) => (
                 <div key={i} style={sx('flex-shrink:0;width:180px;height:72px;margin:0 24px;')}>
-                  <RealPhoto src={`/marcas/${m.file}`} alt={m.name} fit="contain" loading="eager" />
+                  <RealPhoto src={`/marcas/${isDark ? 'dark' : 'light'}/${m.file}`} alt={m.name} fit="contain" loading="eager" />
                 </div>
               ))}
             </div>
