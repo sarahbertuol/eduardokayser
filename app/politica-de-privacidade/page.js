@@ -8,8 +8,8 @@ export const metadata = {
 };
 
 const h2 = sx("font-family:'Space Grotesk',sans-serif;font-size:22px;font-weight:700;margin:40px 0 12px;");
-const p = sx('font-size:16px;line-height:1.7;color:var(--muted);margin:0 0 14px;');
-const li = sx('font-size:16px;line-height:1.7;color:var(--muted);margin-bottom:8px;');
+const p = sx('font-size:16px;line-height:1.7;color:var(--muted);margin:0 0 14px;text-align:justify;');
+const li = sx('font-size:16px;line-height:1.7;color:var(--muted);margin-bottom:8px;text-align:justify;');
 const th = sx('text-align:left;font-size:13px;font-weight:700;padding:10px 12px;border-bottom:1px solid var(--line);white-space:nowrap;');
 const td = sx('font-size:14px;line-height:1.5;color:var(--muted);padding:10px 12px;border-bottom:1px solid var(--line);vertical-align:top;');
 
@@ -22,7 +22,7 @@ export default function PoliticaPage() {
           <h1 style={sx("font-family:'Space Grotesk',sans-serif;font-size:clamp(28px,4vw,40px);font-weight:700;line-height:1.2;margin:0 0 12px;")}>Política de Privacidade e Cookies</h1>
           <p style={sx('font-size:14px;color:var(--muted);margin:0 0 32px;')}>Última atualização: 21 de outubro de 2026</p>
 
-          <p style={p}>Esta política explica, de forma simples, como o site do <strong>Ecossistema LUCIDEZ</strong>, conduzido por Eduardo Kayser, trata dados pessoais e utiliza cookies, em conformidade com a Lei Geral de Proteção de Dados (Lei nº 13.709/2018 — LGPD).</p>
+          <p style={p}>Esta política explica, de forma simples, como o site do <strong>Ecossistema LUCIDEZ</strong>, conduzido por Eduardo Kayser, trata dados pessoais e utiliza cookies, em conformidade com a Lei Geral de Proteção de Dados (Lei nº 13.709/2018, a LGPD).</p>
 
           <h2 style={h2}>1. Quem é o responsável</h2>
           <p style={p}>O controlador dos dados tratados neste site é Eduardo Kayser, responsável pelo Ecossistema LUCIDEZ. Para falar sobre privacidade ou exercer seus direitos, entre em contato pelo WhatsApp <a href="https://wa.me/5551991019459" style={sx('color:var(--accent);font-weight:600;')}>(51) 99101-9459</a>.</p>
@@ -37,9 +37,9 @@ export default function PoliticaPage() {
 
           <h2 style={h2}>3. Para que usamos e em que base legal</h2>
           <ul style={sx('margin:0 0 14px;padding-left:22px;')}>
-            <li style={li}><strong>Funcionamento, segurança e lembrar suas preferências</strong> — legítimo interesse e execução do serviço solicitado (art. 7º, V e IX, da LGPD).</li>
-            <li style={li}><strong>Estatísticas de uso</strong> — seu consentimento (art. 7º, I, da LGPD). Sem a sua autorização, esses cookies não são carregados.</li>
-            <li style={li}><strong>Responder contatos e agendamentos</strong> — atendimento a pedido seu (art. 7º, V, da LGPD).</li>
+            <li style={li}><strong>Funcionamento, segurança e lembrar suas preferências:</strong> legítimo interesse e execução do serviço solicitado (art. 7º, V e IX, da LGPD).</li>
+            <li style={li}><strong>Estatísticas de uso:</strong> seu consentimento (art. 7º, I, da LGPD). Sem a sua autorização, esses cookies não são carregados.</li>
+            <li style={li}><strong>Responder contatos e agendamentos:</strong> atendimento a pedido seu (art. 7º, V, da LGPD).</li>
           </ul>
 
           <h2 style={h2}>4. Cookies e armazenamento no navegador</h2>

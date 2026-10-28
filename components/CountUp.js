@@ -1,7 +1,7 @@
 'use client';
 import { useEffect, useRef, useState } from 'react';
 
-export default function CountUp({ to, suffix = '', duration = 1600, active = true }) {
+export default function CountUp({ to, prefix = '', suffix = '', duration = 1600, active = true }) {
   const [value, setValue] = useState(0);
   const ref = useRef(null);
   const started = useRef(false);
@@ -28,5 +28,5 @@ export default function CountUp({ to, suffix = '', duration = 1600, active = tru
     return () => observer.disconnect();
   }, [to, duration, active]);
 
-  return <span ref={ref}>{value.toLocaleString('pt-BR')}{suffix}</span>;
+  return <span ref={ref}>{prefix}{value.toLocaleString('pt-BR')}{suffix}</span>;
 }

@@ -1,5 +1,5 @@
 'use client';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { sx } from '../lib/sx';
 import Link from 'next/link';
 import { themeVars, useTheme } from '../lib/theme';
@@ -36,7 +36,7 @@ export default function HomeClient({ posts = [] }) {
   const [testimonialPage, setTestimonialPage] = useState(0);
   const [partnerPage, setPartnerPage] = useState(0);
   const [lucidezTab, setLucidezTab] = useState('profissional');
-  const [galleryPage, setGalleryPage] = useState(0);
+  const galleryRef = useRef(null);
 
   const isDark = theme === 'dark';
   const rootVars = themeVars(theme);
@@ -51,10 +51,14 @@ export default function HomeClient({ posts = [] }) {
   const prevPartners = () => setPartnerPage(p => (p - 1 + totalPartnerPages) % totalPartnerPages);
   const nextPartners = () => setPartnerPage(p => (p + 1) % totalPartnerPages);
 
-  const totalGalleryPages = Math.ceil(galeria.length / 3);
-  const galleryItems = galeria.slice(galleryPage * 3, galleryPage * 3 + 3);
-  const prevGallery = () => setGalleryPage(p => (p - 1 + totalGalleryPages) % totalGalleryPages);
-  const nextGallery = () => setGalleryPage(p => (p + 1) % totalGalleryPages);
+  const scrollGallery = dir => {
+    const el = galleryRef.current;
+    if (!el) return;
+    const max = el.scrollWidth - el.clientWidth;
+    if (dir > 0 && el.scrollLeft >= max - 4) el.scrollTo({ left: 0, behavior: 'smooth' });
+    else if (dir < 0 && el.scrollLeft <= 4) el.scrollTo({ left: max, behavior: 'smooth' });
+    else el.scrollBy({ left: dir * el.clientWidth * 0.8, behavior: 'smooth' });
+  };
 
   return (
     <div style={rootVars}>
@@ -95,7 +99,7 @@ export default function HomeClient({ posts = [] }) {
       <header className="hero-grid" style={sx('padding:96px clamp(20px,5vw,64px) 80px;gap:56px;align-items:center;max-width:1280px;margin:0 auto;')}>
         <div>
           <h1 className="hero-in" style={sx("--d:0.1s;font-family:'Space Grotesk',sans-serif;font-size:clamp(34px,4.6vw,52px);font-weight:700;line-height:1.15;margin:0 0 24px;")}>{heroContent.headline}</h1>
-          <p className="hero-in" style={sx('--d:0.3s;font-size:18px;color:var(--muted);line-height:1.6;margin:0 0 36px;max-width:560px;')}>{heroContent.subheadline}</p>
+          <p className="hero-in" style={sx('--d:0.3s;font-size:18px;color:var(--muted);line-height:1.6;margin:0 0 36px;max-width:560px;text-align:justify;')}>{heroContent.subheadline}</p>
           <div className="hero-in" style={sx('--d:0.5s;display:flex;gap:16px;flex-wrap:wrap;')}>
             <a href="#lucidez" onClick={() => setLucidezTab('profissional')} style={sx('border-radius:999px;padding:16px 28px;background:var(--accent);color:var(--on-accent);font-size:15px;font-weight:600;display:inline-flex;align-items:center;gap:8px;')}>Quero crescer profissionalmente <i className="ti ti-arrow-right"></i></a>
             <a href="#lucidez" onClick={() => setLucidezTab('organizacoes')} style={sx('border-radius:999px;padding:16px 28px;background:var(--surface);border:1px solid var(--line);color:var(--ink);font-size:15px;font-weight:600;display:inline-flex;align-items:center;gap:8px;')}>Quero transformar minha organização <i className="ti ti-arrow-right"></i></a>
@@ -119,8 +123,8 @@ export default function HomeClient({ posts = [] }) {
             </div>
           </div>
           <div className="stats-grid" style={sx('gap:24px;text-align:center;')}>
-            <div><div style={sx("font-family:'Space Grotesk',sans-serif;font-size:clamp(28px,6vw,44px);font-weight:700;color:var(--accent);")}><CountUp to={25} suffix="+" /></div><div style={sx('font-size:15px;color:var(--muted);margin-top:8px;')}>anos de experiência</div></div>
-            <div><div style={sx("font-family:'Space Grotesk',sans-serif;font-size:clamp(28px,6vw,44px);font-weight:700;color:var(--accent);")}><CountUp to={1200} suffix="+" /></div><div style={sx('font-size:15px;color:var(--muted);margin-top:8px;')}>líderes treinados</div></div>
+            <div><div style={sx("font-family:'Space Grotesk',sans-serif;font-size:clamp(28px,6vw,44px);font-weight:700;color:var(--accent);")}><CountUp to={25} prefix="+" /></div><div style={sx('font-size:15px;color:var(--muted);margin-top:8px;')}>anos de experiência</div></div>
+            <div><div style={sx("font-family:'Space Grotesk',sans-serif;font-size:clamp(28px,6vw,44px);font-weight:700;color:var(--accent);")}><CountUp to={1200} prefix="+" /></div><div style={sx('font-size:15px;color:var(--muted);margin-top:8px;')}>líderes treinados</div></div>
             <div><div style={sx("font-family:'Space Grotesk',sans-serif;font-size:clamp(28px,6vw,44px);font-weight:700;color:var(--accent);")}><CountUp to={17} /></div><div style={sx('font-size:15px;color:var(--muted);margin-top:8px;')}>prêmios nacionais</div></div>
           </div>
         </div>
@@ -132,11 +136,11 @@ export default function HomeClient({ posts = [] }) {
             <button
               onClick={() => setLucidezTab('profissional')}
               style={sx(`border-radius:999px;padding:14px 28px;font-size:14px;font-weight:600;cursor:pointer;${lucidezTab === 'profissional' ? 'border:1px solid var(--accent);background:var(--accent);color:var(--on-accent);' : 'border:1px solid var(--line);background:var(--surface);color:var(--ink);'}`)}
-            >Lucidez Profissional</button>
+            >PARA PROFISSIONAIS</button>
             <button
               onClick={() => setLucidezTab('organizacoes')}
               style={sx(`border-radius:999px;padding:14px 28px;font-size:14px;font-weight:600;cursor:pointer;${lucidezTab === 'organizacoes' ? 'border:1px solid var(--accent);background:var(--accent);color:var(--on-accent);' : 'border:1px solid var(--line);background:var(--surface);color:var(--ink);'}`)}
-            >Lucidez Organizações</button>
+            >PARA EMPRESAS</button>
           </div>
 
           {lucidezTab === 'profissional' ? (
@@ -195,34 +199,26 @@ export default function HomeClient({ posts = [] }) {
             <div style={sx('font-size:13px;letter-spacing:0.08em;text-transform:uppercase;color:var(--accent);font-weight:700;margin-bottom:12px;')}>Eduardo Kayser</div>
             <h2 style={sx("font-family:'Space Grotesk',sans-serif;font-size:clamp(26px,3.2vw,34px);font-weight:700;margin:0 0 20px;")}>{sobreEduardo.titulo}</h2>
             {sobreEduardo.paragrafos.map((p, i) => (
-              <p key={i} style={sx('font-size:15px;color:var(--muted);line-height:1.65;margin:0 0 14px;')}>{p}</p>
+              <p key={i} style={sx('font-size:15px;color:var(--muted);line-height:1.65;margin:0 0 14px;text-align:justify;')}>{p}</p>
             ))}
           </div>
         </div>
 
         <div style={sx('max-width:1180px;margin:80px auto 0;')}>
           <div style={sx('display:flex;align-items:stretch;gap:16px;')}>
-            <button onClick={prevGallery} aria-label="Página anterior da galeria" style={sx('flex-shrink:0;width:40px;height:40px;align-self:center;border-radius:999px;border:1px solid var(--line);background:var(--surface);color:var(--ink);cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;')}><i className="ti ti-chevron-left"></i></button>
-            <div className="gallery-grid" style={sx('flex:1;gap:16px;min-width:0;')}>
-              {galleryItems.map((g, i) => {
-                const idx = galleryPage * 3 + i;
-                return (
-                  <div key={g.src} style={sx(`position:relative;border-radius:12px;overflow:hidden;background:#000;width:100%;aspect-ratio:${g.ratio};`)}>
-                    {g.type === 'image' ? (
-                      <RealPhoto src={g.src} alt={`Eduardo Kayser — foto ${idx + 1}`} />
-                    ) : (
-                      <video src={g.src} controls style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block', background: '#000' }} />
-                    )}
-                  </div>
-                );
-              })}
+            <button className="gallery-arrow" onClick={() => scrollGallery(-1)} aria-label="Fotos anteriores da galeria" style={sx('flex-shrink:0;width:40px;height:40px;align-self:center;border-radius:999px;border:1px solid var(--line);background:var(--surface);color:var(--ink);cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;')}><i className="ti ti-chevron-left"></i></button>
+            <div ref={galleryRef} className="gallery-strip">
+              {galeria.map((g, i) => (
+                <div key={g.src} className="gallery-item" style={{ aspectRatio: g.ratio }}>
+                  {g.type === 'image' ? (
+                    <RealPhoto src={g.src} alt={`Eduardo Kayser, foto ${i + 1}`} />
+                  ) : (
+                    <video src={g.src} controls style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block', background: '#000' }} />
+                  )}
+                </div>
+              ))}
             </div>
-            <button onClick={nextGallery} aria-label="Próxima página da galeria" style={sx('flex-shrink:0;width:40px;height:40px;align-self:center;border-radius:999px;border:1px solid var(--line);background:var(--surface);color:var(--ink);cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;')}><i className="ti ti-chevron-right"></i></button>
-          </div>
-          <div style={sx('display:flex;gap:8px;justify-content:center;margin-top:24px;')}>
-            {Array.from({ length: totalGalleryPages }, (_, i) => (
-              <button key={i} onClick={() => setGalleryPage(i)} aria-label={`Ir para página ${i + 1} da galeria`} style={{ ...sx('width:9px;height:9px;padding:0;border-radius:999px;border:none;cursor:pointer;background:var(--accent);'), opacity: i === galleryPage ? 1 : 0.3 }}></button>
-            ))}
+            <button className="gallery-arrow" onClick={() => scrollGallery(1)} aria-label="Próximas fotos da galeria" style={sx('flex-shrink:0;width:40px;height:40px;align-self:center;border-radius:999px;border:1px solid var(--line);background:var(--surface);color:var(--ink);cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;')}><i className="ti ti-chevron-right"></i></button>
           </div>
         </div>
       </section>
@@ -317,7 +313,7 @@ export default function HomeClient({ posts = [] }) {
                   </div>
                   <div style={sx('display:flex;flex-direction:column;gap:8px;text-align:left;')}>
                     {p.bio.map((b, i) => (
-                      <p key={i} style={sx('font-size:13px;color:var(--muted);line-height:1.5;margin:0;')}>{b}</p>
+                      <p key={i} style={sx('font-size:13px;color:var(--muted);line-height:1.5;margin:0;text-align:justify;')}>{b}</p>
                     ))}
                   </div>
                 </div>
@@ -356,7 +352,7 @@ export default function HomeClient({ posts = [] }) {
               {depoimentos.map((d, i) => (
                 <div key={i} style={sx('background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:32px;display:flex;flex-direction:column;gap:20px;min-height:280px;')}>
                   <i className="ti ti-quote" style={sx('font-size:24px;color:var(--accent);')}></i>
-                  <p style={sx('font-size:15px;line-height:1.5;color:var(--muted);font-style:italic;margin:0;flex:1;overflow:hidden;')}>{d.text}</p>
+                  <p style={sx('font-size:15px;line-height:1.5;color:var(--muted);font-style:italic;margin:0;flex:1;overflow:hidden;text-align:justify;padding-right:3px;')}>{d.text}</p>
                   <div style={sx('font-size:14px;font-weight:600;color:var(--muted);border-top:1px solid var(--line);padding-top:16px;')}>{d.who}</div>
                 </div>
               ))}
@@ -407,7 +403,7 @@ export default function HomeClient({ posts = [] }) {
 
       <footer style={sx('padding:48px clamp(20px,5vw,64px);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:20px;')}>
         <div style={sx('display:flex;align-items:center;gap:24px;flex-wrap:wrap;')}>
-          <div style={sx("font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:17px;")}>Ecossistema LUCIDEZ — Eduardo Kayser</div>
+          <div style={sx("font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:17px;")}>Ecossistema LUCIDEZ | Eduardo Kayser</div>
           <Link href="/lucidez-profissional" style={sx('font-size:14px;color:var(--muted);')}>Lucidez Profissional</Link>
           <Link href="/lucidez-organizacoes" style={sx('font-size:14px;color:var(--muted);')}>Lucidez Organizações</Link>
           <a href="#parceiros" style={sx('font-size:14px;color:var(--muted);')}>Ecossistema de parceiros</a>

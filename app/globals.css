@@ -24,7 +24,26 @@ p { text-wrap: pretty; }
 .posts-grid { display: grid; grid-template-columns: repeat(2, 1fr); }
 .lucidez-list { display: grid; grid-template-columns: repeat(2, 1fr); }
 .solucoes-cards { display: grid; grid-template-columns: repeat(2, 1fr); }
-.gallery-grid { display: grid; grid-template-columns: repeat(3, 1fr); }
+.gallery-strip {
+  --gallery-h: 380px;
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  gap: 16px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+}
+.gallery-strip::-webkit-scrollbar { display: none; }
+.gallery-item {
+  position: relative;
+  flex: 0 0 auto;
+  height: var(--gallery-h);
+  border-radius: 12px;
+  overflow: hidden;
+  background: #000;
+  scroll-snap-align: start;
+}
 
 @media (max-width: 980px) {
   .hero-grid { grid-template-columns: 1fr; }
@@ -33,7 +52,7 @@ p { text-wrap: pretty; }
   .about-photo { max-width: 320px; margin: 0 auto; }
   .partners-grid { grid-template-columns: repeat(2, 1fr); }
   .pdl-steps { grid-template-columns: repeat(3, 1fr); gap: 24px 16px; }
-  .gallery-grid { grid-template-columns: repeat(2, 1fr); }
+  .gallery-strip { --gallery-h: 300px; }
 }
 
 @media (max-width: 768px) {
@@ -64,7 +83,8 @@ p { text-wrap: pretty; }
   .pdl-steps { grid-template-columns: repeat(2, 1fr); }
   .solucoes-cards { grid-template-columns: 1fr; }
   .partners-grid { grid-template-columns: 1fr; }
-  .gallery-grid { grid-template-columns: 1fr; }
+  .gallery-strip { --gallery-h: 240px; }
+  .gallery-arrow { display: none !important; }
 }
 
 @media (max-width: 560px) {
@@ -135,7 +155,7 @@ p { text-wrap: pretty; }
 
 .post-body { font-size: 18px; line-height: 1.75; color: var(--ink); }
 .post-body > :first-child { margin-top: 0; }
-.post-body p { margin: 0 0 24px; }
+.post-body p { margin: 0 0 24px; text-align: justify; }
 .post-body h2, .post-body h3 { font-family: 'Space Grotesk', sans-serif; font-weight: 700; line-height: 1.25; }
 .post-body h2 { font-size: clamp(24px, 3vw, 30px); margin: 48px 0 16px; }
 .post-body h3 { font-size: clamp(20px, 2.4vw, 23px); margin: 36px 0 12px; }

@@ -1,7 +1,7 @@
 import './globals.css';
 import { SITE_URL, SITE_NAME, personJsonLd, organizationJsonLd } from '../lib/site';
 
-const description = 'Profissionais e organizações crescem com clareza, método e intenção — o Ecossistema LUCIDEZ, criado e conduzido por Eduardo Kayser.';
+const description = 'Profissionais e organizações crescem com clareza, método e intenção: o Ecossistema LUCIDEZ, criado e conduzido por Eduardo Kayser.';
 
 export const metadata = {
   metadataBase: new URL(SITE_URL),
