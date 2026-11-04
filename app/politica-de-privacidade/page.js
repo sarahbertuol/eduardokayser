@@ -32,14 +32,15 @@ export default function PoliticaPage() {
             <li style={li}><strong>Dados de navegação:</strong> como endereço IP, tipo de navegador, páginas acessadas e data/hora. São registrados de forma técnica pela hospedagem do site (Vercel) para segurança e funcionamento.</li>
             <li style={li}><strong>Preferências do site:</strong> a escolha entre tema claro ou escuro, guardada no seu próprio navegador.</li>
             <li style={li}><strong>Estatísticas de uso (apenas com o seu consentimento):</strong> informações agregadas sobre páginas visitadas e cliques em botões, coletadas pelo Google Analytics.</li>
-            <li style={li}><strong>Contato:</strong> ao clicar em “Falar no WhatsApp” ou “Agendar”, você é levado a serviços de terceiros (WhatsApp e Google Agenda). Os dados que você informar lá, como nome e telefone, são tratados para responder ao seu contato e conforme as políticas desses serviços. Este site não possui formulários próprios de cadastro.</li>
+            <li style={li}><strong>Contato:</strong> ao clicar em “Falar no WhatsApp” ou “Agendar”, você é levado a serviços de terceiros (WhatsApp e Google Agenda). Os dados que você informar lá, como nome e telefone, são tratados para responder ao seu contato e conforme as políticas desses serviços.</li>
+            <li style={li}><strong>Solicitação de proposta:</strong> o formulário “Solicite sua proposta” coleta nome, e-mail, WhatsApp, empresa, cargo, cidade e estado, porte da empresa e detalhes da demanda. Este site não armazena esses dados: ao enviar, eles formam uma mensagem de WhatsApp que você mesmo envia a Eduardo Kayser, que os utiliza para elaborar e enviar a proposta. Depois do envio, os dados passam a ser tratados também pelo WhatsApp, conforme a política desse serviço.</li>
           </ul>
 
           <h2 style={h2}>3. Para que usamos e em que base legal</h2>
           <ul style={sx('margin:0 0 14px;padding-left:22px;')}>
             <li style={li}><strong>Funcionamento, segurança e lembrar suas preferências:</strong> legítimo interesse e execução do serviço solicitado (art. 7º, V e IX, da LGPD).</li>
             <li style={li}><strong>Estatísticas de uso:</strong> seu consentimento (art. 7º, I, da LGPD). Sem a sua autorização, esses cookies não são carregados.</li>
-            <li style={li}><strong>Responder contatos e agendamentos:</strong> atendimento a pedido seu (art. 7º, V, da LGPD).</li>
+            <li style={li}><strong>Responder contatos, agendamentos e propostas:</strong> atendimento a pedido seu (art. 7º, V, da LGPD).</li>
           </ul>
 
           <h2 style={h2}>4. Cookies e armazenamento no navegador</h2>

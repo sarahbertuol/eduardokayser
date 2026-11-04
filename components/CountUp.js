@@ -1,13 +1,24 @@
 'use client';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useLayoutEffect, useRef, useState } from 'react';
 
+const useIsoLayoutEffect = typeof window !== 'undefined' ? useLayoutEffect : useEffect;
+
+// O HTML inicial já traz o valor final (útil para buscadores, IAs e quem desativa animações);
+// a contagem de 0 até o valor só acontece no navegador, quando o número aparece na tela.
 export default function CountUp({ to, prefix = '', suffix = '', duration = 1600, active = true }) {
-  const [value, setValue] = useState(0);
+  const [value, setValue] = useState(to);
   const ref = useRef(null);
   const started = useRef(false);
 
+  useIsoLayoutEffect(() => {
+    if (!active || started.current) return;
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    setValue(0);
+  }, [active]);
+
   useEffect(() => {
     if (!active) return;
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
     const el = ref.current;
     if (!el) return;
     const observer = new IntersectionObserver(([entry]) => {

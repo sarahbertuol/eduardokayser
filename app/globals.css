@@ -55,7 +55,11 @@ p { text-wrap: pretty; }
   .gallery-strip { --gallery-h: 300px; }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 1360px) {
+  .nav-links { gap: 16px !important; }
+}
+
+@media (max-width: 1240px) {
   .nav-links { display: none; }
   .nav-links.open {
     display: flex;
@@ -69,8 +73,13 @@ p { text-wrap: pretty; }
     background: var(--bg);
     border-bottom: 1px solid var(--line);
     padding: 12px clamp(16px, 5vw, 48px) 20px;
+    max-height: calc(100vh - 80px);
+    overflow-y: auto;
   }
   .nav-links.open a { padding: 10px 0; width: 100%; font-size: 15px; }
+  .nav-links.open .nav-dropdown { width: 100%; }
+  .nav-links.open .nav-dropdown > a { display: none; }
+  .nav-links.open .nav-dropdown-menu { position: static; display: block; box-shadow: none; border: none; padding: 0; background: none; min-width: 0; }
   .nav-toggle { display: flex; }
 }
 
@@ -97,6 +106,83 @@ p { text-wrap: pretty; }
 
 @media (max-width: 520px) {
   .nav-cta { display: none; }
+}
+
+/* ---- Menu: submenu "Sobre" ---- */
+
+.nav-dropdown { position: relative; }
+.nav-caret { font-size: 12px; margin-left: 2px; }
+.nav-dropdown-menu {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: -14px;
+  min-width: 220px;
+  padding: 14px 14px 10px;
+  background: var(--bg);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.12);
+}
+.nav-dropdown-menu a { display: block; padding: 8px 0; }
+.nav-dropdown:hover .nav-dropdown-menu,
+.nav-dropdown:focus-within .nav-dropdown-menu { display: block; }
+
+/* ---- Para empresas / profissionais ---- */
+
+.empresas-problemas { display: grid; grid-template-columns: repeat(3, 1fr); }
+.pdl-beneficios { display: grid; grid-template-columns: repeat(2, 1fr); }
+@media (max-width: 980px) { .empresas-problemas { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 640px) {
+  .empresas-problemas { grid-template-columns: 1fr; }
+  .pdl-beneficios { grid-template-columns: 1fr; }
+}
+.oferta-body { animation: ofertaIn 0.28s ease; }
+@keyframes ofertaIn {
+  from { opacity: 0; transform: translateY(-6px); }
+  to { opacity: 1; transform: none; }
+}
+
+/* ---- Credenciais (logos em cinza, invertidos no tema escuro) ---- */
+
+[data-theme="dark"] .credenciais-img { filter: invert(1) brightness(1.05); }
+
+/* ---- Formulário de proposta ---- */
+
+.form-legend { font-family: 'Space Grotesk', sans-serif; font-size: 18px; font-weight: 700; margin-bottom: 14px; padding: 0; }
+.form-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 18px; }
+.form-grid-3 { grid-template-columns: repeat(3, 1fr); }
+.form-field { display: flex; flex-direction: column; gap: 6px; }
+.form-field > label { font-size: 14px; font-weight: 600; }
+.field {
+  width: 100%;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 12px 14px;
+  background: var(--surface);
+  color: var(--ink);
+  font: inherit;
+  font-size: 15px;
+}
+.field:focus { outline: 2px solid var(--accent); outline-offset: 1px; }
+textarea.field { resize: vertical; }
+.choice-row { display: flex; flex-wrap: wrap; gap: 10px; }
+.choice {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 10px 16px;
+  background: var(--surface);
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+}
+.choice input { accent-color: var(--accent); width: 16px; height: 16px; }
+.choice:has(input:checked) { border-color: var(--accent); background: var(--bg-alt); }
+@media (max-width: 640px) {
+  .form-grid, .form-grid-3 { grid-template-columns: 1fr; }
 }
 
 /* ---- Solução cards (Lucidez Profissional) ---- */
@@ -136,6 +222,7 @@ p { text-wrap: pretty; }
 }
 .marquee-track {
   display: flex;
+  align-items: center;
   width: max-content;
   animation: marquee-scroll 60s linear infinite;
 }
