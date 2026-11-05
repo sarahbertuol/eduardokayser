@@ -97,8 +97,7 @@ export default function PainelEmpresas({ asH1 = false }) {
         </div>
 
         <div style={sx('max-width:640px;margin:56px auto 28px;text-align:center;')}>
-          <p style={lead}>{pdl.texto}</p>
-          <p style={sx('font-size:16px;font-weight:600;margin:16px 0 0;')}>{pdl.subtitulo}</p>
+          <p style={sx('font-size:16px;font-weight:600;margin:0;')}>{pdl.subtitulo}</p>
         </div>
         <div className="pdl-indicadores" style={sx('gap:24px;margin-bottom:20px;')}>
           {pdl.indicadores.map((ind, i) => (

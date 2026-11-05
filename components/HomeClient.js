@@ -1,5 +1,5 @@
 'use client';
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
 import { sx } from '../lib/sx';
 import Link from 'next/link';
@@ -56,6 +56,22 @@ export default function HomeClient({ posts = [] }) {
   const partnersPageItems = parceiros.slice(partnerPage * 3, partnerPage * 3 + 3);
   const prevPartners = () => setPartnerPage(p => (p - 1 + totalPartnerPages) % totalPartnerPages);
   const nextPartners = () => setPartnerPage(p => (p + 1) % totalPartnerPages);
+
+  // Parceiros e Resultados existem só na aba "Para empresas": links para eles trazem a aba de volta
+  useEffect(() => {
+    const onClick = e => {
+      const a = e.target.closest && e.target.closest('a[href]');
+      const m = a && a.getAttribute('href').match(/#(parceiros|resultados)$/);
+      if (!m) return;
+      setLucidezTab('empresas');
+      setTimeout(() => {
+        const el = document.getElementById(m[1]);
+        if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }, 60);
+    };
+    document.addEventListener('click', onClick, true);
+    return () => document.removeEventListener('click', onClick, true);
+  }, []);
 
   const scrollGallery = dir => {
     const el = galleryRef.current;
@@ -201,6 +217,7 @@ export default function HomeClient({ posts = [] }) {
         </div>
       </section>
 
+      {lucidezTab === 'empresas' && (<>
       <section id="parceiros" style={sx('padding:104px clamp(20px,5vw,64px);background:var(--bg-alt);')}>
         <div style={sx('max-width:1180px;margin:0 auto;')}>
           <div style={sx('max-width:680px;margin:0 auto 72px;text-align:center;')}>
@@ -264,6 +281,7 @@ export default function HomeClient({ posts = [] }) {
           </div>
         </div>
       </section>
+      </>)}
 
       <section id="depoimentos" style={sx('padding:104px clamp(20px,5vw,64px);background:var(--bg-alt);')}>
         <div style={sx('max-width:1180px;margin:0 auto;')}>
