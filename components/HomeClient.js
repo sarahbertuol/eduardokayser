@@ -126,16 +126,10 @@ export default function HomeClient({ posts = [] }) {
 
       <section id="sobre-eduardo" style={sx('padding:104px clamp(20px,5vw,64px);background:var(--bg-alt);')}>
         <div className="about-grid" style={sx('max-width:1180px;margin:0 auto;gap:56px;align-items:start;')}>
-          <div>
+          <div className="about-photo-col">
             <div className="about-photo" style={sx('width:100%;aspect-ratio:1/1;border-radius:12px;overflow:hidden;')}>
               <RealPhoto src="/eduardo/sobre.jpg" alt="Eduardo Kayser" />
             </div>
-            <ul style={sx('margin:32px 0 28px;padding:0;list-style:none;display:flex;flex-direction:column;gap:12px;')}>
-              {sobreEduardo.destaques.map((d, i) => (
-                <li key={i} style={sx('font-size:15px;line-height:1.5;display:flex;gap:10px;')}><i className="ti ti-check" style={sx('color:var(--accent);flex-shrink:0;margin-top:3px;')}></i>{d}</li>
-              ))}
-            </ul>
-            <a href="#resultados" style={sx('border-radius:999px;padding:14px 26px;background:var(--accent);color:var(--on-accent);font-size:15px;font-weight:600;display:inline-flex;align-items:center;gap:8px;')}>Conheça meus resultados <i className="ti ti-arrow-right"></i></a>
           </div>
           <div>
             <div style={sx('font-size:13px;letter-spacing:0.08em;text-transform:uppercase;color:var(--accent);font-weight:700;margin-bottom:12px;')}>Eduardo Kayser</div>
@@ -143,19 +137,33 @@ export default function HomeClient({ posts = [] }) {
             {sobreEduardo.paragrafos.map((p, i) => (
               <p key={i} style={sx('font-size:15px;color:var(--muted);line-height:1.65;margin:0 0 14px;text-align:justify;')}>{p}</p>
             ))}
-            <div style={sx('margin-top:36px;')}>
-              <div style={sx('font-size:13px;letter-spacing:0.08em;text-transform:uppercase;color:var(--muted);font-weight:700;margin-bottom:16px;')}>Formação e credenciais</div>
-              <Image
-                className="credenciais-img"
-                src="/eduardo/credenciais.png"
-                width={1586}
-                height={248}
-                sizes="(max-width: 980px) 90vw, 600px"
-                alt="Instituições de formação e credenciais de Eduardo Kayser: Feevale, Unisinos, Fundação Dom Cabral, HSM University, Amana-Key, IBGC, ISE Business School, Middlesex University London, AoEC, EMCC, ICF, Falconi, IBC Coaching e Harvard University"
-                style={{ width: '100%', height: 'auto' }}
-              />
+            <div style={sx('margin-top:28px;')}>
+              <a href="#resultados" style={sx('border-radius:999px;padding:14px 26px;background:var(--accent);color:var(--on-accent);font-size:15px;font-weight:600;display:inline-flex;align-items:center;gap:8px;')}>Conheça meus resultados <i className="ti ti-arrow-right"></i></a>
             </div>
           </div>
+        </div>
+
+        <div style={sx('max-width:1180px;margin:72px auto 0;')}>
+          <ul className="destaques-grid" style={sx('margin:0;padding:0;list-style:none;gap:16px;')}>
+            {sobreEduardo.destaques.map((d, i) => (
+              <li key={i} style={sx('background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:18px 20px;font-size:15px;line-height:1.5;display:flex;gap:12px;align-items:flex-start;')}>
+                <i className="ti ti-check" style={sx('color:var(--accent);flex-shrink:0;margin-top:3px;')}></i>{d}
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <div style={sx('max-width:1000px;margin:72px auto 0;text-align:center;')}>
+          <div style={sx('font-size:13px;letter-spacing:0.08em;text-transform:uppercase;color:var(--muted);font-weight:700;margin-bottom:20px;')}>Formação e credenciais</div>
+          <Image
+            className="credenciais-img"
+            src="/eduardo/credenciais.png"
+            width={1586}
+            height={248}
+            sizes="(max-width: 1040px) 90vw, 1000px"
+            alt="Instituições de formação e credenciais de Eduardo Kayser: Feevale, Unisinos, Fundação Dom Cabral, HSM University, Amana-Key, IBGC, ISE Business School, Middlesex University London, AoEC, EMCC, ICF, Falconi, IBC Coaching e Harvard University"
+            style={{ width: '100%', height: 'auto' }}
+          />
         </div>
 
         <div style={sx('max-width:1180px;margin:80px auto 0;')}>
