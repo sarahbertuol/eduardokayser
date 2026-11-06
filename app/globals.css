@@ -1,4 +1,4 @@
-body { margin: 0; overflow-x: hidden; }
+body { margin: 0; overflow-x: clip; }
 a { text-decoration: none; text-underline-offset: 0.2rem; }
 a:hover { text-decoration: underline; }
 ::selection { background: var(--accent); color: var(--on-accent); }
@@ -338,4 +338,26 @@ button[style*="999px"]:not([style*="padding"]):hover {
 
 @media (min-width: 981px) {
   .partners-single > div { grid-column: 2; }
+}
+
+/* ---- Mobile: espaçamentos menores, botões em largura total, hifenização ---- */
+
+@media (max-width: 640px) {
+  header.hero-grid { padding-top: 36px !important; padding-bottom: 48px !important; gap: 32px !important; }
+  body section { padding-top: 60px !important; padding-bottom: 60px !important; }
+  body section#introducao { padding-top: 40px !important; padding-bottom: 40px !important; }
+  .hero-ctas { flex-direction: column; gap: 12px !important; }
+  .hero-ctas > a, .hero-ctas > button { width: 100%; justify-content: center; text-align: center; }
+  p { overflow-wrap: break-word; }
+  /* texto justificado em coluna estreita abre buracos entre palavras: alinha à esquerda no celular */
+  p[style*="justify"], li[style*="justify"] { text-align: left !important; }
+  .marquee-wrap { margin-bottom: 40px !important; }
+  .marquee-track { zoom: 0.7; }
+}
+
+/* Carrosséis (parceiros e depoimentos): no celular a seta não rouba largura do cartão */
+@media (max-width: 640px) {
+  .carousel-row { flex-wrap: wrap; justify-content: center; gap: 20px 16px !important; }
+  .carousel-row > div { order: 1; flex: 1 1 100% !important; }
+  .carousel-arrow { order: 2; align-self: center !important; }
 }

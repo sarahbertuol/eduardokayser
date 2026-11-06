@@ -95,7 +95,7 @@ export default function HomeClient({ posts = [] }) {
         <div>
           <h1 className="hero-in" style={sx("--d:0.1s;font-family:'Space Grotesk',sans-serif;font-size:clamp(34px,4.6vw,52px);font-weight:700;line-height:1.15;margin:0 0 24px;")}>{heroContent.headline}</h1>
           <p className="hero-in" style={sx('--d:0.3s;font-size:18px;color:var(--muted);line-height:1.6;margin:0 0 36px;max-width:560px;text-align:justify;')}>{heroContent.subheadline}</p>
-          <div className="hero-in" style={sx('--d:0.5s;display:flex;gap:16px;flex-wrap:wrap;')}>
+          <div className="hero-in hero-ctas" style={sx('--d:0.5s;display:flex;gap:16px;flex-wrap:wrap;')}>
             <ProposalButton params={{}} origin="hero">Solicitar proposta</ProposalButton>
             <a href="#lucidez" onClick={() => setLucidezTab('empresas')} style={sx('border-radius:999px;padding:16px 28px;background:var(--surface);border:1px solid var(--line);color:var(--ink);font-size:15px;font-weight:600;display:inline-flex;align-items:center;gap:8px;')}>Quero transformar minha organização <i className="ti ti-arrow-right"></i></a>
             <a href="#lucidez" onClick={() => setLucidezTab('profissional')} style={sx('border-radius:999px;padding:16px 28px;background:var(--surface);border:1px solid var(--line);color:var(--ink);font-size:15px;font-weight:600;display:inline-flex;align-items:center;gap:8px;')}>Quero crescer profissionalmente <i className="ti ti-arrow-right"></i></a>
@@ -225,8 +225,8 @@ export default function HomeClient({ posts = [] }) {
             <h2 style={sx("font-family:'Space Grotesk',sans-serif;font-size:clamp(28px,3.5vw,38px);font-weight:700;margin:0 0 16px;")}>Uma rede de parceiros para impulsionar empresas e profissionais de forma integral</h2>
             <p style={sx('font-size:16px;color:var(--muted);line-height:1.6;margin:0;')}>Além de todo o conhecimento e experiência do Eduardo Kayser, ele conecta empresas e profissionais a parceiros especializados que integram o Ecossistema LUCIDEZ.</p>
           </div>
-          <div style={sx('display:flex;align-items:stretch;gap:16px;')}>
-            <button onClick={prevPartners} aria-label="Parceiros anteriores" style={sx('flex-shrink:0;width:44px;height:44px;align-self:center;border-radius:999px;border:1px solid var(--line);background:var(--surface);color:var(--ink);cursor:pointer;font-size:18px;display:flex;align-items:center;justify-content:center;')}><i className="ti ti-chevron-left"></i></button>
+          <div className="carousel-row" style={sx('display:flex;align-items:stretch;gap:16px;')}>
+            <button onClick={prevPartners} aria-label="Parceiros anteriores" className="carousel-arrow" style={sx('flex-shrink:0;width:44px;height:44px;align-self:center;border-radius:999px;border:1px solid var(--line);background:var(--surface);color:var(--ink);cursor:pointer;font-size:18px;display:flex;align-items:center;justify-content:center;')}><i className="ti ti-chevron-left"></i></button>
             <div className={partnersPageItems.length === 1 ? 'partners-grid partners-single' : 'partners-grid'} style={sx('flex:1;gap:24px;min-width:0;')}>
               {partnersPageItems.map(p => (
                 <div key={p.id} style={sx('background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:28px;text-align:center;display:flex;flex-direction:column;')}>
@@ -257,7 +257,7 @@ export default function HomeClient({ posts = [] }) {
                 </div>
               ))}
             </div>
-            <button onClick={nextPartners} aria-label="Próximos parceiros" style={sx('flex-shrink:0;width:44px;height:44px;align-self:center;border-radius:999px;border:1px solid var(--line);background:var(--surface);color:var(--ink);cursor:pointer;font-size:18px;display:flex;align-items:center;justify-content:center;')}><i className="ti ti-chevron-right"></i></button>
+            <button onClick={nextPartners} aria-label="Próximos parceiros" className="carousel-arrow" style={sx('flex-shrink:0;width:44px;height:44px;align-self:center;border-radius:999px;border:1px solid var(--line);background:var(--surface);color:var(--ink);cursor:pointer;font-size:18px;display:flex;align-items:center;justify-content:center;')}><i className="ti ti-chevron-right"></i></button>
           </div>
           <div style={sx('display:flex;gap:8px;justify-content:center;margin-top:32px;')}>
             {Array.from({ length: totalPartnerPages }, (_, i) => (
@@ -286,8 +286,8 @@ export default function HomeClient({ posts = [] }) {
       <section id="depoimentos" style={sx('padding:104px clamp(20px,5vw,64px);background:var(--bg-alt);')}>
         <div style={sx('max-width:1180px;margin:0 auto;')}>
           <h2 style={sx("font-family:'Space Grotesk',sans-serif;font-size:clamp(28px,3.5vw,38px);font-weight:700;margin:0 0 48px;text-align:center;")}>Depoimentos</h2>
-          <div style={sx('display:flex;align-items:stretch;gap:16px;')}>
-            <button onClick={prevTestimonials} aria-label="Depoimentos anteriores" style={sx('flex-shrink:0;width:44px;height:44px;align-self:center;border-radius:999px;border:1px solid var(--line);background:var(--surface);color:var(--ink);cursor:pointer;font-size:18px;display:flex;align-items:center;justify-content:center;')}><i className="ti ti-chevron-left"></i></button>
+          <div className="carousel-row" style={sx('display:flex;align-items:stretch;gap:16px;')}>
+            <button onClick={prevTestimonials} aria-label="Depoimentos anteriores" className="carousel-arrow" style={sx('flex-shrink:0;width:44px;height:44px;align-self:center;border-radius:999px;border:1px solid var(--line);background:var(--surface);color:var(--ink);cursor:pointer;font-size:18px;display:flex;align-items:center;justify-content:center;')}><i className="ti ti-chevron-left"></i></button>
             <div className="testimonials-grid" style={sx('flex:1;gap:24px;min-width:0;')}>
               {depoimentos.map((d, i) => (
                 <div key={i} style={sx('background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:32px;display:flex;flex-direction:column;gap:20px;min-height:280px;')}>
@@ -297,7 +297,7 @@ export default function HomeClient({ posts = [] }) {
                 </div>
               ))}
             </div>
-            <button onClick={nextTestimonials} aria-label="Próximos depoimentos" style={sx('flex-shrink:0;width:44px;height:44px;align-self:center;border-radius:999px;border:1px solid var(--line);background:var(--surface);color:var(--ink);cursor:pointer;font-size:18px;display:flex;align-items:center;justify-content:center;')}><i className="ti ti-chevron-right"></i></button>
+            <button onClick={nextTestimonials} aria-label="Próximos depoimentos" className="carousel-arrow" style={sx('flex-shrink:0;width:44px;height:44px;align-self:center;border-radius:999px;border:1px solid var(--line);background:var(--surface);color:var(--ink);cursor:pointer;font-size:18px;display:flex;align-items:center;justify-content:center;')}><i className="ti ti-chevron-right"></i></button>
           </div>
           <div style={sx('display:flex;gap:8px;justify-content:center;margin-top:28px;')}>
             {Array.from({ length: totalPages }, (_, i) => (

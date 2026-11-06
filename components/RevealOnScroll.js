@@ -15,7 +15,8 @@ export default function RevealOnScroll() {
         entry.target.classList.add('is-visible');
         observer.unobserve(entry.target);
       });
-    }, { threshold: 0.1, rootMargin: '0px 0px -6% 0px' });
+    // threshold 0: basta tocar a faixa visível. Com 10%, seções muito altas no celular (milhares de px) ficavam invisíveis.
+    }, { threshold: 0, rootMargin: '0px 0px -8% 0px' });
 
     targets.forEach(el => {
       el.classList.add('reveal');
