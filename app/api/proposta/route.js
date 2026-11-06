@@ -4,7 +4,8 @@ import { NextResponse } from 'next/server';
 // Variáveis de ambiente (Vercel):
 //   RESEND_API_KEY      obrigatória
 //   PROPOSTA_TO         destino (padrão: eduardokayser@outlook.com)
-//   PROPOSTA_FROM       remetente (padrão: onboarding@resend.dev; troque por um endereço do domínio verificado)
+//   PROPOSTA_CC         cópia (opcional; vários separados por vírgula)
+//   PROPOSTA_FROM      remetente (padrão: onboarding@resend.dev; troque por um endereço do domínio verificado)
 
 export const runtime = 'nodejs';
 
@@ -72,6 +73,7 @@ export async function POST(req) {
       body: JSON.stringify({
         from: process.env.PROPOSTA_FROM || REMETENTE_PADRAO,
         to: [process.env.PROPOSTA_TO || DESTINO_PADRAO],
+        ...(process.env.PROPOSTA_CC ? { cc: process.env.PROPOSTA_CC.split(',').map(s => s.trim()).filter(Boolean) } : {}),
         reply_to: email,
         subject: assunto,
         text: texto,
