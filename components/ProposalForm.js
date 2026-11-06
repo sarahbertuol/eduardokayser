@@ -53,6 +53,9 @@ export default function ProposalForm({ servico = '', perfil = '', parceiro = '' 
     const necessidades = f.getAll('necessidade');
     if (necessidades.length === 0) {
       setErro('Selecione pelo menos uma necessidade.');
+      // leva a pessoa até o campo que falta, em vez de parecer que o botão não funciona
+      const campo = document.getElementById('necessidades');
+      if (campo) campo.scrollIntoView({ behavior: 'smooth', block: 'center' });
       return;
     }
     setErro('');
@@ -92,11 +95,16 @@ export default function ProposalForm({ servico = '', perfil = '', parceiro = '' 
     setEnviando(true);
     let porEmail = false;
     try {
+      // limite de tempo: se o envio demorar demais, segue para o WhatsApp em vez de travar o botão
+      const ctrl = new AbortController();
+      const timer = setTimeout(() => ctrl.abort(), 20000);
       const resp = await fetch('/api/proposta', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ campos, site: f.get('site') || '' })
+        body: JSON.stringify({ campos, site: f.get('contato_alt') || '' }),
+        signal: ctrl.signal
       });
+      clearTimeout(timer);
       porEmail = resp.ok;
     } catch (_) {
       porEmail = false;
@@ -142,7 +150,7 @@ export default function ProposalForm({ servico = '', perfil = '', parceiro = '' 
   return (
     <form onSubmit={onSubmit} style={sx('display:flex;flex-direction:column;gap:32px;')}>
       {/* campo isca contra robôs: invisível para pessoas */}
-      <input type="text" name="site" tabIndex={-1} autoComplete="off" aria-hidden="true" style={{ position: 'absolute', left: '-9999px', width: 1, height: 1, opacity: 0 }} />
+      <input type="text" name="contato_alt" tabIndex={-1} autoComplete="off" aria-hidden="true" style={{ position: 'absolute', left: '-9999px', width: 1, height: 1, opacity: 0 }} />
       {servico && (
         <div style={sx('background:var(--bg-alt);border-radius:12px;padding:14px 18px;font-size:15px;')}>Você está solicitando uma proposta para: <strong>{servico}</strong></div>
       )}
@@ -180,7 +188,7 @@ export default function ProposalForm({ servico = '', perfil = '', parceiro = '' 
         </fieldset>
       )}
 
-      <fieldset style={sx('border:none;padding:0;margin:0;')}>
+      <fieldset id="necessidades" onChange={() => erro && setErro('')} style={sx('border:none;padding:0;margin:0;')}>
         <legend className="form-legend">Qual é a necessidade? (pode marcar mais de uma) *</legend>
         <div className="choice-row">
           {NECESSIDADES.map(v => <Choice key={v} type="checkbox" name="necessidade" value={v} defaultChecked={sugeridas.includes(v)} />)}
@@ -223,6 +231,7 @@ export default function ProposalForm({ servico = '', perfil = '', parceiro = '' 
       </label>
 
       <div>
+        {erro && <p role="alert" style={sx('color:#D14343;font-size:14px;font-weight:600;margin:0 0 12px;')}>Falta marcar a necessidade na seção acima. Depois é só enviar novamente.</p>}
         <button type="submit" disabled={enviando} style={{ ...sx('border-radius:999px;padding:17px 32px;background:var(--accent);color:var(--on-accent);border:none;font-size:16px;font-weight:600;cursor:pointer;display:inline-flex;align-items:center;gap:8px;'), opacity: enviando ? 0.7 : 1 }}>
           <i className={enviando ? 'ti ti-loader-2' : 'ti ti-send'}></i>{enviando ? 'Enviando...' : 'Enviar solicitação'}
         </button>
