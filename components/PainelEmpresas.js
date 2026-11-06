@@ -51,7 +51,7 @@ export default function PainelEmpresas({ asH1 = false }) {
         <p style={sx('font-size:16px;color:var(--muted);line-height:1.65;margin:0 auto 28px;max-width:640px;')}>{emp.cta.texto}</p>
         <div style={sx('display:flex;gap:14px;justify-content:center;flex-wrap:wrap;')}>
           <ProposalButton params={{}} origin="empresas-cta">Solicitar proposta</ProposalButton>
-          <a href={AGENDA_URL} onClick={() => track('generate_lead', { method: 'agenda', origin: 'empresas-cta' })} target="_blank" rel="noreferrer" style={sx('border-radius:999px;padding:16px 28px;background:var(--surface);border:1px solid var(--line);color:var(--ink);font-size:15px;font-weight:600;display:inline-flex;align-items:center;justify-content:center;gap:8px;text-align:center;')}><i className="ti ti-calendar-event"></i>Agendar uma conversa estratégica</a>
+          <a className="cta-agenda" href={AGENDA_URL} onClick={() => track('generate_lead', { method: 'agenda', origin: 'empresas-cta' })} target="_blank" rel="noreferrer" style={sx('border-radius:999px;padding:16px 28px;background:var(--surface);border:1px solid var(--line);color:var(--ink);font-size:15px;font-weight:600;display:inline-flex;align-items:center;justify-content:center;gap:8px;text-align:center;')}><i className="ti ti-calendar-event"></i>Agendar uma conversa estratégica</a>
         </div>
       </div>
 

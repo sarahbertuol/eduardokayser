@@ -43,19 +43,31 @@ export default function HomeClient({ posts = [] }) {
   const [partnerPage, setPartnerPage] = useState(0);
   const [lucidezTab, setLucidezTab] = useState('empresas');
   const galleryRef = useRef(null);
+  const partnersRef = useRef(null);
+  const testimonialsRef = useRef(null);
 
   const isDark = theme === 'dark';
   const rootVars = themeVars(theme);
 
   const totalPages = Math.ceil(allDepoimentos.length / 3);
-  const depoimentos = allDepoimentos.slice(testimonialPage * 3, testimonialPage * 3 + 3);
-  const prevTestimonials = () => setTestimonialPage(p => (p - 1 + totalPages) % totalPages);
-  const nextTestimonials = () => setTestimonialPage(p => (p + 1) % totalPages);
+  // No celular, parceiros e depoimentos viram sliders (1 cartão por vez, o próximo aparecendo). No computador, continuam em páginas de 3.
+  const isPhone = () => typeof window !== 'undefined' && window.matchMedia('(max-width: 640px)').matches;
+  const slide = (ref, dir) => {
+    const el = ref.current;
+    if (!el || !el.children.length) return;
+    const step = el.children[0].getBoundingClientRect().width + 12;
+    const max = el.scrollWidth - el.clientWidth;
+    if (dir > 0 && el.scrollLeft >= max - 6) el.scrollTo({ left: 0, behavior: 'smooth' });
+    else if (dir < 0 && el.scrollLeft <= 6) el.scrollTo({ left: max, behavior: 'smooth' });
+    else el.scrollBy({ left: dir * step, behavior: 'smooth' });
+  };
+  const prevTestimonials = () => (isPhone() ? slide(testimonialsRef, -1) : setTestimonialPage(p => (p - 1 + totalPages) % totalPages));
+  const nextTestimonials = () => (isPhone() ? slide(testimonialsRef, 1) : setTestimonialPage(p => (p + 1) % totalPages));
 
   const totalPartnerPages = Math.ceil(parceiros.length / 3);
   const partnersPageItems = parceiros.slice(partnerPage * 3, partnerPage * 3 + 3);
-  const prevPartners = () => setPartnerPage(p => (p - 1 + totalPartnerPages) % totalPartnerPages);
-  const nextPartners = () => setPartnerPage(p => (p + 1) % totalPartnerPages);
+  const prevPartners = () => (isPhone() ? slide(partnersRef, -1) : setPartnerPage(p => (p - 1 + totalPartnerPages) % totalPartnerPages));
+  const nextPartners = () => (isPhone() ? slide(partnersRef, 1) : setPartnerPage(p => (p + 1) % totalPartnerPages));
 
   // Parceiros e Resultados existem só na aba "Para empresas": links para eles trazem a aba de volta
   useEffect(() => {
@@ -172,11 +184,20 @@ export default function HomeClient({ posts = [] }) {
         <div style={sx('max-width:1000px;margin:72px auto 0;text-align:center;')}>
           <div style={sx('font-size:13px;letter-spacing:0.08em;text-transform:uppercase;color:var(--muted);font-weight:700;margin-bottom:20px;')}>Formação e credenciais</div>
           <Image
-            className="credenciais-img"
+            className="credenciais-img credenciais-desktop"
             src="/eduardo/credenciais.png"
             width={1586}
             height={248}
             sizes="(max-width: 1040px) 90vw, 1000px"
+            alt="Instituições de formação e credenciais de Eduardo Kayser: Feevale, Unisinos, Fundação Dom Cabral, HSM University, Amana-Key, IBGC, ISE Business School, Middlesex University London, AoEC, EMCC, ICF, Falconi, IBC Coaching e Harvard University"
+            style={{ width: '100%', height: 'auto' }}
+          />
+          <Image
+            className="credenciais-img credenciais-mobile"
+            src="/eduardo/credenciais-mobile.png"
+            width={1680}
+            height={600}
+            sizes="100vw"
             alt="Instituições de formação e credenciais de Eduardo Kayser: Feevale, Unisinos, Fundação Dom Cabral, HSM University, Amana-Key, IBGC, ISE Business School, Middlesex University London, AoEC, EMCC, ICF, Falconi, IBC Coaching e Harvard University"
             style={{ width: '100%', height: 'auto' }}
           />
@@ -227,9 +248,9 @@ export default function HomeClient({ posts = [] }) {
           </div>
           <div className="carousel-row" style={sx('display:flex;align-items:stretch;gap:16px;')}>
             <button onClick={prevPartners} aria-label="Parceiros anteriores" className="carousel-arrow" style={sx('flex-shrink:0;width:44px;height:44px;align-self:center;border-radius:999px;border:1px solid var(--line);background:var(--surface);color:var(--ink);cursor:pointer;font-size:18px;display:flex;align-items:center;justify-content:center;')}><i className="ti ti-chevron-left"></i></button>
-            <div className={partnersPageItems.length === 1 ? 'partners-grid partners-single' : 'partners-grid'} style={sx('flex:1;gap:24px;min-width:0;')}>
-              {partnersPageItems.map(p => (
-                <div key={p.id} style={sx('background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:28px;text-align:center;display:flex;flex-direction:column;')}>
+            <div ref={partnersRef} className={partnersPageItems.length === 1 ? 'partners-grid partners-single' : 'partners-grid'} style={sx('flex:1;gap:24px;min-width:0;')}>
+              {parceiros.map((p, pi) => (
+                <div key={p.id} className={pi >= partnerPage * 3 && pi < partnerPage * 3 + 3 ? 'carousel-item' : 'carousel-item off'} style={sx('background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:28px;text-align:center;display:flex;flex-direction:column;')}>
                   <div style={sx('width:140px;height:140px;margin:0 auto 24px;border-radius:999px;overflow:hidden;flex-shrink:0;')}>
                     {p.photo ? <RealPhoto src={p.photo} alt={p.name} objectPosition={p.photoPosition || 'top'} /> : <ImagePlaceholder label="Foto do parceiro" shape="circle" />}
                   </div>
@@ -259,7 +280,7 @@ export default function HomeClient({ posts = [] }) {
             </div>
             <button onClick={nextPartners} aria-label="Próximos parceiros" className="carousel-arrow" style={sx('flex-shrink:0;width:44px;height:44px;align-self:center;border-radius:999px;border:1px solid var(--line);background:var(--surface);color:var(--ink);cursor:pointer;font-size:18px;display:flex;align-items:center;justify-content:center;')}><i className="ti ti-chevron-right"></i></button>
           </div>
-          <div style={sx('display:flex;gap:8px;justify-content:center;margin-top:32px;')}>
+          <div className="carousel-dots" style={sx('display:flex;gap:8px;justify-content:center;margin-top:32px;')}>
             {Array.from({ length: totalPartnerPages }, (_, i) => (
               <button key={i} onClick={() => setPartnerPage(i)} aria-label="Ir para página de parceiros" style={{ ...sx('width:9px;height:9px;padding:0;border-radius:999px;border:none;cursor:pointer;background:var(--accent);'), opacity: i === partnerPage ? 1 : 0.3 }}></button>
             ))}
@@ -288,9 +309,9 @@ export default function HomeClient({ posts = [] }) {
           <h2 style={sx("font-family:'Space Grotesk',sans-serif;font-size:clamp(28px,3.5vw,38px);font-weight:700;margin:0 0 48px;text-align:center;")}>Depoimentos</h2>
           <div className="carousel-row" style={sx('display:flex;align-items:stretch;gap:16px;')}>
             <button onClick={prevTestimonials} aria-label="Depoimentos anteriores" className="carousel-arrow" style={sx('flex-shrink:0;width:44px;height:44px;align-self:center;border-radius:999px;border:1px solid var(--line);background:var(--surface);color:var(--ink);cursor:pointer;font-size:18px;display:flex;align-items:center;justify-content:center;')}><i className="ti ti-chevron-left"></i></button>
-            <div className="testimonials-grid" style={sx('flex:1;gap:24px;min-width:0;')}>
-              {depoimentos.map((d, i) => (
-                <div key={i} style={sx('background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:32px;display:flex;flex-direction:column;gap:20px;min-height:280px;')}>
+            <div ref={testimonialsRef} className="testimonials-grid" style={sx('flex:1;gap:24px;min-width:0;')}>
+              {allDepoimentos.map((d, i) => (
+                <div key={i} className={i >= testimonialPage * 3 && i < testimonialPage * 3 + 3 ? 'carousel-item' : 'carousel-item off'} style={sx('background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:32px;display:flex;flex-direction:column;gap:20px;min-height:280px;')}>
                   <i className="ti ti-quote" style={sx('font-size:24px;color:var(--accent);')}></i>
                   <p style={sx('font-size:15px;line-height:1.5;color:var(--muted);font-style:italic;margin:0;flex:1;overflow:hidden;text-align:justify;padding-right:3px;')}>{d.text}</p>
                   <div style={sx('font-size:14px;font-weight:600;color:var(--muted);border-top:1px solid var(--line);padding-top:16px;')}>{d.who}</div>
@@ -299,7 +320,7 @@ export default function HomeClient({ posts = [] }) {
             </div>
             <button onClick={nextTestimonials} aria-label="Próximos depoimentos" className="carousel-arrow" style={sx('flex-shrink:0;width:44px;height:44px;align-self:center;border-radius:999px;border:1px solid var(--line);background:var(--surface);color:var(--ink);cursor:pointer;font-size:18px;display:flex;align-items:center;justify-content:center;')}><i className="ti ti-chevron-right"></i></button>
           </div>
-          <div style={sx('display:flex;gap:8px;justify-content:center;margin-top:28px;')}>
+          <div className="carousel-dots" style={sx('display:flex;gap:8px;justify-content:center;margin-top:28px;')}>
             {Array.from({ length: totalPages }, (_, i) => (
               <button key={i} onClick={() => setTestimonialPage(i)} aria-label="Ir para página de depoimentos" style={{ ...sx('width:9px;height:9px;padding:0;border-radius:999px;border:none;cursor:pointer;background:var(--accent);'), opacity: i === testimonialPage ? 1 : 0.3 }}></button>
             ))}
