@@ -44,9 +44,11 @@ export default function ProposalForm({ servico = '', perfil = '', parceiro = '' 
   const sugeridas = necessidadesSugeridas(servico);
   const [erro, setErro] = useState('');
   const [envio, setEnvio] = useState(null);
+  const [enviando, setEnviando] = useState(false);
 
-  function onSubmit(e) {
+  async function onSubmit(e) {
     e.preventDefault();
+    if (enviando) return;
     const f = new FormData(e.currentTarget);
     const necessidades = f.getAll('necessidade');
     if (necessidades.length === 0) {
@@ -55,10 +57,10 @@ export default function ProposalForm({ servico = '', perfil = '', parceiro = '' 
     }
     setErro('');
 
-    const linhas = ['*Solicitação de proposta (site Eduardo Kayser)*', ''];
+    const campos = [];
     const add = (rotulo, valor) => {
       const v = String(valor || '').trim();
-      if (v) linhas.push(`*${rotulo}:* ${v}`);
+      if (v) campos.push([rotulo, v]);
     };
     add('Interesse em', servico);
     add('Parceiro de interesse', parceiro);
@@ -82,10 +84,43 @@ export default function ProposalForm({ servico = '', perfil = '', parceiro = '' 
     add('Verba disponível', f.get('verba'));
     add('Informações adicionais', f.get('extras'));
 
+    // mensagem pronta para o WhatsApp: envio opcional depois do e-mail, ou alternativa se o e-mail falhar
+    const linhas = ['*Solicitação de proposta (site Eduardo Kayser)*', '', ...campos.map(([r, v]) => `*${r}:* ${v}`)];
     const url = waLink(linhas.join('\n'));
-    track('generate_lead', { method: 'formulario_proposta', origin: servico || parceiro || 'proposta' });
-    setEnvio({ url });
-    window.open(url, '_blank', 'noopener');
+    const origin = servico || parceiro || 'proposta';
+
+    setEnviando(true);
+    let porEmail = false;
+    try {
+      const resp = await fetch('/api/proposta', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ campos, site: f.get('site') || '' })
+      });
+      porEmail = resp.ok;
+    } catch (_) {
+      porEmail = false;
+    }
+    setEnviando(false);
+
+    track('generate_lead', { method: porEmail ? 'formulario_proposta_email' : 'formulario_proposta_whatsapp', origin });
+    setEnvio({ url, porEmail });
+    if (!porEmail) window.open(url, '_blank', 'noopener');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  if (envio && envio.porEmail) {
+    return (
+      <div style={sx('background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:clamp(24px,4vw,40px);text-align:center;')}>
+        <i className="ti ti-circle-check" style={sx('font-size:44px;color:var(--accent);')}></i>
+        <h2 style={sx("font-family:'Space Grotesk',sans-serif;font-size:24px;font-weight:700;margin:12px 0;")}>Solicitação enviada</h2>
+        <p style={sx('font-size:16px;color:var(--muted);line-height:1.65;margin:0 auto 24px;max-width:520px;')}>Recebemos o seu pedido. Eduardo Kayser vai analisar as informações e retornar com a proposta. Se preferir adiantar a conversa, você também pode falar pelo WhatsApp.</p>
+        <div style={sx('display:flex;gap:14px;justify-content:center;flex-wrap:wrap;')}>
+          <a href={envio.url} target="_blank" rel="noreferrer" style={sx('border-radius:999px;padding:16px 28px;background:#25D366;color:#FFFFFF;font-size:15px;font-weight:600;display:inline-flex;align-items:center;gap:8px;')}><i className="ti ti-brand-whatsapp"></i>Falar também pelo WhatsApp</a>
+          <Link href="/" style={sx('border-radius:999px;padding:16px 28px;background:var(--surface);border:1px solid var(--line);color:var(--ink);font-size:15px;font-weight:600;display:inline-flex;align-items:center;gap:8px;')}>Voltar ao site</Link>
+        </div>
+      </div>
+    );
   }
 
   if (envio) {
@@ -106,6 +141,8 @@ export default function ProposalForm({ servico = '', perfil = '', parceiro = '' 
 
   return (
     <form onSubmit={onSubmit} style={sx('display:flex;flex-direction:column;gap:32px;')}>
+      {/* campo isca contra robôs: invisível para pessoas */}
+      <input type="text" name="site" tabIndex={-1} autoComplete="off" aria-hidden="true" style={{ position: 'absolute', left: '-9999px', width: 1, height: 1, opacity: 0 }} />
       {servico && (
         <div style={sx('background:var(--bg-alt);border-radius:12px;padding:14px 18px;font-size:15px;')}>Você está solicitando uma proposta para: <strong>{servico}</strong></div>
       )}
@@ -186,10 +223,10 @@ export default function ProposalForm({ servico = '', perfil = '', parceiro = '' 
       </label>
 
       <div>
-        <button type="submit" style={sx('border-radius:999px;padding:17px 32px;background:var(--accent);color:var(--on-accent);border:none;font-size:16px;font-weight:600;cursor:pointer;display:inline-flex;align-items:center;gap:8px;')}>
-          <i className="ti ti-brand-whatsapp"></i>Enviar solicitação pelo WhatsApp
+        <button type="submit" disabled={enviando} style={{ ...sx('border-radius:999px;padding:17px 32px;background:var(--accent);color:var(--on-accent);border:none;font-size:16px;font-weight:600;cursor:pointer;display:inline-flex;align-items:center;gap:8px;'), opacity: enviando ? 0.7 : 1 }}>
+          <i className={enviando ? 'ti ti-loader-2' : 'ti ti-send'}></i>{enviando ? 'Enviando...' : 'Enviar solicitação'}
         </button>
-        <p style={sx('font-size:13px;color:var(--muted);line-height:1.55;margin:14px 0 0;')}>Ao enviar, abrimos o WhatsApp com a sua solicitação pronta; basta tocar em enviar para ela chegar ao Eduardo.</p>
+        <p style={sx('font-size:13px;color:var(--muted);line-height:1.55;margin:14px 0 0;')}>Sua solicitação chega por e-mail ao Eduardo, que retorna com a proposta. Se o envio por e-mail falhar, abrimos o WhatsApp com a mensagem pronta.</p>
       </div>
     </form>
   );

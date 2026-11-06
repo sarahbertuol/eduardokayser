@@ -20,7 +20,7 @@ export default function PoliticaPage() {
         <div style={sx('max-width:780px;margin:0 auto;')}>
           <div style={sx('font-size:13px;letter-spacing:0.08em;text-transform:uppercase;color:var(--accent);font-weight:700;margin-bottom:12px;')}>Privacidade</div>
           <h1 style={sx("font-family:'Space Grotesk',sans-serif;font-size:clamp(28px,4vw,40px);font-weight:700;line-height:1.2;margin:0 0 12px;")}>Política de Privacidade e Cookies</h1>
-          <p style={sx('font-size:14px;color:var(--muted);margin:0 0 32px;')}>Última atualização: 21 de outubro de 2026</p>
+          <p style={sx('font-size:14px;color:var(--muted);margin:0 0 32px;')}>Última atualização: 6 de novembro de 2026</p>
 
           <p style={p}>Esta política explica, de forma simples, como o site do <strong>Ecossistema LUCIDEZ</strong>, conduzido por Eduardo Kayser, trata dados pessoais e utiliza cookies, em conformidade com a Lei Geral de Proteção de Dados (Lei nº 13.709/2018, a LGPD).</p>
 
@@ -33,7 +33,7 @@ export default function PoliticaPage() {
             <li style={li}><strong>Preferências do site:</strong> a escolha entre tema claro ou escuro, guardada no seu próprio navegador.</li>
             <li style={li}><strong>Estatísticas de uso (apenas com o seu consentimento):</strong> informações agregadas sobre páginas visitadas e cliques em botões, coletadas pelo Google Analytics.</li>
             <li style={li}><strong>Contato:</strong> ao clicar em “Falar no WhatsApp” ou “Agendar”, você é levado a serviços de terceiros (WhatsApp e Google Agenda). Os dados que você informar lá, como nome e telefone, são tratados para responder ao seu contato e conforme as políticas desses serviços.</li>
-            <li style={li}><strong>Solicitação de proposta:</strong> o formulário “Solicite sua proposta” coleta nome, e-mail, WhatsApp, empresa, cargo, cidade e estado, porte da empresa e detalhes da demanda. Este site não armazena esses dados: ao enviar, eles formam uma mensagem de WhatsApp que você mesmo envia a Eduardo Kayser, que os utiliza para elaborar e enviar a proposta. Depois do envio, os dados passam a ser tratados também pelo WhatsApp, conforme a política desse serviço.</li>
+            <li style={li}><strong>Solicitação de proposta:</strong> o formulário “Solicite sua proposta” coleta nome, e-mail, WhatsApp, empresa, cargo, cidade e estado, porte da empresa e detalhes da demanda. Este site não mantém banco de dados com essas informações: ao enviar, elas são encaminhadas por e-mail a Eduardo Kayser, por meio do serviço de envio de e-mails Resend, e utilizadas para elaborar e enviar a proposta. Se você optar por continuar a conversa pelo WhatsApp, os dados informados lá passam a ser tratados também por esse serviço, conforme a política dele.</li>
           </ul>
 
           <h2 style={h2}>3. Para que usamos e em que base legal</h2>
@@ -58,7 +58,7 @@ export default function PoliticaPage() {
           <p style={p}>Você pode apagar ou bloquear cookies a qualquer momento nas configurações do seu navegador, sem prejuízo ao uso do site.</p>
 
           <h2 style={h2}>5. Recursos de terceiros</h2>
-          <p style={p}>Para exibir o site, carregamos fontes do Google Fonts, ícones do jsDelivr e imagens de artigos da Sanity. Ao carregar esses recursos, esses provedores podem receber dados técnicos da sua conexão, como o endereço IP. Links para Instagram, LinkedIn, YouTube, WhatsApp e Google Agenda levam a serviços externos, com políticas de privacidade próprias.</p>
+          <p style={p}>Para exibir o site, carregamos fontes do Google Fonts, ícones do jsDelivr e imagens de artigos da Sanity, e usamos o Resend para encaminhar por e-mail as solicitações de proposta. Ao carregar esses recursos, esses provedores podem receber dados técnicos da sua conexão, como o endereço IP. Links para Instagram, LinkedIn, YouTube, WhatsApp e Google Agenda levam a serviços externos, com políticas de privacidade próprias.</p>
 
           <h2 style={h2}>6. Compartilhamento e transferência internacional</h2>
           <p style={p}>Não vendemos dados pessoais. Os dados podem ser tratados por fornecedores necessários à operação do site (hospedagem, análise de uso, conteúdo), alguns com servidores fora do Brasil. Nesses casos, buscamos provedores que adotam salvaguardas compatíveis com a LGPD.</p>
