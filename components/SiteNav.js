@@ -36,7 +36,7 @@ export default function SiteNav({ isDark, toggleTheme, origin = 'site', onTab })
         <Link href="/#cta-final" onClick={close} style={linkStyle}>Contato</Link>
       </div>
 
-      <div style={sx('display:flex;align-items:center;gap:8px;flex-shrink:0;')}>
+      <div style={sx('display:flex;align-items:center;gap:8px;flex-shrink:0;margin-left:auto;')}>
         <button onClick={toggleTheme} aria-label="Alternar tema" style={sx('width:36px;height:36px;border-radius:999px;border:1px solid var(--line);background:var(--surface);color:var(--ink);display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:16px;flex-shrink:0;')}>
           <i className={isDark ? 'ti ti-sun' : 'ti ti-moon'}></i>
         </button>
