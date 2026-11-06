@@ -47,7 +47,12 @@ p { text-wrap: pretty; }
 
 @media (max-width: 980px) {
   .hero-grid { grid-template-columns: 1fr; }
-  .hero-grid > div:last-child { max-width: 360px; margin: 0 auto; }
+  /* foto primeiro, depois título, texto, botões e rostos do ecossistema */
+  .hero-grid { gap: 20px !important; }
+  .hero-grid > div { display: contents; }
+  .hero-photo { order: -1; width: 100%; max-width: 300px; justify-self: center; aspect-ratio: 1 / 1 !important; }
+  .hero-grid .hero-in { margin-top: 0 !important; margin-bottom: 0 !important; }
+  .hero-faces { justify-self: center; width: 100%; max-width: 360px; }
   .about-grid { grid-template-columns: 1fr; }
   .about-photo { max-width: 320px; margin: 0 auto; }
   .partners-grid { grid-template-columns: repeat(2, 1fr); }
@@ -343,7 +348,7 @@ button[style*="999px"]:not([style*="padding"]):hover {
 /* ---- Mobile: espaçamentos menores, botões em largura total, hifenização ---- */
 
 @media (max-width: 640px) {
-  header.hero-grid { padding-top: 36px !important; padding-bottom: 48px !important; gap: 32px !important; }
+  header.hero-grid { padding-top: 28px !important; padding-bottom: 48px !important; }
   body section { padding-top: 60px !important; padding-bottom: 60px !important; }
   body section#introducao { padding-top: 40px !important; padding-bottom: 40px !important; }
   .hero-ctas { flex-direction: column; gap: 12px !important; }

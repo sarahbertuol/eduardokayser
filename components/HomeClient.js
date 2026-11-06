@@ -103,9 +103,9 @@ export default function HomeClient({ posts = [] }) {
         </div>
         <div>
           <div className="hero-photo" style={sx('width:100%;aspect-ratio:4/5;border-radius:12px;overflow:hidden;')}>
-            <RealPhoto src="/eduardo/hero.jpg" alt="Eduardo Kayser" priority />
+            <RealPhoto src="/eduardo/hero.jpg" alt="Eduardo Kayser" priority objectPosition="center 15%" />
           </div>
-          <EcosystemFaces />
+          <div className="hero-faces"><EcosystemFaces /></div>
         </div>
       </header>
 
