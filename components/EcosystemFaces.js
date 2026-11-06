@@ -18,7 +18,7 @@ export default function EcosystemFaces() {
           </div>
         ))}
       </div>
-      <div style={sx('font-size:13px;font-weight:600;text-align:center;line-height:1.4;')}>Eduardo Kayser e os parceiros do Ecossistema LUCIDEZ</div>
+      <div style={sx('font-size:13px;font-weight:600;text-align:center;line-height:1.4;')}>Eduardo Kayser e os parceiros do <span style={{ whiteSpace: 'nowrap' }}>Ecossistema LUCIDEZ</span></div>
     </Link>
   );
 }

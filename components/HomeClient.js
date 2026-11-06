@@ -97,8 +97,8 @@ export default function HomeClient({ posts = [] }) {
           <p className="hero-in" style={sx('--d:0.3s;font-size:18px;color:var(--muted);line-height:1.6;margin:0 0 36px;max-width:560px;text-align:justify;')}>{heroContent.subheadline}</p>
           <div className="hero-in hero-ctas" style={sx('--d:0.5s;display:flex;gap:16px;flex-wrap:wrap;')}>
             <ProposalButton params={{}} origin="hero">Solicitar proposta</ProposalButton>
-            <a href="#lucidez" onClick={() => setLucidezTab('empresas')} style={sx('border-radius:999px;padding:16px 28px;background:var(--surface);border:1px solid var(--line);color:var(--ink);font-size:15px;font-weight:600;display:inline-flex;align-items:center;gap:8px;')}>Quero transformar minha organização <i className="ti ti-arrow-right"></i></a>
-            <a href="#lucidez" onClick={() => setLucidezTab('profissional')} style={sx('border-radius:999px;padding:16px 28px;background:var(--surface);border:1px solid var(--line);color:var(--ink);font-size:15px;font-weight:600;display:inline-flex;align-items:center;gap:8px;')}>Quero crescer profissionalmente <i className="ti ti-arrow-right"></i></a>
+            <a href="#lucidez" className="hero-cta-sec" onClick={() => setLucidezTab('empresas')} style={sx('border-radius:999px;padding:16px 28px;background:var(--surface);border:1px solid var(--line);color:var(--ink);font-size:15px;font-weight:600;display:inline-flex;align-items:center;gap:8px;')}>Quero transformar minha organização <i className="ti ti-arrow-right"></i></a>
+            <a href="#lucidez" className="hero-cta-sec" onClick={() => setLucidezTab('profissional')} style={sx('border-radius:999px;padding:16px 28px;background:var(--surface);border:1px solid var(--line);color:var(--ink);font-size:15px;font-weight:600;display:inline-flex;align-items:center;gap:8px;')}>Quero crescer profissionalmente <i className="ti ti-arrow-right"></i></a>
           </div>
         </div>
         <div>
@@ -131,9 +131,9 @@ export default function HomeClient({ posts = [] }) {
 
       <section id="lucidez" style={sx('padding:104px clamp(20px,5vw,64px);')}>
         <div style={sx('max-width:1180px;margin:0 auto;')}>
-          <div style={sx('display:flex;justify-content:center;gap:12px;margin-bottom:56px;flex-wrap:wrap;')}>
-            <button onClick={() => setLucidezTab('empresas')} style={tabBtn(lucidezTab === 'empresas')}>PARA EMPRESAS</button>
-            <button onClick={() => setLucidezTab('profissional')} style={tabBtn(lucidezTab === 'profissional')}>PARA PROFISSIONAIS</button>
+          <div className="lucidez-tabs" style={sx('display:flex;justify-content:center;gap:12px;margin-bottom:56px;flex-wrap:wrap;')}>
+            <button className="lucidez-tab" onClick={() => setLucidezTab('empresas')} style={tabBtn(lucidezTab === 'empresas')}>PARA EMPRESAS</button>
+            <button className="lucidez-tab" onClick={() => setLucidezTab('profissional')} style={tabBtn(lucidezTab === 'profissional')}>PARA PROFISSIONAIS</button>
           </div>
 
           {lucidezTab === 'empresas' ? <PainelEmpresas /> : <PainelProfissionais />}

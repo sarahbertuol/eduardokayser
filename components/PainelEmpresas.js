@@ -1,4 +1,5 @@
 'use client';
+import { Fragment } from 'react';
 import { sx } from '../lib/sx';
 import { AGENDA_URL } from '../lib/site';
 import { track } from '../lib/track';
@@ -35,9 +36,12 @@ export default function PainelEmpresas({ asH1 = false }) {
 
       <div style={sx('text-align:center;margin-top:56px;')}>
         <h3 style={sx("font-family:'Space Grotesk',sans-serif;font-size:clamp(20px,2.4vw,24px);font-weight:700;margin:0 0 20px;")}>{emp.atuarTitulo}</h3>
-        <div style={sx('display:flex;flex-wrap:wrap;gap:12px;justify-content:center;')}>
-          {emp.atuar.map(a => (
-            <span key={a} style={sx('border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:10px 20px;font-size:14px;font-weight:600;')}>{a}</span>
+        <div className="atuar-chips" style={sx('display:flex;flex-wrap:wrap;gap:12px;justify-content:center;')}>
+          {emp.atuar.map((a, i) => (
+            <Fragment key={a}>
+              <span className="atuar-chip" style={sx('border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:10px 20px;font-size:14px;font-weight:600;')}>{a}</span>
+              {(i === 2 || i === 3) && <span className="atuar-break" aria-hidden="true"></span>}
+            </Fragment>
           ))}
         </div>
       </div>
